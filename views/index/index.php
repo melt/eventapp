@@ -1,6 +1,6 @@
 <?php namespace nmvc; ?>
 <?php $this->layout->enterSection("head"); ?>
-    <title>Welcome to nanoMVC!</title>
+    <title>TDDD27 Advanced Web Programming</title>
     <style>
         body {
             font-size: 16px;

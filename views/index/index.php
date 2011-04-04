@@ -53,7 +53,7 @@ Ett publikt API kommer att skrivas så att data kan extraheras och presenteras p
    Applikationen ska implementeras huvudsakligen i språket PHP.
         </li>
         <li>
-       För servern kommer ramverket NanoMVC att nyttjas.
+       För servern kommer ramverket <a href="http://svn.omnicloud.org/library/nanomvc/trunk/">NanoMVC</a> att nyttjas.
         </li>
         <li>
        För klienten kommer ramverket JQuery att nyttjas.

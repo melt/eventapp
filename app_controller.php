@@ -3,7 +3,14 @@
 /** Application specific controller. */
 abstract class AppController extends Controller {
     // The layout your controllers use by default.
-    public $layout = "/html/xhtml1.1";
+    public $layout = "/layout";
+
+    public function getTitle() {
+        return APP_NAME;
+    }
+    
+    public static function rewriteRequest($path_tokens) {
+    }
 
     /**
      * This function is executed before any action in the controller.
@@ -31,4 +38,5 @@ abstract class AppController extends Controller {
      * @return void
      */
     public function afterRender($action_name, $arguments) {}
+
 }

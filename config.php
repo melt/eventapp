@@ -9,9 +9,13 @@
  * NanoMVC will automatically insert missing directives into this file
  * so don't be suprised when it starts editing itself.
  */
+namespace nmvc {
+    const APP_NAME = "Sandbox Event Manager";
+}
 
 namespace nmvc\internal {
     modules_using(
+            "jquery"
         // Add modules that your application uses here.
     );
 }
@@ -33,7 +37,8 @@ namespace nmvc\core\config {
     const FORCE_ERROR_FLAGS = false;
     const FORCE_ERROR_DISPLAY = false;
     const MAINTENANCE_MODE = true;
-    const DEVELOPER_KEY = '';
+    const NO_MAINTENANCE_CONTROLLERS = 'nmvc\IndexController';
+    const DEVELOPER_KEY = 'pelleplutt';
 }
 
 
@@ -75,4 +80,19 @@ namespace nmvc\userx\config {
     const SOFT_403 = false;
     const REMEMBER_ME_DAYS = 356;
     const SESSION_TIMEOUT_MINUTES = false;
+}
+
+namespace nmvc\jquery\config {
+    const JQUERY_UI_THEME = "/static/jq-ui-theme/jquery-ui-1.8.6.custom.css";
+    const INCLUDE_JQUERY_JSTREE = true;
+    const INCLUDE_JQUERY_DATATABLES = true;
+    const INCLUDE_JQUERY_RESIZE = true;
+    const INCLUDE_JQUERY_COOKIE = true;
+    const INCLUDE_JQUERY_HOTKEYS = true;
+    const INCLUDE_JQUERY_ALERTS = true;
+    const INCLUDE_JQUERY_CORNER = false;
+    const INCLUDE_JQUERY_LIGHTBOX = false;
+    const INCLUDE_JQUERY_AUTOCOMPLETE = false;
+    const INCLUDE_JQUERY_AUTORESIZE = true;
+    const INCLUDE_JQUERY_FORM = true;
 }

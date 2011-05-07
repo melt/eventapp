@@ -11,6 +11,8 @@
  */
 namespace nmvc {
     const APP_NAME = "Sandbox Event Manager";
+    const FACEBOOK_APP_ID = "211329565552399";
+    const FACEBOOK_APP_SECRET = "0bbb416cd5bd7ff8cb618eeb4e848d15";
 }
 
 namespace nmvc\internal {
@@ -36,7 +38,7 @@ namespace nmvc\core\config {
     const ERROR_LOG = NULL;
     const FORCE_ERROR_FLAGS = false;
     const FORCE_ERROR_DISPLAY = false;
-    const MAINTENANCE_MODE = true;
+    const MAINTENANCE_MODE = false;
     const NO_MAINTENANCE_CONTROLLERS = 'nmvc\IndexController';
     const DEVELOPER_KEY = 'pelleplutt';
 }

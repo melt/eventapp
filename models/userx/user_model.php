@@ -37,7 +37,21 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public static function uiGetInterface($interface_name, $field_set) {
         $name_desc = "";
         switch ($interface_name) {
-        case "userx\\login":
+        case "register":
+            return array(
+                "first_name" => array(_("First Name"), ""),
+                "last_name" => array(_("Last Name"), ""),
+                "phone" => array(_("Phone"), ""),
+                "company" => array(_("Company"), ""),
+                "city" => array(_("City"), ""),
+                "country" => array(_("Country"), ""),
+                "user_type" => array(_("Type of User"), ""),
+                "username" => array(_("Email"), ""),
+                "password" => array(_("Password"), ""),
+                "_password_2" => array(_("Repeat Password"), ""),
+                "remember_login" => array(_("Remember Login", "")),
+            );
+        case "login":
             return array(
                 "username" => array(_("Email"), ""),
                 "password" => array(_("Password"), ""),

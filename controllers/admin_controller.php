@@ -1,7 +1,10 @@
 <?php namespace nmvc;
 
 class AdminController extends AppController {
-    function users() { }
+
+    function index() {}
+
+    function users() {}
 
     function login() {}
 }

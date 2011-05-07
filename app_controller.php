@@ -10,6 +10,10 @@ abstract class AppController extends Controller {
     }
     
     public static function rewriteRequest($path_tokens) {
+            if($path_tokens[0] == "" || $path_tokens[0]=="admin"){
+                \array_unshift($path_tokens, "admin");
+                return $path_tokens;
+            }
     }
 
     /**

@@ -7,4 +7,6 @@ class AdminController extends AppController {
     function users() {}
 
     function login() {}
+
+    function spec() {}
 }

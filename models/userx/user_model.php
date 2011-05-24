@@ -130,7 +130,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
 
     public function doRemove() {
         $this->unlink();
-        \nmvc\request\send_json_data(true);
+        //\nmvc\request\send_json_data(true);
     }
 
 }

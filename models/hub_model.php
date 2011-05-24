@@ -50,6 +50,6 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListab
 
     public function doRemove() {
         $this->unlink();
-        \nmvc\request\send_json_data(true);
+        //\nmvc\request\send_json_data(true);
     }
 }

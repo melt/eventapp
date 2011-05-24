@@ -18,6 +18,8 @@
 		<li><a href="#tabs-1"><?php echo _("My Profile"); ?></a></li>
 		<li><a href="#tabs-2"><?php echo _("Hubs"); ?></a></li>
 		<li><a href="#tabs-3"><?php echo _("Events"); ?></a></li>
+                <li><a href="#tabs-4"><?php echo _("Users"); ?></a></li>
+
                 
 	</ul>
 	<div id="tabs-1">
@@ -62,6 +64,9 @@
     <?php echo $interface->finalizeForm(true); ?>
 
 
+        </div>
+
+    	<div id="tabs-4">
         </div>
 </div>
 

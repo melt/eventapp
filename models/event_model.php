@@ -52,6 +52,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         switch ($interface_name) {
         case "new_event":
             return array(
+                "hub" => array(_("Hub"), ""),
                 "title" => array(_("Title"), ""),
                 "venue" => array(_("Venue"), ""),
                 "event_date" => array(_("Date"), ""),

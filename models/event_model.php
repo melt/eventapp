@@ -64,4 +64,9 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
 
         }
     }
+
+    public function doRemove() {
+        $this->unlink();
+        \nmvc\request\send_json_data(true);
+    }
 }

@@ -16,7 +16,9 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     const MEMBER = 2;
     public $user_type = array('core\SelectType', array(self::GUEST => "Guest", self::APPLICANT => "Sandbox Applicant", self::MEMBER => "Sandbox Member"));
     /* Object Relations */
-    public $hub_id = array('core\PointerType', 'HubModel');
+    public $hub_id = array('core\SelectModelType', 'HubModel');
+        /* Object Relations */
+    public $hub_ambassador_id = array('core\SelectModelType', 'userx\UserModel');
     public $is_unsubscribed = array('core\BooleanType');
 
     
@@ -53,16 +55,16 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
 
     public function uiValidate($interface_name) {
         $err = array();
-        /*if (!\nmvc\string\email_validate($this->username))
+        if (!\nmvc\string\email_validate($this->username))
             $err["username"] = _("Email address is incorrect.");
         foreach (array(
-        "first_name", "last_name", "company",
-        "phone", "user_type", "hub_id"
+        "first_name", "last_name",
+        "phone"
         ) as $field) {
             $this->$field = trim($this->$field);
             if ($this->$field == "")
                 $err[$field] = _("Field must be entered!");
-        }*/
+        }
         return $err;
     }
 
@@ -124,6 +126,11 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             );
         }
         return $actions;
+    }
+
+    public function doRemove() {
+        $this->unlink();
+        \nmvc\request\send_json_data(true);
     }
 
 }

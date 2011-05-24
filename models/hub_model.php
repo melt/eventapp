@@ -3,21 +3,17 @@
 class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListable {
     /* Fields */
     public $city = array('core\TextType', 128);
-    /* Object Relations */
-    public $ambassador_id = array('core\PointerType', 'userx\UserModel');
+    public $country = array('core\CountryType');
 
     public function uiValidate($interface_name) {
         $err = array();
-        /*if (!\nmvc\string\email_validate($this->username))
-            $err["username"] = _("Email address is incorrect.");
         foreach (array(
-        "first_name", "last_name", "company",
-        "phone", "user_type", "hub_id"
+        "city", "country"
         ) as $field) {
             $this->$field = trim($this->$field);
             if ($this->$field == "")
                 $err[$field] = _("Field must be entered!");
-        }*/
+        }
         return $err;
     }
 
@@ -32,7 +28,7 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListab
     public function getAjaxListCells($interface_name) {
         return array(
             _("City") => '<strong>' . $this->view("city") . '</strong>',
-            _("Ambassador") => $this->view("ambassador"),
+            _("Country") => $this->view("country"),
         );
     }
     
@@ -42,9 +38,14 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListab
         case "new_hub":
             return array(
                 "city" => array(_("City"), ""),
-                "ambassador" => array(_("Ambassador"), ""),
+                "country" => array(_("Country"), ""),
             );
 
         }
+    }
+
+    public function doRemove() {
+        $this->unlink();
+        \nmvc\request\send_json_data(true);
     }
 }

@@ -25,6 +25,11 @@
                 "/static/img/database.png",
                 ), true); ?>
 
+    <?php $interface = new qmi\ModelInterface("new_event", "cell"); ?>
+    <?php echo $interface->startForm(); ?>
+    <?php echo $interface->getInterface($this->new_event); ?>
+    <?php echo $interface->finalizeForm(true); ?>
+
 
 <?php else: ?>
 <a id="fb_button" href="<?php echo $this->login_url; ?>">

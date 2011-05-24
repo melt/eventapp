@@ -16,7 +16,7 @@ class AdminController extends userx\RestrictedController {
 
     public function index() {
         $this->new_hub = new \nmvc\HubModel();
-
+        $this->new_event = new \nmvc\EventModel();
     }
 
     public function logout() {

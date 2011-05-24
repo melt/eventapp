@@ -33,7 +33,7 @@ abstract class AppController extends Controller {
           'cookie' => true,
         ));
         $this->fb_user = $this->facebook->getUser();
-        $this->user = \nmvc\userx\UserModel::select()->where("facebook_user")->is($this->fb_user);
+        $this->user = \nmvc\userx\UserModel::select()->where("facebook_user")->is($this->fb_user)->first();
         if ($this->fb_user) {
             $this->logout_url = $this->facebook->getLogoutUrl(array('next' => url("/admin/logout")));
         } else {

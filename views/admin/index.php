@@ -5,8 +5,10 @@
     <a href="<?php echo $this->logout_url; ?>">Logout</a>
     <img src="https://graph.facebook.com/<?php echo $this->fb_user; ?>/picture">
 
-
-
+    <?php $interface = new qmi\ModelInterface("user_profile", "cell"); ?>
+    <?php echo $interface->startForm(); ?>
+    <?php echo $interface->getInterface($this->user); ?>
+    <?php echo $interface->finalizeForm(true); ?>
 
 <?php else: ?>
 <a id="fb_button" href="<?php echo $this->login_url; ?>">

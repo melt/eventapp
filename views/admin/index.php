@@ -2,6 +2,8 @@
 
 
 <?php if($this->fb_user && $this->user): ?>
+    <h2><?php echo _("User Profile"); ?></h2>
+
     <a href="<?php echo $this->logout_url; ?>">Logout</a>
     <img src="https://graph.facebook.com/<?php echo $this->fb_user; ?>/picture">
 
@@ -9,6 +11,20 @@
     <?php echo $interface->startForm(); ?>
     <?php echo $interface->getInterface($this->user); ?>
     <?php echo $interface->finalizeForm(true); ?>
+
+    <h2><?php echo _("New Hub"); ?></h2>
+
+       <?php $interface = new qmi\ModelInterface("new_hub", "cell"); ?>
+    <?php echo $interface->startForm(); ?>
+    <?php echo $interface->getInterface($this->new_hub); ?>
+    <?php echo $interface->finalizeForm(true); ?>
+
+    <?php AjaxController::invoke("_print_instances_list", array(
+                HubModel::select()->orderBy("city", "asc"),
+                _("Hubs"),
+                "/static/img/database.png",
+                ), true); ?>
+
 
 <?php else: ?>
 <a id="fb_button" href="<?php echo $this->login_url; ?>">

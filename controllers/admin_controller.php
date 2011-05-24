@@ -8,12 +8,16 @@ class AdminController extends userx\RestrictedController {
             "logout" => true,
             "login" => true,
             "index" => true,
-            "spec" => true
+            "spec" => true,
+            "new_hub" => true //temporary before we set permissions
         ));
     }
 
 
-    public function index() {}
+    public function index() {
+        $this->new_hub = new \nmvc\HubModel();
+
+    }
 
     public function logout() {
         $this->facebook = null;
@@ -22,9 +26,9 @@ class AdminController extends userx\RestrictedController {
         \nmvc\request\redirect("/");
     }
     
-    public function spec() {
-        
-    }
+    public function spec() {}
+
+    
 
     public function login() {
         $this->fb_user_data = $this->facebook->api('/me');

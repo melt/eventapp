@@ -25,6 +25,10 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListab
         return $actions;
     }
 
+    public function __toString() {
+        return (string)$this->city . ", " . $this->country;
+    }
+
     public function getAjaxListCells($interface_name) {
         return array(
             _("City") => '<strong>' . $this->view("city") . '</strong>',

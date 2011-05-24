@@ -9,10 +9,18 @@ class AdminController extends userx\RestrictedController {
             "login" => true,
             "index" => true,
             "spec" => true,
-            "new_hub" => true //temporary before we set permissions
+            "api" => true,
         ));
     }
 
+
+    public function api($city) {
+        $results = \nmvc\EventModel::select()->where("city")->is($city);
+        if($results->count() > 0)
+            \nmvc\request\send_json_data($results);
+        else
+            \nmvc\request\send_json_data(false);
+    }
 
     public function index() {
         $this->new_hub = new \nmvc\HubModel();

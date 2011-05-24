@@ -11,7 +11,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public $city = array('core\TextType', 128);
     public $country = array('core\CountryType');
     /* Object Relations */
-    public $hub_id = array('core\PointerType', 'HubModel', 'CASCADE');
+    public $hub_id = array('core\SelectModelType', 'HubModel', 'CASCADE');
 
     public $invite_email_sent = array('core\BooleanType');
     public $reminder_email_sent = array('core\BooleanType');

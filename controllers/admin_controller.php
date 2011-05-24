@@ -1,8 +1,5 @@
 <?php namespace nmvc;
 
-require '../vendors/facebook-php-sdk/src/facebook.php';
-
-
 class AdminController extends userx\RestrictedController {
     public $limbo = false;
 
@@ -10,7 +7,8 @@ class AdminController extends userx\RestrictedController {
         return \array_key_exists($action_name, array(
             "logout" => true,
             "login" => true,
-            "index" => true
+            "index" => true,
+            "spec" => true
         ));
     }
 
@@ -24,7 +22,7 @@ class AdminController extends userx\RestrictedController {
         \nmvc\request\redirect("/");
     }
     
-    public function outside() {
+    public function spec() {
         
     }
 

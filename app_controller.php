@@ -1,5 +1,6 @@
 <?php namespace nmvc;
 
+require '../vendors/facebook-php-sdk/src/facebook.php';
 
 /** Application specific controller. */
 abstract class AppController extends Controller {

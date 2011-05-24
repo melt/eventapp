@@ -4,8 +4,8 @@ class EventModel extends AppModel {
     /* Fields */
     public $title = array('core\TextType', 128);
     public $venue = array('core\TextType', 128);
-    public $date = array('core\DateType');
-    public $time = array('core\TimestampType');
+    public $event_date = array('core\DateType');
+    public $event_time = array('core\TimestampType');
     public $address = array('core\TextType', 128);
     public $zip_code = array('core\TextType', 16);
     public $city = array('core\TextType', 128);

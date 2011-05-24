@@ -38,6 +38,8 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         $user->city = (isset($location_array[0])) ? $location_array[0]: null;
         $user->country = (isset($location_array[1])) ? $location_array[1]: null;
         $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
+        $user->last_login_time = time();
+        $user->last_login_ip = $_SERVER['REMOTE_ADDR'];
         // Store user
         $user->store();
         //\nmvc\MailHelper::sendMail("new_user", array("first_name"=>$user->first_name), _("Your Facebook account has been connected to %s",\nmvc\APP_NAME), \nmvc\APP_EMAIL, true);

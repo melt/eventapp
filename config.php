@@ -38,10 +38,10 @@ namespace nmvc\core\config {
     const PEAR_AUTOLOAD = false;
     const ERROR_LOG = NULL;
     const FORCE_ERROR_FLAGS = false;
-    const FORCE_ERROR_DISPLAY = false;
-    const MAINTENANCE_MODE = false;
+    const FORCE_ERROR_DISPLAY = true;
+    const MAINTENANCE_MODE = true;
     const NO_MAINTENANCE_CONTROLLERS = 'nmvc\IndexController';
-    const DEVELOPER_KEY = 'pelleplutt';
+    const DEVELOPER_KEY = '';
 }
 
 

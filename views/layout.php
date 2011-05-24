@@ -8,6 +8,11 @@
         <?php echo $this->head; // head Layout Section  ?>
     </head>
     <body>
-        <?php echo $this->content; ?>
+        <div id="logo">
+            <img src="<?php echo url("/static/img/sandbox-logo.png"); ?>" alt="" />
+        </div>
+        <div id="content">
+            <?php echo $this->content; ?>
+        </div>
     </body>
 </html>

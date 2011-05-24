@@ -1,5 +1,13 @@
 <?php namespace nmvc; ?>
 
+<h3><a href="<?php echo url("/admin/spec"); ?>">High Level Specification</a></h3>
+<h3><a href="<?php echo url("/reports/r20110507"); ?>">Status Check 2011-05-07</a></h3>
+
+
+
+
+
+
 
 <h1><?php echo _("Login"); ?></h1>
 <?php $interface = new qmi\ModelInterface("login", "cell"); ?>

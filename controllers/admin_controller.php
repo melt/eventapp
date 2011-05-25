@@ -14,7 +14,8 @@ class AdminController extends userx\RestrictedController {
             "user_edit" => true,
             "event_edit" => true,
             "add_invitees" => true,
-            "doAddInvitee" => true
+            "doAddInvitee" => true,
+            "thanks" => true
         ));
     }
 
@@ -47,6 +48,8 @@ class AdminController extends userx\RestrictedController {
     
     public function spec() {}
 
+    public function thanks() {}
+    
     public function user_edit($user_id) {
         $this->user = userx\UserModel::select()->where("id")->is($user_id)->first();
     }

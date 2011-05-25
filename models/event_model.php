@@ -36,7 +36,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             \nmvc\MailHelper::sendMail($mail_view,
                     array(
                         "event_name"=>$this->view('title'),
-                        "event_description"=>$this->view('description'),
+                        "event_description"=>$this->description,
                         "event_date"=>$this->view('event_date'),
                         "event_time"=>$this->view('event_time'),
                         "street"=>$this->view('street'),
@@ -45,6 +45,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                         "rvsp_link"=>"http://".\APP_ROOT_HOST . "/admin/rvsp/" . $invitee->view('rvsp_page_hash'),
                         "hub_name"=>$hub->city,
                         "ambassadors"=>$ambassadors,
+                        "map_image"=>$this->generateStaticGoogleMapsImage(),
+                        "google_maps_link"=>$this->generateGoogleMapsLink()
                     ),
                     $subject,
                     $invitee->view('email'),
@@ -57,18 +59,39 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         $actions = array();
 
         $has_invitees = EventInviteeModel::select("invitee")->where("event")->is($this)->count();
-        $actions["@addInvitees"] = array(_("Add Invitees"));
+        if($this->invite_email_sent==false || $this->reminder_email_sent == false)
+            $actions["@addInvitees"] = array(_("Add Invitees"));
         if($has_invitees > 0 && $this->invite_email_sent==false)
             $actions["@sendInviteEmail"] = array(_("Send Invite Email"));
         if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == false)
             $actions["@sendReminderEmail"] = array(_("Send Reminder Email"));
-        if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == true && $this->thankyou_email_sent == false)
-            $actions["@sendThankyouEmail"] = array(_("Send Thankyou Email"));
+        /*if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == true && $this->thankyou_email_sent == false)
+            $actions["@sendThankyouEmail"] = array(_("Send Thankyou Email"));*/
         $actions["@doEdit"] = array(_("Edit "));
         $actions["@doRemove"] = array(_("Delete")
             , "confirm" => _("Do you really want to delete this hub?")
         );
         return $actions;
+    }
+
+    public function generateStaticGoogleMapsImage(){
+        // If there is a complete address we will generate a map
+        if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
+            $url_friendly_address = \rawurlencode( $this->view('street') ." ". $this->view('city') . " ". $this->hub->view('country') );
+            return "http://maps.google.com/maps/api/staticmap?center=$url_friendly_address&zoom=14&size=512x300&maptype=roadmap&markers=color:red|label:Here|$url_friendly_address&sensor=false";
+        } else {
+            return null;
+        }
+    }
+
+    public function generateGoogleMapsLink(){
+        // If there is a complete address we will generate a map
+        if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
+            $url_friendly_address = \rawurlencode( $this->view('street') ." ". $this->view('city') . " ". $this->hub->view('country') );
+            return "http://maps.google.com/?q=$url_friendly_address";
+        } else {
+            return null;
+        }
     }
 
     public function getAjaxListCells($interface_name) {
@@ -102,6 +125,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             return array(
                 "hub" => array(_("Hub"), ""),
                 "title" => array(_("Title"), "Eg. Dinner @ My Place"),
+                "description" => array(_("Description"), "A short and sweet tagline to make people excited to attend"),
                 "event_date" => array(_("Date"), ""),
                 "event_time" => array(_("Time"), "HH:mm:ss"),
                 "street" => array(_("Street"), "Full address shows Google Maps"),

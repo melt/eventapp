@@ -6,8 +6,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public $venue = array('core\TextType', 128);
     public $event_date = array('core\DateType');
     public $event_time = array('core\TimestampType');
-    public $address = array('core\TextType', 128);
-    public $zip_code = array('core\TextType', 16);
+    public $street = array('core\TextType', 128);
+    public $zip = array('core\TextType', 16);
     public $city = array('core\TextType', 128);
     public $country = array('core\CountryType');
     /* Object Relations */
@@ -16,6 +16,45 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public $invite_email_sent = array('core\BooleanType');
     public $reminder_email_sent = array('core\BooleanType');
     public $thankyou_email_sent = array('core\BooleanType');
+    
+
+
+    public function sendInviteEmail(){
+        $invitees = EventInviteeModel::select()->where("event")->is($this);
+        $hub = HubModel::select("city")->where("id")->is($this->hub_id)->first();
+        foreach($invitees as $invitee){
+            \nmvc\MailHelper::sendMail("event_invite",
+                    array(
+                        "title"=>$this->view('title'),
+                        "venue"=>$this->view('venue'),
+                        "event_date"=>$this->view('event_date'),
+                        "event_time"=>$this->view('event_time'),
+                        "street"=>$this->view('street'),
+                        "zip"=>$this->view('zip'),
+                        "city"=>$this->view('city'),
+                        "rvsp_link"=>$invitee->view('rvsp_page_hash'),
+                        "hub_name"=>$hub
+                    ),
+                    _("Invitation to %s @ %s",$this->view('title'),$this->view('venue')),
+                    $invitee->view('email'),
+                    false);
+        }
+    }
+
+    public function getAjaxListActions($interface_name) {
+        $actions = array();
+        $actions["@doRemove"] = array(_("Delete")
+            , "confirm" => _("Do you really want to delete this hub?")
+        );
+        return $actions;
+    }
+
+    public function getAjaxListCells($interface_name) {
+        return array(
+            _("Title") => '<strong>' . $this->view("title") . '</strong>',
+            _("Venue") => $this->view("venue"),
+        );
+    }
     
     public function uiValidate($interface_name) {
         $err = array();
@@ -32,21 +71,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         return $err;
     }
 
-        public function getAjaxListActions($interface_name) {
-        $actions = array();
-        $actions["@doRemove"] = array(_("Delete")
-            , "confirm" => _("Do you really want to delete this hub?")
-        );
-        return $actions;
-    }
-
-    public function getAjaxListCells($interface_name) {
-        return array(
-            _("Title") => '<strong>' . $this->view("title") . '</strong>',
-            _("Venue") => $this->view("venue"),
-        );
-    }
-
     public static function uiGetInterface($interface_name, $field_set) {
 
         switch ($interface_name) {
@@ -57,8 +81,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                 "venue" => array(_("Venue"), ""),
                 "event_date" => array(_("Date"), ""),
                 "event_time" => array(_("Time"), ""),
-                "address" => array(_("Street"), ""),
-                "zip_code" => array(_("Zip"), ""),
+                "street" => array(_("Street"), ""),
+                "zip" => array(_("Zip"), ""),
                 "city" => array(_("City"), ""),
                 "country" => array(_("Country"), ""),
             );

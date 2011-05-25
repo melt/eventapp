@@ -21,17 +21,19 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public $hub_ambassador_id = array('core\SelectModelType', 'userx\UserModel');
     public $is_unsubscribed = array('core\BooleanType');
 
+    public function  beforeStore($is_linked) {
+        parent::beforeStore($is_linked);
+        $this->password = \nmvc\string\random_hex_str(16);
+    }
     
     public static function updateOrCreateNewUser($fb_user_data) {
         // Check if user exists in database
         $user_exists = UserModel::select()->where("facebook_user")->is($fb_user_data["id"])->first();
         // Create new user if not existing
-        $user = (!$user_exists)? new UserModel(): $user_exists;
+        $user = (!$user_exists) ? new UserModel() : $user_exists;
         // Only set FB user and password if not existing
-        if (!$user_exists) {
+        if (!$user_exists)
             $user->facebook_user = $fb_user_data["id"];
-            $user->password = \nmvc\string\random_hex_str(16);
-        }
         // Update other details since last login
         $location_array = (isset($fb_user_data["location"]["name"])) ? explode(",",$fb_user_data["location"]["name"]): null;
         $user->company = (isset($fb_user_data["work"]["employer"])) ? $fb_user_data["work"]["employer"]: null;

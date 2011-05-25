@@ -10,6 +10,7 @@ class AdminController extends userx\RestrictedController {
             "index" => true,
             "spec" => true,
             "api" => true,
+            "rvsp" => true
         ));
     }
 
@@ -20,6 +21,11 @@ class AdminController extends userx\RestrictedController {
             \nmvc\request\send_json_data($results);
         else
             \nmvc\request\send_json_data(false);
+    }
+
+    public function rvsp($rvsp_page_hash){
+        $this->rsvp = EventInviteeModel::select()->where("rvsp_page_hash")->is($rvsp_page_hash)->and("rvsp")->isnt(1)->and("rvsp")->isnt(2)->first();
+        $this->user_if_exists = userx\UserModel::select()->where("id")->is($this->rvsp->invitee_id)->first();
     }
 
     public function index() {
@@ -44,8 +50,7 @@ class AdminController extends userx\RestrictedController {
         \nmvc\userx\login($this->user);
         \nmvc\request\redirect("/");
     }
-/*$this->user = \nmvc\userx\UserModel::updateOrCreateNewUser($this->fb_user_data);
-        $this->user->login(null, true);*/
+
 
     protected static function canAccessAsWhere($special_permission, $action, $arguments) {
         if (self::inLimbo($action))

@@ -23,9 +23,9 @@
                 
 	</ul>
 	<div id="tabs-1">
-                <a href="<?php echo $this->logout_url; ?>">Logout</a>
+            <h3><a href="<?php echo $this->logout_url; ?>">Logout</a></h3>
 
-    <img src="https://graph.facebook.com/<?php echo $this->fb_user; ?>/picture?type=large">
+    <img src="https://graph.facebook.com/<?php echo $this->fb_user; ?>/picture?type=small">
 
 
     <?php $interface = new qmi\ModelInterface("user_profile", "cell"); ?>

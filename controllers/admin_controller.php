@@ -10,7 +10,11 @@ class AdminController extends userx\RestrictedController {
             "index" => true,
             "spec" => true,
             "api" => true,
-            "rvsp" => true
+            "rvsp" => true,
+            "user_edit" => true,
+            "event_edit" => true,
+            "add_invitees" => true,
+            "doAddInvitee" => true
         ));
     }
 
@@ -42,7 +46,20 @@ class AdminController extends userx\RestrictedController {
     
     public function spec() {}
 
-    
+    public function user_edit($user_id) {
+        $this->user = userx\UserModel::select()->where("id")->is($user_id)->first();
+    }
+
+    public function event_edit($event_id) {
+        $this->event = EventModel::select()->where("id")->is($event_id)->first();
+    }
+
+    public function add_invitees($event_id) {
+        $this->event = EventModel::select()->where("id")->is($event_id)->first();
+        $this->existing_invitees = EventInviteeModel::select("invitee")->where("id")->is($event_id);
+        $this->event_invitee = new EventInviteeModel();
+        $this->event_invitee->event_id = (int) $event_id;
+    }
 
     public function login() {
         $this->fb_user_data = $this->facebook->api('/me');

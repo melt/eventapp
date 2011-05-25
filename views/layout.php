@@ -9,7 +9,7 @@
     </head>
     <body>
         <div id="logo">
-            <img src="<?php echo url("/static/img/sandbox-logo.png"); ?>" alt="" />
+            <a href="<?php echo url("/"); ?>"><img src="<?php echo url("/static/img/sandbox-logo.png"); ?>" alt="" /></a>
         </div>
         <div id="content">
             <?php echo $this->content; ?>

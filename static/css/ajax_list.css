@@ -50,6 +50,10 @@ a.ajax_list_refresh:link, a.ajax_list_refresh:visited {
     text-align: right;
 }
 
+.ajax_list table td.list_action a {
+    padding-right:6px;
+}
+
 .ajax_list table td {
     padding: 4px 4px 6px 6px;
 }

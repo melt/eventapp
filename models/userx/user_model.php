@@ -10,6 +10,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public $company = array('core\TextType', 128);
     public $city = array('core\TextType', 128);
     public $country = array('core\TextType', 128);
+    public $photo_id = array('core\PictureType');
     /* User Type - Mainly for visual purposes, not directly related to permissions */
     const GUEST = 0;
     const APPLICANT = 1;
@@ -18,7 +19,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     /* Object Relations */
     public $hub_id = array('core\SelectModelType', 'HubModel');
         /* Object Relations */
-    public $hub_ambassador_id = array('core\SelectModelType', 'userx\UserModel');
+    public $hub_ambassador_id = array('core\SelectModelType', 'HubModel');
     public $is_unsubscribed = array('core\BooleanType');
 
     public function  beforeStore($is_linked) {
@@ -44,6 +45,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
         $user->last_login_time = time();
         $user->last_login_ip = $_SERVER['REMOTE_ADDR'];
+        //$user->photo = \file_get_contents();
         // Store user
         $user->store();
         //\nmvc\MailHelper::sendMail("new_user", array("first_name"=>$user->first_name), _("Your Facebook account has been connected to %s",\nmvc\APP_NAME), \nmvc\APP_EMAIL, true);
@@ -51,9 +53,12 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     }
 
     public function getName() {
-        return $this->first_name . " " . $this->last_name;
+        return $this->view('first_name') . " " . $this->view('last_name');
     }
- 
+
+    public function __toString() {
+        return $this->getName() . " (" . $this->username . ")";
+    }
 
     public function uiValidate($interface_name) {
         $err = array();
@@ -89,6 +94,11 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 //"_password_2" => array(_("Repeat Password"), ""),
                 //"remember_login" => array(_("Remember Login", "")),
             );
+        case "user_edit":
+            return array(
+                "hub"=> array(_("Belongs to Hub"), "User will receive information from this hub per default"),
+                "hub_ambassador"=> array(_("Ambassador for Hub"), "This grants the user special privileges"),
+            );
         /* Deprecated: Using strictly only Facebook login
          * case "login":
             return array(
@@ -109,23 +119,28 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     }
 
      public function getAjaxListCells($interface_name) {
-        switch($interface_name) {
+        switch ($interface_name) {
         case "user_list":
             $cells = array(
-                $this->company
+                "Name"=>$this->getName(),
+                "Email"=>$this->view('username'),
+                $this->view('company'),
+                "Hub"=>$this->view('hub'),
+                "Ambassador for"=>$this->view('hub_ambassador')
             );
-            break;       
-        }
         return $cells;
+        }
     }
 
     public function getAjaxListActions($interface_name) {
         $actions = array();
         switch ($interface_name) {
         case "user_list":
-            $actions["@doRemove"] = array(_("Ta bort")
-                , "confirm" => _("This will PERMANENTLY remove the user and all related databases and domains. This action cannot be undone. Are you sure?")
+            $actions["@doEdit"] = array(_("Edit"));
+            $actions["@doRemove"] = array(_("Delete")
+                , "confirm" => _("This will PERMANENTLY remove the user including all data. This action cannot be undone. Are you sure?")
             );
+            break;
         }
         return $actions;
     }
@@ -134,5 +149,11 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         $this->unlink();
         //\nmvc\request\send_json_data(true);
     }
+
+    public function doEdit(){
+        \nmvc\request\redirect("/admin/user_edit/".$this->id);
+    }
+
+
 
 }

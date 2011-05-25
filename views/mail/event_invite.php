@@ -6,7 +6,7 @@
 
 <?php echo $this->title; ?>
 <?php echo _("%s at %s (GMT+0100)", $this->date, $this->time); ?>
-<?php echo $this->venue; ?>, <?php echo $this->street; ?>
+<?php echo $this->street; ?>
 <?php echo $this->city; ?> <?php echo $this->zip; ?>
 RVSP Now: <?php echo $this->rvsp_link ?>
 

@@ -28,7 +28,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                         "street"=>$this->view('street'),
                         "zip"=>$this->view('zip'),
                         "city"=>$this->view('city'),
-                        "rvsp_link"=>$invitee->view('rvsp_page_hash'),
+                        "rvsp_link"=>"http://".\APP_ROOT_HOST . "/admin/rvsp/" . $invitee->view('rvsp_page_hash'),
                         "hub_name"=>$hub
                     ),
                     _("Invitation to %s",$this->view('title')),

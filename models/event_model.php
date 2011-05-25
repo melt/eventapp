@@ -3,6 +3,7 @@
 class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListable {
     /* Fields */
     public $title = array('core\TextType', 128);
+    public $description = array('core\TextAreaType');
     public $event_date = array('core\DateType');
     public $event_time = array('TimeType');
     public $street = array('core\TextType', 128);
@@ -25,16 +26,17 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         if($reminder){
             $subject = _("Reminder for %s",$this->view('title'));
             $mail_view = "event_reminder";
-            $this->invite_email_sent = true;
+            $this->reminder_email_sent = true;
         } else {
             $subject = _("Invitation to %s",$this->view('title'));
             $mail_view = "event_invite";
-            $this->reminder_email_sent = true;
+            $this->invite_email_sent = true;
         }
         foreach($invitees as $invitee){
             \nmvc\MailHelper::sendMail($mail_view,
                     array(
                         "event_name"=>$this->view('title'),
+                        "event_description"=>$this->view('description'),
                         "event_date"=>$this->view('event_date'),
                         "event_time"=>$this->view('event_time'),
                         "street"=>$this->view('street'),

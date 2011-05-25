@@ -9,7 +9,8 @@
 
 <h1 class="secondary-heading"><?php echo $this->event_name; ?></h1>
 <p>
-<?php echo _("%s at %s (GMT+0100)", $this->event_date, $this->event_time); ?><br/>
+<?php if($this->event_description!=""): ?><em><?php echo $this->event_description; ?></em><br/><?php endif; ?>
+<b><?php echo _("%s at %s (GMT+0100)", $this->event_date, $this->event_time); ?></b><br/>
 <?php echo $this->street; ?><br/>
 <?php echo $this->city; ?> <?php echo $this->zip; ?><br/>
     <a href="<?php echo $this->rvsp_link ?>"><?php echo _("RVSP / Give Us Your Response"); ?></a>

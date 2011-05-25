@@ -14,28 +14,40 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public $reminder_email_sent = array('core\BooleanType');
     public $thankyou_email_sent = array('core\BooleanType');
     
+    public function sendReminderEmail(){
+        self::sendInviteEmail(true);
+    }
 
-
-    public function sendInviteEmail(){
+    public function sendInviteEmail($reminder = false){
         $invitees = EventInviteeModel::select()->where("event")->is($this);
         $hub = HubModel::select("city")->where("id")->is($this->hub_id)->first();
+        $ambassadors = userx\UserModel::select()->where("hub_id")->is($this->hub_id);
+        if($reminder){
+            $subject = _("Reminder for %s",$this->view('title'));
+            $mail_view = "event_reminder";
+            $this->invite_email_sent = true;
+        } else {
+            $subject = _("Invitation to %s",$this->view('title'));
+            $mail_view = "event_invite";
+            $this->reminder_email_sent = true;
+        }
         foreach($invitees as $invitee){
-            \nmvc\MailHelper::sendMail("event_invite",
+            \nmvc\MailHelper::sendMail($mail_view,
                     array(
-                        "title"=>$this->view('title'),
+                        "event_name"=>$this->view('title'),
                         "event_date"=>$this->view('event_date'),
                         "event_time"=>$this->view('event_time'),
                         "street"=>$this->view('street'),
                         "zip"=>$this->view('zip'),
                         "city"=>$this->view('city'),
                         "rvsp_link"=>"http://".\APP_ROOT_HOST . "/admin/rvsp/" . $invitee->view('rvsp_page_hash'),
-                        "hub_name"=>$hub
+                        "hub_name"=>$hub->city,
+                        "ambassadors"=>$ambassadors,
                     ),
-                    _("Invitation to %s",$this->view('title')),
+                    $subject,
                     $invitee->view('email'),
                     false);
         }
-        $this->invite_email_sent = true;
         $this->store();
     }
 
@@ -43,13 +55,12 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         $actions = array();
 
         $has_invitees = EventInviteeModel::select("invitee")->where("event")->is($this)->count();
-        if($has_invitees <= 0)
-            $actions["@addInvitees"] = array(_("Add Invitees"));
+        $actions["@addInvitees"] = array(_("Add Invitees"));
         if($has_invitees > 0 && $this->invite_email_sent==false)
             $actions["@sendInviteEmail"] = array(_("Send Invite Email"));
-        if($this->invite_email_sent==true && $this->reminder_email_sent == false)
+        if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == false)
             $actions["@sendReminderEmail"] = array(_("Send Reminder Email"));
-        if($this->invite_email_sent==true && $this->reminder_email_sent == true && $this->thankyou_email_sent == false)
+        if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == true && $this->thankyou_email_sent == false)
             $actions["@sendThankyouEmail"] = array(_("Send Thankyou Email"));
         $actions["@doEdit"] = array(_("Edit "));
         $actions["@doRemove"] = array(_("Delete")
@@ -63,7 +74,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             _("Hub") => '<strong>' . $this->view("hub") . '</strong>',
             _("Title") => $this->view('title'),
             _("Date") => $this->view('event_date'),
-            _("Time") => $this->view('event_time'),
         );
     }
     

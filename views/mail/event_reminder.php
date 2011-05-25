@@ -1,20 +1,29 @@
 <?php namespace nmvc; ?>
+<?php namespace nmvc; ?>
+<?php
 
-Hi,
+ namespace nmvc; ?>
+<h2 class="primary-heading no-margin-top"><?php echo _("Hi,"); ?></h2>
+<p>
+<?php echo _("Your event is almost here! Check out the details below."); ?>
+</p>
 
-Your event is almost here! Check out the details below.
-
-Name
-Thursday March 12th, 2011 at 4:00PM (GMT+0100)
-Majgatan 4
-Linköping 582 46
-View Map / Get Directions / See Attendees
-
-
-Looking forward to meeting you!
+<h1 class="secondary-heading"><?php echo $this->event_name; ?></h1>
+<p>
+<?php echo _("%s at %s (GMT+0100)", $this->event_date, $this->event_time); ?><br/>
+<?php echo $this->street; ?><br/>
+<?php echo $this->city; ?> <?php echo $this->zip; ?><br/>
+    <a href="<?php echo $this->rvsp_link ?>"><?php echo _("View Map / Get Directions / See Attendees"); ?></a>
+</p>
 
 
-Cheers,
-Sandbox Stockholm Ambassadors
+<h1 class="secondary-heading"><?php echo _(""); ?></h1>
 
-Per Jonsson, +46 70 299 97 97, per.d.jonsson@gmail.com
+<p> <?php echo _("Cheers,"); ?><br/>
+<?php echo _("Sandbox %s Ambassadors", $this->hub_name); ?></p>
+
+<p>
+    <?php foreach($this->ambassadors as $ambassador): ?>
+        <?php echo $ambassador->getName() . ", " . $ambassador->phone . ", " . $ambassador->username; ?>
+    <?php endforeach; ?>
+</p>

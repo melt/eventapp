@@ -28,8 +28,9 @@ class AdminController extends userx\RestrictedController {
     }
 
     public function rvsp($rvsp_page_hash){
-        $this->rsvp = EventInviteeModel::select()->where("rvsp_page_hash")->is($rvsp_page_hash)->and("rvsp")->isnt(1)->and("rvsp")->isnt(2)->first();
-        $this->user_if_exists = userx\UserModel::select()->where("id")->is($this->rvsp->invitee_id)->first();
+        $this->rvsp = EventInviteeModel::select()->where("rvsp_page_hash")->is($rvsp_page_hash)->first();
+        if($this->rvsp)
+           $this->user = $this->rvsp->invitee;
     }
 
     public function index() {
@@ -56,9 +57,14 @@ class AdminController extends userx\RestrictedController {
 
     public function add_invitees($event_id) {
         $this->event = EventModel::select()->where("id")->is($event_id)->first();
-        $this->existing_invitees = EventInviteeModel::select("invitee")->where("id")->is($event_id);
+        // New invitee form
         $this->event_invitee = new EventInviteeModel();
+        // Attach to current event
         $this->event_invitee->event_id = (int) $event_id;
+        // Select existing invitees to show if they exist
+        $this->existing_invitees = EventInviteeModel::select()->where("event")->is($event_id);
+
+
     }
 
     public function login() {

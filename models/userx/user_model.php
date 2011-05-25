@@ -83,9 +83,9 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 "first_name" => array(_("First Name"), ""),
                 "last_name" => array(_("Last Name"), ""),
                 "phone" => array(_("Phone"), ""),
-                "company" => array(_("Company"), ""),
-                "city" => array(_("City"), ""),
-                "country" => array(_("Country"), ""),
+                "company" => array(_("Primary Company/Project"), "The project you feel mostly affiliated with"),
+                "city" => array(_("City"), "Where you live right now"),
+                "country" => array(_("Country"), "Where you live right now"),
                 //"user_type" => array(_("Type of User"), ""),
                 "username" => array(_("Email"), ""),
                 "hub"=> array(_("Primary Hub"), ""),
@@ -94,11 +94,26 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 //"_password_2" => array(_("Repeat Password"), ""),
                 //"remember_login" => array(_("Remember Login", "")),
             );
+            break;
+        case "rvsp_page":
+            return array(
+                "phone" => array(_("Phone"), ""),
+                "company" => array(_("Primary Company/Project"), "The project you feel mostly affiliated with"),
+                "city" => array(_("City"), "Where you live right now"),
+                "country" => array(_("Country"), "Where you live right now"),
+                //"user_type" => array(_("Type of User"), ""),
+                "username" => array(_("Email"), ""),
+                //"password" => array(_("Password"), ""),
+                //"_password_2" => array(_("Repeat Password"), ""),
+                //"remember_login" => array(_("Remember Login", "")),
+            );
+            break;
         case "user_edit":
             return array(
                 "hub"=> array(_("Belongs to Hub"), "User will receive information from this hub per default"),
                 "hub_ambassador"=> array(_("Ambassador for Hub"), "This grants the user special privileges"),
             );
+            break;
         /* Deprecated: Using strictly only Facebook login
          * case "login":
             return array(

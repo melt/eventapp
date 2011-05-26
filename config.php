@@ -66,7 +66,7 @@ namespace nmvc\mail\config {
     const SMTP_TIMEOUT = 10;
     const SMTP_PORT = 6000;
     const SMTP_HOST = '127.0.0.1';
-    const SMTP_FROM_HOST = \nmvc\APP_DAEMON_MAIL_HELO_SECRET;
+    const SMTP_FROM_HOST = "va1ehf69kgihsclflfd.localhost";
     const SMTP_AUTH_ENABLE = false;
     const SMTP_AUTH_PASSWORD = 'password';
     const SMTP_AUTH_USER = 'user';

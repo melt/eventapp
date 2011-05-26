@@ -31,7 +31,7 @@ namespace nmvc\core\config {
     const RECAPTCHA_PUBLIC_KEY = '';
     const RECAPTCHA_PRIVATE_KEY = '';
     const DISPLAY_DEVMODE_NOTICE = true;
-    const DOWN_MESSAGE = '';
+    const DOWN_MESSAGE = 'Application is currently under development. Please check back later or contact per.d.jonsson@gmail.com.';
     const IGNORE_64_BIT_WARNING = false;
     const TRANSLATION_MIN_Q = 0.4;
     const TRANSLATION_ENABLED = false;
@@ -39,9 +39,9 @@ namespace nmvc\core\config {
     const ERROR_LOG = NULL;
     const FORCE_ERROR_FLAGS = false;
     const FORCE_ERROR_DISPLAY = true;
-    const MAINTENANCE_MODE = false;
+    const MAINTENANCE_MODE = true;
     const NO_MAINTENANCE_CONTROLLERS = 'nmvc\IndexController';
-    const DEVELOPER_KEY = '';
+    const DEVELOPER_KEY = 'BLOODYMARY';
 }
 
 

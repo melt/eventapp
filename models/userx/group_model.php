@@ -1,11 +1,11 @@
 <?php namespace nmvc\userx;
-/* Auto generated empty class override. */
-
 
 class GroupModel extends GroupModel_app_overrideable {
-    const CONTEXT_SUPERADMIN = 1;
-    const CONTEXT_MANAGER = 2;
-    const CONTEXT_USER = 3;
+    const CONTEXT_GUEST = 0;
+    const CONTEXT_MEMBER = 1;
+    const CONTEXT_AMBASSADOR = 2;
+    const CONTEXT_ADMIN = 3;
+    const CONTEXT_SUPERADMIN = 4; // Reserved for later
 
     public $context = 'core\IntegerType';
 

@@ -1,7 +1,16 @@
 <?php namespace nmvc; ?>
 
 
+
+
+
 <?php if ($this->fb_user && $this->user): ?>
+
+
+>
+
+
+
 
     <script>
         $(function() {

@@ -19,7 +19,6 @@ class AdminController extends userx\RestrictedController {
         ));
     }
 
-
     public function api($city) {
         $results = \nmvc\EventModel::select()->where("city")->is($city);
         if($results->count() > 0)
@@ -81,26 +80,34 @@ class AdminController extends userx\RestrictedController {
     protected static function canAccessAsWhere($special_permission, $action, $arguments) {
         if (self::inLimbo($action))
             return true;
-        $user_allowed =  array("outside","login","logout");
-        $manager_allowed = array("");
+        $guest_allowed = array("");
+        $member_allowed =  array("outside","login","logout");
+        $ambassador_allowed = array("");
         switch ($special_permission) {
         case "superadmin":
+        case "admin":
             return true;
-        case "manager":
-            return \in_array($action, \array_merge($user_allowed, $manager_allowed));
-        case "user":
-            return \in_array($action, $user_allowed);
+        case "ambassador":
+            return \in_array($action, \array_merge($guest_allowed, $member_allowed, $ambassador_allowed));
+        case "member":
+            return \in_array($action, \array_merge($guest_allowed, $member_allowed));
+        case "guest":
+            return \in_array($action, $guest_allowed);
         }
         return false;
     }
 
     public static function getDefaultPermission(userx\GroupModel $group = null) {
         if ($group === null)
+            return "visitor";
+        else if ($group->context == userx\GroupModel::CONTEXT_GUEST)
             return "guest";
-        else if ($group->context == userx\GroupModel::CONTEXT_USER)
-            return "user";
-        else if ($group->context == userx\GroupModel::CONTEXT_MANAGER)
-            return "manager";
+        else if ($group->context == userx\GroupModel::CONTEXT_MEMBER)
+            return "member";
+        else if ($group->context == userx\GroupModel::CONTEXT_AMBASSADOR)
+            return "ambassador";
+        else if ($group->context == userx\GroupModel::CONTEXT_ADMIN)
+            return "admin";
         else if ($group->context == userx\GroupModel::CONTEXT_SUPERADMIN)
             return "superadmin";
         else

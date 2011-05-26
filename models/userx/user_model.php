@@ -12,15 +12,11 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public $city = array('core\TextType', 128);
     public $country = array('core\TextType', 128);
     public $photo_id = array('core\PictureType');
-    /* User Type - Mainly for visual purposes, not directly related to permissions */
-    const GUEST = 0;
-    const APPLICANT = 1;
-    const MEMBER = 2;
-    public $user_type = array('core\SelectType', array(self::GUEST => "Guest", self::APPLICANT => "Sandbox Applicant", self::MEMBER => "Sandbox Member"));
     /* Object Relations */
     public $hub_id = array('core\SelectModelType', 'HubModel');
         /* Object Relations */
     public $hub_ambassador_id = array('core\SelectModelType', 'HubModel');
+    public $group_id = array('core\SelectModelType', 'userx\GroupModel');
     public $is_unsubscribed = array('core\BooleanType');
 
     public function  beforeStore($is_linked) {
@@ -33,24 +29,27 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         $user_exists = UserModel::select()->where("facebook_user")->is($fb_user_data["id"])->first();
         // Create new user if not existing
         $user = (!$user_exists) ? new UserModel() : $user_exists;
-        // Only set FB user and password if not existing
-        if (!$user_exists)
-            $user->facebook_user = $fb_user_data["id"];
-        // Update other details since last login
+        // Update details since last login or set for first time for new user
         $location_array = (isset($fb_user_data["location"]["name"])) ? explode(",",$fb_user_data["location"]["name"]): null;
-        $user->company = (isset($fb_user_data["work"]["employer"])) ? $fb_user_data["work"]["employer"]: null;
-        $user->first_name = (isset($fb_user_data["first_name"])) ? $fb_user_data["first_name"]: null;
-        $user->last_name = (isset($fb_user_data["last_name"])) ? $fb_user_data["last_name"]: null;
         $user->city = (isset($location_array[0])) ? $location_array[0]: null;
         $user->country = (isset($location_array[1])) ? $location_array[1]: null;
         $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
         $user->last_login_time = time();
         $user->last_login_ip = $_SERVER['REMOTE_ADDR'];
-        //$user->photo = \file_get_contents();
+        // Only set this information the first time the user logs in
+        if (!$user_exists) {
+            $user->facebook_user = $fb_user_data["id"];
+            $user->first_name = (isset($fb_user_data["first_name"])) ? $fb_user_data["first_name"]: null;
+            $user->last_name = (isset($fb_user_data["last_name"])) ? $fb_user_data["last_name"]: null;
+            $user->sendUserApprovalEmail();
+        }        
         // Store user
         $user->store();
-        //\nmvc\MailHelper::sendMail("new_user", array("first_name"=>$user->first_name), _("Your Facebook account has been connected to %s",\nmvc\APP_NAME), \nmvc\APP_EMAIL, true);
         return $user;
+    }
+
+    public function sendUserApprovalEmail(){
+        \nmvc\MailHelper::sendMail("user_approval", array("user_email"=>$this->username,"user_name"=>$this->getName()), _("User %s requires permissions to %s",$this->getName(),\nmvc\APP_NAME), \nmvc\APP_EMAIL, true);
     }
 
     public function getName() {
@@ -59,6 +58,22 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
 
     public function __toString() {
         return $this->getName() . " (" . $this->username . ")";
+    }
+
+    public function isSuperAdmin() {
+        return ($this->group->context === GroupModel::CONTEXT_SUPERADMIN);
+    }
+
+    public function isAdmin() {
+        return ($this->group->context === GroupModel::CONTEXT_ADMIN);
+    }
+
+    public function isAmbassador() {
+        return ($this->group->context === GroupModel::CONTEXT_AMBASSADOR);
+    }
+
+    public function isMember() {
+        return ($this->group->context === GroupModel::CONTEXT_MEMBER);
     }
 
     public function uiValidate($interface_name) {
@@ -86,10 +101,10 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 "phone" => array(_("Phone"), ""),
                 "company" => array(_("Primary Company/Project"), "The project you feel mostly affiliated with"),
                 "street" => array(_("Street"), "Where you live right now, to get map directions to events"),
-                "city" => array(_("City"), "Where you live right now"),
-                "country" => array(_("Country"), "Where you live right now"),
+                "city" => array(_("City"), "Where you live right now, updated from Facebook each login"),
+                "country" => array(_("Country"), "Where you live right now, updated from Facebook each login"),
                 //"user_type" => array(_("Type of User"), ""),
-                "username" => array(_("Email"), ""),
+                "username" => array(_("Email"), "Updated from Facebook each login"),
                 "hub"=> array(_("Primary Hub"), ""),
                 "is_unsubscribed" => array(_("Unsubscribed to Email Updates"), ""),
                 //"password" => array(_("Password"), ""),
@@ -101,6 +116,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             return array(
                 "phone" => array(_("Phone"), ""),
                 "company" => array(_("Primary Company/Project"), "The project you feel mostly affiliated with"),
+                "street" => array(_("Street"), "Where you live right now, to get map directions to events"),
                 "city" => array(_("City"), "Where you live right now"),
                 "country" => array(_("Country"), "Where you live right now"),
                 //"user_type" => array(_("Type of User"), ""),

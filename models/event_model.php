@@ -88,7 +88,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         // If there is a complete address we will generate a map
         if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
             $destination_address = \rawurlencode( $this->view('street') ." ". $this->view('city') ." ". $this->view('zip') . " ". $this->hub->view('country') );
-            if ( $this->user != null )
+            if ( $user != null )
                 $source_address = \rawurlencode( $user->view('street') ." ". $user->view('city') . " ". $user->view('country') );
             return "http://maps.google.com/?saddr=$source_address&daddr=$destination_address";
         } else {
@@ -106,6 +106,14 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     
     public function uiValidate($interface_name) {
         $err = array();
+        foreach (array(
+        "title", "street",
+        "city"
+        ) as $field) {
+            $this->$field = trim($this->$field);
+            if ($this->$field == "")
+                $err[$field] = _("Field must be entered!");
+        }
         /*if (!\nmvc\string\email_validate($this->username))
             $err["username"] = _("Email address is incorrect.");
         foreach (array(

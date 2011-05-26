@@ -39,7 +39,7 @@ namespace nmvc\core\config {
     const ERROR_LOG = NULL;
     const FORCE_ERROR_FLAGS = false;
     const FORCE_ERROR_DISPLAY = true;
-    const MAINTENANCE_MODE = true;
+    const MAINTENANCE_MODE = false;
     const NO_MAINTENANCE_CONTROLLERS = 'nmvc\IndexController';
     const DEVELOPER_KEY = '';
 }

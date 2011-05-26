@@ -46,7 +46,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                         "hub_name"=>$hub->city,
                         "ambassadors"=>$ambassadors,
                         "map_image"=>$this->generateStaticGoogleMapsImage(),
-                        "google_maps_link"=>$this->generateGoogleMapsLink()
+                        "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee)
                     ),
                     $subject,
                     $invitee->view('email'),
@@ -84,11 +84,13 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         }
     }
 
-    public function generateGoogleMapsLink(){
+    public function generateGoogleMapsLink($user = null){
         // If there is a complete address we will generate a map
         if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
-            $url_friendly_address = \rawurlencode( $this->view('street') ." ". $this->view('city') . " ". $this->hub->view('country') );
-            return "http://maps.google.com/?q=$url_friendly_address";
+            $destination_address = \rawurlencode( $this->view('street') ." ". $this->view('city') ." ". $this->view('zip') . " ". $this->hub->view('country') );
+            if ( $this->user != null )
+                $source_address = \rawurlencode( $user->view('street') ." ". $user->view('city') . " ". $user->view('country') );
+            return "http://maps.google.com/?saddr=$source_address&daddr=$destination_address";
         } else {
             return null;
         }

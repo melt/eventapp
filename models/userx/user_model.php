@@ -8,6 +8,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public $last_name = array('core\TextType', 128);
     public $phone = array('core\TextType', 128);
     public $company = array('core\TextType', 128);
+    public $street = array('core\TextType', 128);
     public $city = array('core\TextType', 128);
     public $country = array('core\TextType', 128);
     public $photo_id = array('core\PictureType');
@@ -84,6 +85,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 "last_name" => array(_("Last Name"), ""),
                 "phone" => array(_("Phone"), ""),
                 "company" => array(_("Primary Company/Project"), "The project you feel mostly affiliated with"),
+                "street" => array(_("Street"), "Where you live right now, to get map directions to events"),
                 "city" => array(_("City"), "Where you live right now"),
                 "country" => array(_("Country"), "Where you live right now"),
                 //"user_type" => array(_("Type of User"), ""),

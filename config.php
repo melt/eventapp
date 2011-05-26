@@ -59,20 +59,19 @@ namespace nmvc\db\config {
 }
 
 
-namespace nmvc\mail\config {
-    const FROM_ADDRESS = '';
-    const FROM_NAME = '';
-    const SPOOL_RETRY_INTERVAL_SECONDS = 300;
-    const SMTP_FROM_HOST = NULL;
-    const SMTP_TIMEOUT = 10;
-    const SMTP_HOST = 'smtp.gmail.com';
-    const SMTP_PORT = 587;
-    const SMTP_AUTH_ENABLE = true;
-    const SMTP_AUTH_PASSWORD = '2S268885';
-    const SMTP_AUTH_USER = 'sendmail@omnicloud.org';
-    const SMTP_TLS_ENABLE = true;
-}
 
+
+namespace nmvc\mail\config {
+    const SPOOL_RETRY_INTERVAL_SECONDS = 300;
+    const SMTP_TIMEOUT = 10;
+    const SMTP_PORT = 6000;
+    const SMTP_HOST = '127.0.0.1';
+    const SMTP_FROM_HOST = \nmvc\APP_DAEMON_MAIL_HELO_SECRET;
+    const SMTP_AUTH_ENABLE = false;
+    const SMTP_AUTH_PASSWORD = 'password';
+    const SMTP_AUTH_USER = 'user';
+    const SMTP_TLS_ENABLE = false;
+}
 
 namespace nmvc\userx\config {
     const LAST_DENY_AUTOREDIRECT = true;

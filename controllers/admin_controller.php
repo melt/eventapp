@@ -15,7 +15,10 @@ class AdminController extends userx\RestrictedController {
             "event_edit" => true,
             "add_invitees" => true,
             "doAddInvitee" => true,
-            "thanks" => true
+            "thanks" => true,
+            "new_hub" => true,
+            "new_event" => true,
+            "my_profile" =>true
         ));
     }
 
@@ -34,8 +37,23 @@ class AdminController extends userx\RestrictedController {
     }
 
     public function index() {
+    }
+
+    public function new_hub() {
         $this->new_hub = new \nmvc\HubModel();
+        $this->new_hub_ambassador = new \nmvc\HubAmbassadorModel();
+    }
+
+    public function new_event() {
         $this->new_event = new \nmvc\EventModel();
+        // New invitee form
+        $this->new_event_invitee = new \nmvc\EventInviteeModel();
+        // Attach to current event
+       // $this->new_event_invitee->event_id = (int) $this->new_event->id;
+    }
+
+    public function my_profile() {
+        
     }
 
     public function logout() {
@@ -81,7 +99,7 @@ class AdminController extends userx\RestrictedController {
         if (self::inLimbo($action))
             return true;
         $guest_allowed = array("");
-        $member_allowed =  array("outside","login","logout");
+        $member_allowed =  array("outside","login","logout","profile");
         $ambassador_allowed = array("");
         switch ($special_permission) {
         case "superadmin":

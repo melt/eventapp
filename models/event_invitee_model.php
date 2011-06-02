@@ -53,16 +53,15 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
                 "wants_to_skype" => array(_("Do you want to Skype with the ambassador before the event?"), "A short Skype call can help the ambassador understand current challenges and projects of each guest and how it may overlap with other guests."),
                 "why_not_attend" => array(_("Why do you not wish to attend this event?"), "This helps us make future events better for you"),
             );
-        case "add_invitee_email":
+            break;
+        case "new_event":
             return array(
                 // Include user fields here if user
                 "email" => array(_("Invitee from Email Addresss"), "OR enter an email address"),
-            );
-        case "add_invitee_user":
-            return array(
-                // Include user fields here if user
+                 // Include user fields here if user
                 "invitee" => array(_("Invitee from Users"), "Select from users in list.."),
             );
+            break;
 
 
         }

@@ -133,12 +133,12 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         case "new_event":
         case "event_edit":
             return array(
-                "hub" => array(_("Hub"), ""),
+                "hub" => array(_("Hub"), "Select from list"),
                 "title" => array(_("Title"), "Eg. Dinner @ My Place"),
                 "description" => array(_("Description"), "A short and sweet tagline to make people excited to attend"),
-                "event_date" => array(_("Date"), ""),
+                "event_date" => array(_("Date"), "Select from datepicker"),
                 "event_time" => array(_("Time"), "HH:mm:ss"),
-                "street" => array(_("Street"), "Full address shows Google Maps"),
+                "street" => array(_("Street"), "Shows Google Maps"),
                 "zip" => array(_("Zip"), ""),
                 "city" => array(_("City"), ""),
             );

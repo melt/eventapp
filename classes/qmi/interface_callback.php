@@ -11,4 +11,16 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         //$sr = $instances['nmvc\EventInviteeModel'][0];
         \nmvc\request\redirect(url("/admin/thanks", array("rvsp" => null)));
     }
+
+    public function ic_add_event() {
+        \nmvc\request\redirect("/");
+    }
+
+
+
+    public function ic_user_profile() {
+                \nmvc\request\redirect("/");
+
+    }
+
 }

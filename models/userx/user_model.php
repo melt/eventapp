@@ -11,13 +11,11 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public $street = array('core\TextType', 128);
     public $city = array('core\TextType', 128);
     public $country = array('core\TextType', 128);
-    public $photo_id = array('core\PictureType');
+    public $photo_id = array('core\PictureType'); // Not used as of now
+    public $is_unsubscribed = array('core\BooleanType');
     /* Object Relations */
     public $hub_id = array('core\SelectModelType', 'HubModel');
-        /* Object Relations */
-    public $hub_ambassador_id = array('core\SelectModelType', 'HubModel');
-    public $group_id = array('core\SelectModelType', 'userx\GroupModel');
-    public $is_unsubscribed = array('core\BooleanType');
+
 
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
@@ -98,15 +96,15 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             return array(
                 "first_name" => array(_("First Name"), ""),
                 "last_name" => array(_("Last Name"), ""),
-                "phone" => array(_("Phone"), ""),
-                "company" => array(_("Primary Company/Project"), "The project you feel mostly affiliated with"),
-                "street" => array(_("Street"), "Where you live right now, to get map directions to events"),
-                "city" => array(_("City"), "Where you live right now, updated from Facebook each login"),
-                "country" => array(_("Country"), "Where you live right now, updated from Facebook each login"),
+                "phone" => array(_("Phone"), "Where we can reach you"),
+                "company" => array(_("Company/Project"), "Primary project right now"),
+                "street" => array(_("Street"), "Where you live right now"),
+                "city" => array(_("City"), "Where you live right now"),
+                "country" => array(_("Country"), "Where you live right now"),
                 //"user_type" => array(_("Type of User"), ""),
-                "username" => array(_("Email"), "Updated from Facebook each login"),
-                "hub"=> array(_("Primary Hub"), ""),
-                "is_unsubscribed" => array(_("Unsubscribed to Email Updates"), ""),
+                "username" => array(_("Email"), "Updated from Facebook"),
+                "hub"=> array(_("Hub"), "Primary hub of interest"),
+                "is_unsubscribed" => array(_("Actively Unsubscribed"), "Do not receive any emails"),
                 //"password" => array(_("Password"), ""),
                 //"_password_2" => array(_("Repeat Password"), ""),
                 //"remember_login" => array(_("Remember Login", "")),
@@ -129,7 +127,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         case "user_edit":
             return array(
                 "hub"=> array(_("Belongs to Hub"), "User will receive information from this hub per default"),
-                "hub_ambassador"=> array(_("Ambassador for Hub"), "This grants the user special privileges"),
             );
             break;
         /* Deprecated: Using strictly only Facebook login
@@ -159,7 +156,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 "Email"=>$this->view('username'),
                 $this->view('company'),
                 "Hub"=>$this->view('hub'),
-                "Ambassador for"=>$this->view('hub_ambassador')
             );
         return $cells;
         }

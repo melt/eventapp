@@ -6,11 +6,15 @@
 
 <?php if ($this->fb_user && $this->user): ?>
 
+<a class="navigation_button" href="<?php echo $this->logout_url; ?>"><?php echo _("Logout"); ?></a>
 
-<a class="button" href="<?php echo url("/admin/new_hub"); ?>"><?php echo _("Add new hub"); ?></a>
-<br/><br/>
+<a class="navigation_button" href="<?php echo url("/admin/my_profile"); ?>"><?php echo _("Edit My Profile"); ?></a>
 
+<a class="navigation_button" href="<?php echo url("/admin/new_hub"); ?>"><?php echo _("Add new hub"); ?></a>
 
+<a class="navigation_button" href="<?php echo url("/admin/new_event"); ?>"><?php echo _("Add new event"); ?></a>
+
+<br/><br/><br/>
     <script>
         $(function() {
             $( "#tabs" ).tabs({cookie: {path: '/', domain: <?php echo string\quote(APP_ROOT_HOST); ?>}});
@@ -23,23 +27,16 @@
 
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1"><?php echo _("My Profile"); ?></a></li>
-                <li><a href="#tabs-2"><?php echo _("Hubs"); ?></a></li>
                 <li><a href="#tabs-3"><?php echo _("Events"); ?></a></li>
+                <li><a href="#tabs-2"><?php echo _("Hubs"); ?></a></li>
+                
                 <li><a href="#tabs-4"><?php echo _("Users"); ?></a></li>
 
 
             </ul>
             <div id="tabs-1">
-                <h3><a href="<?php echo $this->logout_url; ?>">Logout</a></h3>
 
-                <img src="https://graph.facebook.com/<?php echo $this->fb_user; ?>/picture?type=small">
-
-
-            <?php $interface = new qmi\ModelInterface("user_profile", "cell"); ?>
-            <?php echo $interface->startForm(); ?>
-<?php echo $interface->getInterface($this->user); ?>
-<?php echo $interface->finalizeForm(true); ?>
+                
 
         </div>
         <div id="tabs-2">
@@ -65,10 +62,7 @@
                         "/static/img/calendar-blue.png",
                             ), true);
             ?>
-<?php $interface = new qmi\ModelInterface("new_event", "cell"); ?>
-<?php echo $interface->startForm(); ?>
-<?php echo $interface->getInterface($this->new_event); ?>
-<?php echo $interface->finalizeForm(true); ?>
+
 
 
         </div>

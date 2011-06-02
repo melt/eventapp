@@ -19,20 +19,19 @@ img#fb_login_image {
 }
 
 
-a.button{
+a.navigation_button{
 clear:both;
-margin-left:150px;
+margin-right:10px;
 width:125px;
 height:31px;
 background:#666666 url(img/button.png) no-repeat;
 text-align:center;
-line-height:31px;
 color:#FFFFFF;
 font-size:11px;
 font-weight:bold;
 padding:10px 30px;
 text-decoration: none;
 }
-a.button:hover {
+a.navigation_button:hover {
     text-decoration: underline;
 }

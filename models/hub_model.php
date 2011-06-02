@@ -5,6 +5,11 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListab
     public $city = array('core\TextType', 128);
     public $country = array('core\CountryType');
 
+    public function  afterStore($was_linked) {
+        parent::afterStore($was_linked);
+        \nmvc\request\redirect("/");
+    }
+
     public function uiValidate($interface_name) {
         $err = array();
         foreach (array(
@@ -41,7 +46,7 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListab
         switch ($interface_name) {
         case "new_hub":
             return array(
-                "city" => array(_("City"), ""),
+                "city" => array(_("City"), "Enter name of hub"),
                 "country" => array(_("Country"), ""),
             );
 

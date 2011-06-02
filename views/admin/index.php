@@ -7,9 +7,8 @@
 <?php if ($this->fb_user && $this->user): ?>
 
 
->
-
-
+<a class="button" href="<?php echo url("/admin/new_hub"); ?>"><?php echo _("Add new hub"); ?></a>
+<br/><br/>
 
 
     <script>
@@ -52,12 +51,7 @@
                             ), true);
             ?>
 
-            <h2><?php echo _("New Hub"); ?></h2>
-
-<?php $interface = new qmi\ModelInterface("new_hub", "cell"); ?>
-<?php echo $interface->startForm(); ?>
-<?php echo $interface->getInterface($this->new_hub); ?>
-<?php echo $interface->finalizeForm(true); ?>
+           
 
 
 

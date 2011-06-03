@@ -20,7 +20,17 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
         $this->password = \nmvc\string\random_hex_str(16);
+        // If no group is set, assume guest
+        if($this->group_id == null)
+            $this->group_id = \nmvc\userx\GroupModel::CONTEXT_GUEST;
     }
+
+    public function  afterStore($was_linked) {
+        parent::afterStore($was_linked);
+        //\nmvc\messenger\redirect_message(url("/"), _("Your profile was updated!"), "good");
+    }
+
+
     
     public static function updateOrCreateNewUser($fb_user_data) {
         // Check if user exists in database

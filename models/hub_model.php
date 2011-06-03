@@ -7,7 +7,7 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListab
 
     public function  afterStore($was_linked) {
         parent::afterStore($was_linked);
-        \nmvc\request\redirect("/");
+        \nmvc\messenger\redirect_message(url("/"), _("The hub was added!"), "good");
     }
 
     public function uiValidate($interface_name) {

@@ -76,7 +76,7 @@ $(document).ready(function() {
 <h2>If not, please recheck your invitation email and contact your local ambassador.</h2>
 <?php endif; ?>
 
-<button style="display:block" id="submit_button" type="submit"><?php echo _("Submit"); ?></button>
+<button id="submit_button" type="submit"><?php echo _("Submit"); ?></button>
 <div class="spacer"></div>
 <?php echo $interface->finalizeForm(false); ?>
 </div>

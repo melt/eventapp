@@ -30,6 +30,8 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
             $this->email = $this->invitee->username;
     }
 
+
+
     public function uiValidate($interface_name) {
         $err = array();
         if (!\nmvc\string\email_validate($this->email))

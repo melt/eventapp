@@ -4,22 +4,6 @@
 
 class InterfaceCallback extends InterfaceCallback_app_overrideable {
 
-    public function ic_rvsp_page() {
-        $this->doValidate();
-        $this->doStore();
-        //$instances = $this->getInstances();
-        //$sr = $instances['nmvc\EventInviteeModel'][0];
-        \nmvc\request\redirect(url("/admin/thanks", array("rvsp" => null)));
-    }
-
-    public function ic_new_event() {
-        $this->doValidate();
-        $this->doStore();
-        $instances = $this->getInstances();
-        $event = $instances['nmvc\EventModel'][0];
-        \nmvc\request\redirect("/admin/new_event_invitees/" . $event->id);
-    }
-
     public function ic_add_invitees_by_email() {
         $instances = $this->getInstances();
         $instance = $instances['nmvc\EventInviteeModel'][0];
@@ -38,11 +22,12 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
             $invitee->store();
         }
     }
-
-
-
-    public function ic_user_profile() {
-        \nmvc\request\redirect("/");
+    
+    public function ic_rvsp_page() {
+        $this->validate();
+        $this->store();
+        // Redirect to thankyou page if save succeeds
+        \nmvc\messenger\redirect_message(url("/admin/thanks"), _("Thank you for your RVSP!"), "good");
     }
 
 }

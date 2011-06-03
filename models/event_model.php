@@ -24,30 +24,41 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     }
 
     public function sendReminderEmail(){
-        self::sendInviteEmail(true);
+        self::sendInviteEmail("reminder");
     }
 
-    public function sendInviteEmail($reminder = false){
-        if($reminder == true){
-            // Only send reminder email to people that RVSP attending to avoid angry faces
-            $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING);
-        } else {
-            $invitees = EventInviteeModel::select()->where("event")->is($this);
+    public function sendThankyouEmail(){
+        self::sendInviteEmail("thankyou");
+    }
+
+    public function sendInviteEmail($type = "invite"){
+        switch($type){
+            case "invite":
+                $invitees = EventInviteeModel::select()->where("event")->is($this);
+                $subject = _("Invitation to %s",$this->view('title'));
+                $mail_view = "event_invite";
+                $this->invite_email_sent = true;
+                break;
+            case "reminder":
+                // Only send reminder email to people that RVSP attending to avoid angry faces
+                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING);
+                $subject = _("Reminder for %s",$this->view('title'));
+                $mail_view = "event_reminder";
+                $this->reminder_email_sent = true;
+                break;
+            case "thankyou":
+                // Only send thankyou email to people that RVSP attending to avoid angry faces
+                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING);
+                $subject = _("Thank you for attending %s",$this->view('title'));
+                $mail_view = "event_thankyou";
+                $this->thankyou_email_sent = true;
+                break;
         }
 
-        $hub = HubModel::select("city")->where("id")->is($this->hub_id)->first();
-
+        // Select ambassadors of current hub
         $ambassadors = null;
 
-        if($reminder){
-            $subject = _("Reminder for %s",$this->view('title'));
-            $mail_view = "event_reminder";
-            $this->reminder_email_sent = true;
-        } else {
-            $subject = _("Invitation to %s",$this->view('title'));
-            $mail_view = "event_invite";
-            $this->invite_email_sent = true;
-        }
+
         foreach($invitees as $invitee){
             \nmvc\MailHelper::sendMail($mail_view,
                     array(
@@ -59,7 +70,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                         "zip"=>$this->view('zip'),
                         "city"=>$this->view('city'),
                         "rvsp_link"=>"http://".\APP_ROOT_HOST . "/admin/rvsp/" . $invitee->view('rvsp_page_hash'),
-                        "hub_name"=>$hub->city,
+                        "hub_name"=>$this->hub->view('city'),
                         "ambassadors"=>$ambassadors,
                         "map_image"=>$this->generateStaticGoogleMapsImage(),
                         "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee)
@@ -77,11 +88,11 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         $actions = array();
         $has_invitees = EventInviteeModel::select("invitee")->where("event")->is($this)->count();
         if($this->invite_email_sent==false)
-            $actions["@addInvitees"] = array(_("Send Invitation Email"));
+            $actions["@addInvitees"] = array(_("Add Invitees"));
         /*if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == true && $this->thankyou_email_sent == false)
             $actions["@sendThankyouEmail"] = array(_("Send Thankyou Email"));*/
         if($has_invitees <= 0)
-            $actions["@doRemove"] = array(_("Delete Event")
+            $actions["@doRemove"] = array(_("Delete")
                 , "confirm" => _("Do you really want to delete the event %s?",$this->view('title'))
             );
         return $actions;
@@ -158,6 +169,14 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             );
 
         }
+    }
+
+    public function addEventAndContinue(){
+        // Validate and store
+        $this->validate();
+        $this->store();
+        // Go to add invitees page
+        $this->addInvitees();
     }
 
     public function addInvitees() {

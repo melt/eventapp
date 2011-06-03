@@ -30,7 +30,7 @@
                 <li><a href="#tabs-3"><?php echo _("Events"); ?></a></li>
                 <li><a href="#tabs-2"><?php echo _("Hubs"); ?></a></li>
                 
-                <li><a href="#tabs-4"><?php echo _("Users"); ?></a></li>
+                <li><a href="#tabs-4"><?php echo _("Members"); ?></a></li>
 
 
             </ul>
@@ -40,14 +40,14 @@
 
         </div>
         <div id="tabs-2">
-            <?php
+          
+ <?php
             AjaxController::invoke("_print_instances_list", array(
                         HubModel::select()->orderBy("city", "asc"),
                         _("Hubs"),
                         "/static/img/home.png",
                             ), true);
             ?>
-
            
 
 
@@ -71,8 +71,8 @@
 
 <?php
             AjaxController::invoke("_print_instances_list", array(
-                        userx\UserModel::select(),
-                        _("Users"),
+                        userx\UserModel::select()->where("group_id")->isnt(\nmvc\userx\GroupModel::CONTEXT_GUEST),
+                        _("Members"),
                         "/static/img/user.png",
                         "user_list"), true);
 ?>

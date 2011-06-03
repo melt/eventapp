@@ -74,12 +74,13 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                         "street"=>$this->view('street'),
                         "zip"=>$this->view('zip'),
                         "city"=>$this->view('city'),
-                        "rvsp_link"=>\APP_ROOT_URL . "/outside/rvsp/" . $invitee->view('rvsp_page_hash'),
+                        "rvsp_link"=>$invitee->generateRvspLink(),
                         "hub_name"=>$this->hub->view('city'),
                         "ambassadors"=>$this->getAmbassadors(),
                         "map_image"=>$this->generateStaticGoogleMapsImage(),
                         "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee),
-                        "attendees"=>$this->getAttendees()
+                        "attendees"=>$this->getAttendees(),
+                        "unsubscribe_link"=>$invitee->generateUnsubscribeLink(),
                     ),
                     $subject,
                     $invitee->invitee->view('username'),
@@ -140,6 +141,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             return null;
         }
     }
+
+
 
     public function getAjaxListCells($interface_name) {
         return array(

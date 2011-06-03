@@ -36,6 +36,13 @@ class OutsideController extends AppController {
         $this->email = trim(@$_GET["email"]);
     }
 
+    public function unsubscribe($user_id){
+        $this->user == userx\UserModel::select()->where("id")->is($user_id)->first();
+        $this->user->is_unsubscribed = true;
+        $this->user->store();
+        \nmvc\messenger\redirect_message(url("/"), _("Successfully unsubscribed to emails!"), "good");   
+    }
+
     public function api($city) {
         $results = \nmvc\EventModel::select()->where("city")->is($city);
         if($results->count() > 0)

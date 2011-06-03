@@ -32,8 +32,8 @@ class OutsideController extends AppController {
     }
 
     public function rvsp_thanks(){
-        $this->rvsp = $_GET["rvsp"];
-        $this->email = $_GET["email"];
+        $this->rvsp = trim(@$_GET["rvsp"]);
+        $this->email = trim(@$_GET["email"]);
     }
 
     public function api($city) {

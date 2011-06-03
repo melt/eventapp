@@ -57,6 +57,13 @@ border:solid 1px #aacfe4;
 width:300px;
 margin:2px 0 20px 10px;
 }
+#stylized .form_text{
+float:left;
+font-size:12px;
+padding:0px 2px;
+width:300px;
+margin:0px 0 20px 10px;
+}
 #stylized input[type=checkbox]{
    width:20px;
    margin-right:280px;

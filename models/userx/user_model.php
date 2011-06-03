@@ -112,7 +112,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 //"first_name" => array(_("First Name"), ""),
                 //"last_name" => array(_("Last Name"), ""),
                 "phone" => array(_("Phone"), "Where we can reach you"),
-                "company" => array(_("Company/Project"), "Primary project right now"),
+                "company" => array(_("Company/Project"), "Coolest project right now"),
                 "street" => array(_("Street"), "Where you live right now"),
                 "city" => array(_("City"), "Where you live right now"),
                 "country" => array(_("Country"), "Where you live right now"),
@@ -128,7 +128,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         case "rvsp_page":
             return array(
                 "phone" => array(_("Phone"), "Where we can reach you"),
-                "company" => array(_("Company/Project"), "Primary project right now"),
+                "company" => array(_("Company/Project"), "Coolest project right now"),
                 "street" => array(_("Street"), "Where you live right now"),
                 "city" => array(_("City"), "Where you live right now"),
                 "country" => array(_("Country"), "Where you live right now"),

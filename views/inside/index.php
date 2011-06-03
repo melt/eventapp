@@ -6,14 +6,14 @@
 
     <a class="navigation_button" href="<?php echo $this->logout_url; ?>"><?php echo _("Logout"); ?></a>
     
-    <a class="navigation_button" href="<?php echo url("/admin/my_profile"); ?>"><?php echo _("Edit my profile"); ?></a>
+    <a class="navigation_button" href="<?php echo url("/inside/my_profile"); ?>"><?php echo _("Edit my profile"); ?></a>
 
     <?php if($this->user->isAdmin()): ?>
-    <a class="navigation_button" href="<?php echo url("/admin/new_hub"); ?>"><?php echo _("Add new hub"); ?></a>
+    <a class="navigation_button" href="<?php echo url("/hub/add"); ?>"><?php echo _("Add new hub"); ?></a>
     <?php endif; ?>
 
     <?php if($this->user->isAmbassador()): ?>
-    <a class="navigation_button" href="<?php echo url("/admin/new_event"); ?>"><?php echo _("Add new event"); ?></a>
+    <a class="navigation_button" href="<?php echo url("/event/new_event"); ?>"><?php echo _("Add new event"); ?></a>
     <?php endif; ?>
     
 </div>

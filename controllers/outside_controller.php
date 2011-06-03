@@ -16,4 +16,11 @@ class OutsideController extends AppController {
         \nmvc\userx\login($this->user);
         \nmvc\messenger\redirect_message(url("/inside/"), _("Successfully logged in!"), "good");
     }
+
+    public function logout() {
+        $this->facebook = null;
+        $this->user = null;
+        \session_destroy();
+        \nmvc\messenger\redirect_message(url("/"), _("Successfully logged out!"), "good");
+    }
 }

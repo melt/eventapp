@@ -163,7 +163,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         switch ($interface_name) {
         case "user_list":
             $cells = array(
-                "Permissions"=>$this->view('group'),
+                //"Permissions"=>$this->view('group'),
                 "Name"=>$this->getName(),
                 "Email"=>$this->view('username'),
                 "Company/Project"=>$this->view('company')

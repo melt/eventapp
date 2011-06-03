@@ -42,10 +42,7 @@ class AdminController extends userx\RestrictedController {
         $this->unmoderated_users = \nmvc\userx\UserModel::select()->where("is_moderated")->is(0);
     }
 
-    public function new_hub() {
-        $this->new_hub = new \nmvc\HubModel();
-        $this->new_hub_ambassador = new \nmvc\HubAmbassadorModel();
-    }
+
 
     public function new_event() {
         $this->new_event = new \nmvc\EventModel();
@@ -65,7 +62,6 @@ class AdminController extends userx\RestrictedController {
         $this->existing_invitees = EventInviteeModel::select()->where("event")->is($event_id);
     }
 
-    public function my_profile() {}
 
 
     

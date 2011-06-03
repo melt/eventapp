@@ -81,7 +81,8 @@ namespace nmvc\userx\config {
     const HASHING_ALGORITHM = 'crypt';
     const SOFT_403 = false;
     const REMEMBER_ME_DAYS = 356;
-    const SESSION_TIMEOUT_MINUTES = false;
+    // Extremely long session timeout
+    const SESSION_TIMEOUT_MINUTES = 0x7fffffff;
 }
 
 namespace nmvc\jquery\config {

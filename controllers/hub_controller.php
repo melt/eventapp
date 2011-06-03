@@ -1,21 +1,21 @@
 <?php namespace nmvc;
 
-class InsideController extends userx\RestrictedController {
+class HubController extends userx\RestrictedController {
 
-    public function index() {}
-
-    public function my_profile() {}
-
-
+    public function add() {
+        $this->new_hub = new \nmvc\HubModel();
+        $this->new_hub_ambassador = new \nmvc\HubAmbassadorModel();
+    }
+    
     public static function getDefaultPermission(userx\GroupModel $group = null) {
         if ($group === null)
             return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_GUEST)
-            return "Allow";
+            return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_MEMBER)
-            return "Allow";
+            return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_AMBASSADOR)
-            return "Allow";
+            return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_ADMIN)
             return "Allow";
         else if ($group->context == userx\GroupModel::CONTEXT_SUPERADMIN)
@@ -23,5 +23,4 @@ class InsideController extends userx\RestrictedController {
         else
             return false;
     }
-
 }

@@ -8,7 +8,6 @@ class GroupModel extends GroupModel_app_overrideable {
     const CONTEXT_SUPERADMIN = 4; // Reserved for later
 
     public $context = 'core\IntegerType';
-    public $name = array('core\TextType', 128);
 
     public static function getStandardGroup($context) {
         $group = GroupModel::select()->where("context")->is($context)->first();
@@ -18,9 +17,5 @@ class GroupModel extends GroupModel_app_overrideable {
             $group->store();
         }
         return $group;
-    }
-
-    public function __toString() {
-        return $this->view('name');
     }
 }

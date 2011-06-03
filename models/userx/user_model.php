@@ -27,29 +27,31 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         parent::afterStore($was_linked);
     }
 
-
-    
-    public static function updateOrCreateNewUser($fb_user_data) {
-        // Check if user exists in database
-        $user_exists = UserModel::select()->where("facebook_user")->is($fb_user_data["id"])->first();
-        // Create new user if not existing
-        $user = (!$user_exists) ? new UserModel() : $user_exists;
+    public static function addNewUser($fb_user_data) {
+        // Create new user
+        $user = new UserModel();
         $user->last_login_time = time();
         $user->last_login_ip = $_SERVER['REMOTE_ADDR'];
         // Only set this information the first time the user logs in
-        if (!$user_exists) {
-            $user->facebook_user = $fb_user_data["id"];
-            $user->first_name = (isset($fb_user_data["first_name"])) ? $fb_user_data["first_name"]: null;
-            $user->last_name = (isset($fb_user_data["last_name"])) ? $fb_user_data["last_name"]: null;
-            $location_array = (isset($fb_user_data["location"]["name"])) ? explode(",",$fb_user_data["location"]["name"]): null;
-            $user->city = (isset($location_array[0])) ? $location_array[0]: null;
-            $user->country = (isset($location_array[1])) ? $location_array[1]: null;
-            $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
-            $user->sendUserApprovalEmail();
-        }        
+        $user->facebook_user = $fb_user_data["id"];
+        $user->first_name = (isset($fb_user_data["first_name"])) ? $fb_user_data["first_name"]: null;
+        $user->last_name = (isset($fb_user_data["last_name"])) ? $fb_user_data["last_name"]: null;
+        $location_array = (isset($fb_user_data["location"]["name"])) ? explode(",",$fb_user_data["location"]["name"]): null;
+        $user->city = (isset($location_array[0])) ? $location_array[0]: null;
+        $user->country = (isset($location_array[1])) ? $location_array[1]: null;
+        $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
+        $user->sendUserApprovalEmail();
         // Store user
         $user->store();
         return $user;
+    }
+    
+    public function updateUser($fb_user_data) {
+        $user = $this;
+        $user->last_login_time = time();
+        $user->last_login_ip = $_SERVER['REMOTE_ADDR'];      
+        // Store user
+        $user->store();
     }
 
     public function sendUserApprovalEmail(){
@@ -160,7 +162,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             $cells = array(
                 "Name"=>$this->getName(),
                 "Email"=>$this->view('username'),
-                $this->view('company'),
+                "Company/Project"=>$this->view('company'),
                 "Hub"=>$this->view('hub'),
             );
             break;

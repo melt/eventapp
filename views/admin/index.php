@@ -56,21 +56,8 @@
 
         </div>
         <div id="tabs-2">
-          
- <?php
-            AjaxController::invoke("_print_instances_list", array(
-                        HubModel::select()->orderBy("city", "asc"),
-                        _("Hubs"),
-                        "/static/img/home.png",
-                            ), true);
-            ?>
-           
 
-
-
-        </div>
-        <div id="tabs-3">
-
+       
             <?php
             AjaxController::invoke("_print_instances_list", array(
                         EventModel::select()->orderBy("event_date", "asc"),
@@ -79,6 +66,19 @@
                             ), true);
             ?>
 
+
+
+        </div>
+        <div id="tabs-3">
+
+
+ <?php
+            AjaxController::invoke("_print_instances_list", array(
+                        HubModel::select()->orderBy("city", "asc"),
+                        _("Hubs"),
+                        "/static/img/home.png",
+                            ), true);
+            ?>
 
 
         </div>

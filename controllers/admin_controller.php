@@ -38,6 +38,7 @@ class AdminController extends userx\RestrictedController {
     }
 
     public function index() {
+        // Get unmoderated users to display if neccessary
         $this->unmoderated_users = \nmvc\userx\UserModel::select()->where("is_moderated")->is(0);
     }
 
@@ -48,11 +49,11 @@ class AdminController extends userx\RestrictedController {
 
     public function new_event() {
         $this->new_event = new \nmvc\EventModel();
-        // New invitee form        
     }
 
     public function new_event_invitees($event_id) {
         $this->event = EventModel::select()->where("id")->is($event_id)->first();
+        // If invite already sent, do not allow to add more invitees
         if($this->event->invite_email_sent == true)
             \nmvc\messenger\redirect_message(url("/"), _("Invite email already sent!"), "bad");
 
@@ -60,6 +61,7 @@ class AdminController extends userx\RestrictedController {
         // Attach to current event
         $this->new_event_invitee->event_id = (int) $event_id;
         $this->event = $this->new_event_invitee->event;
+        // Get existing invitees if any
         $this->existing_invitees = EventInviteeModel::select()->where("event")->is($event_id);
     }
 
@@ -69,7 +71,7 @@ class AdminController extends userx\RestrictedController {
         $this->facebook = null;
         $this->user = null;
         \session_destroy();
-        \nmvc\request\redirect("/");
+        \nmvc\messenger\redirect_message(url("/"), _("Successfully logged out!"), "good");
     }
     
     public function spec() {}
@@ -83,7 +85,15 @@ class AdminController extends userx\RestrictedController {
 
     public function login() {
         $this->fb_user_data = $this->facebook->api('/me');
-        $this->user = \nmvc\userx\UserModel::updateOrCreateNewUser($this->fb_user_data);
+
+        if($this->user){
+        // User exists in database, update login details
+            $this->user->updateUser($this->fb_user_data);
+        } else {
+        // Add user to database
+            $this->user = \nmvc\userx\UserModel::addNewUser($this->fb_user_data);
+        }
+        
         \nmvc\userx\login($this->user);
         \nmvc\request\redirect("/");
     }

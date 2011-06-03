@@ -27,11 +27,11 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     }
 
     public function generateRvspLink(){
-        return \APP_ROOT_URL . "/outside/rvsp/" . $this->view('rvsp_page_hash');
+        return \APP_ROOT_URL . "outside/rvsp/" . $this->view('rvsp_page_hash');
     }
 
     public function generateUnsubscribeLink(){
-        return \APP_ROOT_URL . "/outside/unsubscribe/" . $invitee->invitee->id;
+        return \APP_ROOT_URL . "outside/unsubscribe/" . $invitee->invitee->id;
     }
 
     public function uiValidate($interface_name) {

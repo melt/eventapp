@@ -15,8 +15,8 @@ class ApiController extends userx\RestrictedController {
                 "description"=>strip_tags($result->description),
                 "event_date"=>$result->view('event_date'),
                 "event_time"=>$result->view('event_time'),
-                "street"=>$result->view('street'),
-                "zip"=>$result->view('zip'),
+                //"street"=>$result->view('street'),
+                //"zip"=>$result->view('zip'),
                 "city"=>$result->view('city')
                 );
         endforeach;

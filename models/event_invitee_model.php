@@ -3,16 +3,15 @@
 class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     /* N-N Relations */
     public $event_id = array('core\PointerType', 'EventModel','CASCADE');
-    public $invitee_id = array('core\SelectModelType', 'userx\UserModel');
+    public $invitee_id = array('core\SelectModelType', 'userx\UserModel','CASCADE');
     public $rvsp_page_hash = array('core\TextType',16);
-    /* If invitee is not a user in the system */
-    public $email = array('core\TextType', 128);
     /* Invitee Meta Information */
     public $most_exciting_project = array('core\TextAreaType');
     public $biggest_challenge = array('core\TextAreaType');
     public $generally_help = array('core\TextAreaType');
     public $wants_to_skype = array('core\BooleanType');
     public $why_not_attend = array('core\TextAreaType');
+    // Volatile fields for callback operations and actions
     public $include_members = array(VOLATILE, 'core\BooleanType');
     public $list_of_emails = array(VOLATILE, 'core\TextAreaType');
 
@@ -25,17 +24,12 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
         $this->rvsp_page_hash = \nmvc\string\random_hex_str(16);
-        // If we add a user from the database, copy the email to the invitee list
-        if($this->invitee!=null)
-            $this->email = $this->invitee->username;
     }
 
 
 
     public function uiValidate($interface_name) {
         $err = array();
-        if (!\nmvc\string\email_validate($this->email))
-            $err["email"] = _("Email address is incorrect.");
         foreach (array(
         "rvsp"
         ) as $field) {

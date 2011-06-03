@@ -10,17 +10,13 @@
 <b><?php echo _("%s at %s (GMT+0100)", $this->event_date, $this->event_time); ?></b><br/>
 <?php echo $this->street; ?><br/>
 <?php echo $this->city; ?> <?php echo $this->zip; ?><br/>
-<?php if ($this->google_maps_link != null): ?>
-        <a href="<?php echo $this->google_maps_link; ?>"><?php echo _("View Map / Get Directions"); ?></a>
-<?php endif; ?>
-    </p>
-
-<?php if ($this->map_image != null): ?>
-            <img src="<?php echo $this->map_image; ?>" alt="<?php echo $this->event_name; ?>"/>
-<?php endif; ?>
 
 
-            <h1 class="secondary-heading"><?php echo _(""); ?></h1>
+<h1 class="secondary-heading"><?php echo _("Attendees"); ?></h1>
+<p>
+<?php echo _("The following people attended this event."); ?>
+</p>
+<?php // list here ?>
 
             <p> <?php echo _("Cheers,"); ?><br/>
 <?php echo _("Sandbox %s Ambassadors", $this->hub_name); ?></p>

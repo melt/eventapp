@@ -13,15 +13,19 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $email_array = explode(",",$instance->list_of_emails);
 
         foreach($email_array as $email){
+
             $email = trim($email);
             if (!\nmvc\string\email_validate($email))
                 break;
+
             $invitee = new \nmvc\EventInviteeModel();
-            // Every invitee belongs to this event
             $invitee->event = $instance->event;
-            // Take the current email address
-            $invitee->email = $email;  
             $invitee->store();
+
+            $invitee_user = new \nmvc\UserModel();
+            $invitee_user->username = $email;
+            $invitee_user->store();
+            
         }
     }
     

@@ -109,8 +109,8 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         switch ($interface_name) {
         case "user_profile":
             return array(
-                "first_name" => array(_("First Name"), ""),
-                "last_name" => array(_("Last Name"), ""),
+                //"first_name" => array(_("First Name"), ""),
+                //"last_name" => array(_("Last Name"), ""),
                 "phone" => array(_("Phone"), "Where we can reach you"),
                 "company" => array(_("Company/Project"), "Primary project right now"),
                 "street" => array(_("Street"), "Where you live right now"),

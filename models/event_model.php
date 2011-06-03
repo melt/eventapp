@@ -55,8 +55,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                 break;
         }
 
-        // Select ambassadors of current hub
-        $ambassadors = userx\UserModel::select()->where("\nmvc\HubAmbassadorModel->hub")->is($this);
+        // TODO: Select ambassadors of current hub in range
+        $ambassadors = null;
 
 
         foreach($invitees as $invitee){
@@ -73,7 +73,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                         "hub_name"=>$this->hub->view('city'),
                         "ambassadors"=>$ambassadors,
                         "map_image"=>$this->generateStaticGoogleMapsImage(),
-                        "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee)
+                        "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee),
+                        "attendees"=>$this->getAttendees()
                     ),
                     $subject,
                     $invitee->view('email'),
@@ -98,7 +99,12 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         return $actions;
     }
 
-    public function generateStaticGoogleMapsImage(){
+    private function getAttendees(){
+        $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )->all();
+        return userx\UserModel::select()->where("id")->in($invitees);
+    }
+
+    private function generateStaticGoogleMapsImage(){
         // If there is a complete address we will generate a map
         if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
             $url_friendly_address = \rawurlencode( $this->view('street') ." ". $this->view('city') . " ". $this->hub->view('country') );
@@ -108,7 +114,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         }
     }
 
-    public function generateGoogleMapsLink($user = null){
+    private function generateGoogleMapsLink($user = null){
         // If there is a complete address we will generate a map
         if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
             $destination_address = \rawurlencode( $this->view('street') ." ". $this->view('city') ." ". $this->view('zip') . " ". $this->hub->view('country') );

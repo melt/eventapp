@@ -16,11 +16,7 @@
 <label>&nbsp;</label>
 <div class="field-group list_of_invitees">
 <?php foreach($this->existing_invitees as $invitee): ?>
-    <?php if($invitee->invitee->first_name!=""): ?>
-        <?php echo $invitee->invitee->getName() . ", " . $invitee->invitee->view('username'); ?>
-    <?php else: ?>
-        <?php echo $invitee->invitee->view('username'); ?>
-    <?php endif; ?>
+    <?php echo ($invitee->first_name=!"")? $invitee->getName().", ": ""; ?><?php echo $invitee->invitee->view('username'); ?>
     <a href="<?php echo qmi\get_action_link($invitee, "delete"); ?>"><?php echo _("Remove"); ?></a><br/>
 <?php endforeach; ?>
 </div>

@@ -2,7 +2,8 @@
 
 <h2 class="primary-heading no-margin-top"><?php echo _("Hi,"); ?></h2>
 <p>
-<?php echo _("Thank you for attending the below event! Here is the list of attendees. Feel free to get back to us with any feedback you might have."); ?>
+<?php echo _("Thank you for attending this event."); ?><br/>
+<?php echo _("Below you will find the list of attendees for your convenience. Feel free to contact the ambassadors with your feedback!"); ?>
 </p>
 
 <h1 class="secondary-heading"><?php echo $this->event_name; ?></h1>
@@ -14,14 +15,14 @@
 
 <h1 class="secondary-heading"><?php echo _("Attendees"); ?></h1>
 <p>
-<?php echo _("The following people attended this event."); ?>
-
+<?php echo _("The following people attended this event."); ?></p>
+<p>
 <?php if($this->attendees != null): ?>
 <?php foreach($this->attendees as $attendee): ?>
-    <?php echo $attendee->getName(); ?>, <?php echo $attendee->username; ?><br/>
+    <?php echo ($attendee->first_name=!"")? $attendee->getName().", ": ""; ?><?php echo $attendee->username; ?><br/>
 <?php endforeach; ?>
 <?php endif; ?>
-</p>
+</p><br/><br/>
 
 
 

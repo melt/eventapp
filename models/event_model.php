@@ -107,13 +107,13 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
 
     private function getAttendees(){
         return userx\UserModel::select()->where("id")->isIn(
-            EventInviteeModel::select("id")->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )
+            EventInviteeModel::select("invitee")->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )
          );
     }
 
     private function getAmbassadors(){
         return userx\UserModel::select()->where("id")->isIn(
-            HubAmbassadorModel::select("id")->where("hub")->is($this->hub)
+            HubAmbassadorModel::select("ambassador")->where("hub")->is($this->hub)
          );
     }
 

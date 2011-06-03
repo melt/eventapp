@@ -1,6 +1,6 @@
 <?php namespace nmvc;
 
-class CronController extends AppController {
+class CronController extends userx\RestrictedController {
 
     /*
      * Automatically sends event emails depending on date
@@ -27,6 +27,23 @@ class CronController extends AppController {
             $event->sendThankyouEmail();
         }
 
+    }
+
+    public static function getDefaultPermission(userx\GroupModel $group = null) {
+        if ($group === null)
+            return "Allow";
+        else if ($group->context == userx\GroupModel::CONTEXT_GUEST)
+            return "Allow";
+        else if ($group->context == userx\GroupModel::CONTEXT_MEMBER)
+            return "Allow";
+        else if ($group->context == userx\GroupModel::CONTEXT_AMBASSADOR)
+            return "Allow";
+        else if ($group->context == userx\GroupModel::CONTEXT_ADMIN)
+            return "Allow";
+        else if ($group->context == userx\GroupModel::CONTEXT_SUPERADMIN)
+            return "Allow";
+        else
+            return false;
     }
 
 }

@@ -85,9 +85,12 @@ font-weight:bold;
 }
 
 .qmi_error {
-    clear:left;
-    display:block;
+    clear:both;
+    font-size:11px;
+    display:inline-block;
     margin-left:150px;
+    margin-top:-20px;
+    color:#ff604d;
 }
 button {
     cursor: pointer;

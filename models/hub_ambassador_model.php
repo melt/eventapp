@@ -7,7 +7,8 @@ class HubAmbassadorModel extends AppModel implements qmi\UserInterfaceProvider {
 
     public function uiValidate($interface_name) {
         $err = array();
-       
+        if($this->ambassador == null)
+               $err[$this->ambassador] = _("Field must be entered!");
         /*foreach (array(
         "city", "country"
         ) as $field) {
@@ -24,7 +25,6 @@ class HubAmbassadorModel extends AppModel implements qmi\UserInterfaceProvider {
         case "new_hub":
             return array(
                 "ambassador" => array(_("Ambassador"), "Select from list"),
-                //"country" => array(_("Country"), ""),
             );
 
         }

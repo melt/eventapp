@@ -184,9 +184,9 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                 "description" => array(_("Description"), "A short and sweet tagline to make people excited to attend"),
                 "event_date" => array(_("Date"), "Select from datepicker"),
                 "event_time" => array(_("Time"), "HH:mm:ss"),
-                "street" => array(_("Street"), "Shows Google Maps"),
+                "street" => array(_("Street"), "For Google Maps"),
                 "zip" => array(_("Zip"), ""),
-                "city" => array(_("City"), ""),
+                "city" => array(_("City"), "For Google Maps"),
             );
 
         }

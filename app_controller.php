@@ -14,7 +14,7 @@ abstract class AppController extends Controller {
     
     public static function rewriteRequest($path_tokens) {
             if($path_tokens[0] == ""){
-                \array_unshift($path_tokens, "admin");
+                \array_unshift($path_tokens, "outside");
                 return $path_tokens;
             }
     }
@@ -36,9 +36,9 @@ abstract class AppController extends Controller {
         $this->fb_user = $this->facebook->getUser();
         $this->user = \nmvc\userx\UserModel::select()->where("facebook_user")->is($this->fb_user)->first();
         if ($this->fb_user) {
-            $this->logout_url = $this->facebook->getLogoutUrl(array('next' => url("/admin/logout")));
+            $this->logout_url = $this->facebook->getLogoutUrl(array('next' => url("/inside/logout")));
         } else {
-            $this->login_url = $this->facebook->getLoginUrl(array('redirect_uri' => url("/admin/login"), 'canvas' => 1, 'display' =>'page', 'fbconnect' => 0, 'req_perms' => 'user_about_me,user_birthday,user_location,user_work_history,email,user_website,user_checkins,user_status'));
+            $this->login_url = $this->facebook->getLoginUrl(array('redirect_uri' => url("/outside/login"), 'canvas' => 1, 'display' =>'page', 'fbconnect' => 0, 'req_perms' => 'user_about_me,user_birthday,user_location,user_work_history,email,user_website,user_checkins,user_status'));
         }
 
       /*  // Create application instance

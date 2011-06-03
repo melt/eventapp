@@ -67,12 +67,7 @@ class AdminController extends userx\RestrictedController {
 
     public function my_profile() {}
 
-    public function logout() {
-        $this->facebook = null;
-        $this->user = null;
-        \session_destroy();
-        \nmvc\messenger\redirect_message(url("/"), _("Successfully logged out!"), "good");
-    }
+
     
     public function spec() {}
 
@@ -83,55 +78,23 @@ class AdminController extends userx\RestrictedController {
     }
 
 
-    public function login() {
-        $this->fb_user_data = $this->facebook->api('/me');
-
-        if($this->user){
-        // User exists in database, update login details
-            $this->user->updateUser($this->fb_user_data);
-        } else {
-        // Add user to database
-            $this->user = \nmvc\userx\UserModel::addNewUser($this->fb_user_data);
-        }
-        
-        \nmvc\userx\login($this->user);
-        \nmvc\request\redirect("/");
-    }
 
 
-    protected static function canAccessAsWhere($special_permission, $action, $arguments) {
-        if (self::inLimbo($action))
-            return true;
-        $guest_allowed = array("");
-        $member_allowed =  array("outside","login","logout","profile");
-        $ambassador_allowed = array("");
-        switch ($special_permission) {
-        case "superadmin":
-        case "admin":
-            return true;
-        case "ambassador":
-            return \in_array($action, \array_merge($guest_allowed, $member_allowed, $ambassador_allowed));
-        case "member":
-            return \in_array($action, \array_merge($guest_allowed, $member_allowed));
-        case "guest":
-            return \in_array($action, $guest_allowed);
-        }
-        return false;
-    }
+
 
     public static function getDefaultPermission(userx\GroupModel $group = null) {
         if ($group === null)
-            return "visitor";
+            return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_GUEST)
-            return "guest";
+            return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_MEMBER)
-            return "member";
+            return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_AMBASSADOR)
-            return "ambassador";
+            return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_ADMIN)
-            return "admin";
+            return "Allow";
         else if ($group->context == userx\GroupModel::CONTEXT_SUPERADMIN)
-            return "superadmin";
+            return "Allow";
         else
             return false;
     }

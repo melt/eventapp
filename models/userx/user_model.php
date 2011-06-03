@@ -21,6 +21,9 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
         //$this->password = \nmvc\string\random_hex_str(16);
+        // If no group exists, assume guest
+        if($this->group == null)
+            $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
     }
 
     public function  afterStore($was_linked) {
@@ -212,20 +215,19 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public function setRole($type = "guest"){
         switch($type){
             case "guest":
-                $context = \nmvc\userx\GroupModel::CONTEXT_GUEST;
+                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
                 break;
             case "member":
-                $context = \nmvc\userx\GroupModel::CONTEXT_MEMBER;
+                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
                 break;
             case "ambassador":
-                $context = \nmvc\userx\GroupModel::CONTEXT_AMBASSADOR;
+                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
                 break;
             case "admin":
-                $context = \nmvc\userx\GroupModel::CONTEXT_ADMIN;
+                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
                 break;
         }
         $this->is_moderated = true;
-        $this->group = \nmvc\userx\GroupModel::select("id")->where("context")->is($context)->first();
         $this->store();
     }
 

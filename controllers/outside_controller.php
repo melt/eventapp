@@ -44,4 +44,6 @@ class OutsideController extends AppController {
     }
     
     function spec(){}
+
+    function forbidden_403(){}
 }

@@ -79,7 +79,7 @@ namespace nmvc\userx\config {
     const MULTIPLE_GROUPS = false;
     const MULTIPLE_IDENTITIES = false;
     const HASHING_ALGORITHM = 'crypt';
-    const SOFT_403 = false;
+    const SOFT_403 = "/outside/forbidden_403";
     const REMEMBER_ME_DAYS = 356;
     // Extremely long session timeout
     const SESSION_TIMEOUT_MINUTES = 0x7fffffff;

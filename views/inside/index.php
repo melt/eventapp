@@ -8,11 +8,11 @@
     
     <a class="navigation_button" href="<?php echo url("/inside/my_profile"); ?>"><?php echo _("Edit my profile"); ?></a>
 
-    <?php if( $this->user->isAmbassador() || $this->user->isAdmin() ): ?>
+    <?php if( $this->user->isAmbassador() || $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
     <a class="navigation_button" href="<?php echo url("/event/add"); ?>"><?php echo _("Add new event"); ?></a>
     <?php endif; ?>
 
-    <?php if( $this->user->isAdmin() ): ?>
+    <?php if( $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
     <a class="navigation_button" href="<?php echo url("/hub/add"); ?>"><?php echo _("Add new hub"); ?></a>
     <?php endif; ?>
     

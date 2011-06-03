@@ -14,13 +14,27 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public $invite_email_sent = array('core\BooleanType');
     public $reminder_email_sent = array('core\BooleanType');
     public $thankyou_email_sent = array('core\BooleanType');
-    
+
+    public function  beforeStore($is_linked) {
+        parent::beforeStore($is_linked);
+        // If event takes place today we simulate that reminder email already has been sent
+        if($this->event_date == date('Y-m-d')){
+            $this->reminder_email_sent = true;
+        }
+    }
+
     public function sendReminderEmail(){
         self::sendInviteEmail(true);
     }
 
     public function sendInviteEmail($reminder = false){
-        $invitees = EventInviteeModel::select()->where("event")->is($this);
+        if($reminder == true){
+            // Only send reminder email to people that RVSP attending to avoid angry faces
+            $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING);
+        } else {
+            $invitees = EventInviteeModel::select()->where("event")->is($this);
+        }
+
         $hub = HubModel::select("city")->where("id")->is($this->hub_id)->first();
 
         $ambassadors = null;
@@ -144,6 +158,10 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             );
 
         }
+    }
+
+    public function addInvitees() {
+        \nmvc\request\redirect("/admin/new_event_invitees/".$this->id);
     }
 
     public function doRemove() {

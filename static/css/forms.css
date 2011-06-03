@@ -51,6 +51,9 @@ border:solid 1px #aacfe4;
 width:300px;
 margin:2px 0 20px 10px;
 }
+#stylized input[type=checkbox]{
+   width:20px;
+}
 #stylized button{
 clear:both;
 margin-left:150px;
@@ -68,4 +71,7 @@ font-weight:bold;
     clear:left;
     display:block;
     margin-left:150px;
+}
+button {
+    cursor: pointer;
 }

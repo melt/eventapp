@@ -13,6 +13,7 @@ $(document).ready(function() {
         $('.fc_generally_help').hide();
         $('.fc_wants_to_skype').hide();
         $('.user_update_form').hide();
+        $('#submit_button').hide();
   });
 
   function onRVSPSelectChange(){
@@ -25,6 +26,7 @@ $(document).ready(function() {
             $('.fc_wants_to_skype').show();
             $('.user_update_form').show();
             $('.fc_why_not_attend').hide();
+            $('#submit_button').show();
         } else if(selected.val() == 2){
             $('.fc_why_not_attend').show();
             $('.fc_most_exciting_project').hide();
@@ -32,15 +34,26 @@ $(document).ready(function() {
             $('.fc_generally_help').hide();
             $('.fc_wants_to_skype').hide();
             $('.user_update_form').hide();
+            $('#submit_button').show();
         }
   }
 
 </script>
 
-<h2>RVSP to <?php echo $this->rvsp->event->view("title"); ?></h2>
+
+
+
+<div id="stylized" class="myform">
+<h1>RVSP to <?php echo $this->rvsp->event->view("title"); ?></h1>
+<p><?php echo _("You have been invited to %s on %s at %s.", $this->rvsp->event->view("title"), $this->rvsp->event->view('event_date'), $this->rvsp->event->view('event_time')); ?></p>
+
     <?php $interface = new qmi\ModelInterface("rvsp_page", "cell"); ?>
     <?php echo $interface->startForm(); ?>
     <?php echo $interface->getInterface($this->rvsp); ?>
+
+
+
+
 
 <?php if($this->user != null): ?>
 
@@ -54,7 +67,6 @@ $(document).ready(function() {
 
 <?php endif; ?>
 
-    <?php echo $interface->finalizeForm(true); ?>
 
 
 <?php else: ?>
@@ -63,3 +75,10 @@ $(document).ready(function() {
 
 <h2>If not, please recheck your invitation email and contact your local ambassador.</h2>
 <?php endif; ?>
+
+<button style="display:block" id="submit_button" type="submit"><?php echo _("Submit"); ?></button>
+<div class="spacer"></div>
+<?php echo $interface->finalizeForm(false); ?>
+</div>
+
+

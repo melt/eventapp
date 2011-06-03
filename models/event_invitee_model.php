@@ -50,10 +50,10 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
             return array(
                 // Include user fields here if user
                 "rvsp" => array(_("RVSP"), "Select whether or not to attend this event"),
-                "most_exciting_project" => array(_("What is your most exciting project right now?"), "Helps seating arrangements"),
-                "biggest_challenge" => array(_("What is your biggest challenge right now?"), "Helps seating arrangements"),
-                "generally_help" => array(_("How can we generally help?"), "Helps seating arrangements"),
-                "wants_to_skype" => array(_("Do you want to Skype with the ambassador before the event?"), "A short Skype call can help the ambassador understand current challenges and projects of each guest and how it may overlap with other guests."),
+                "most_exciting_project" => array(_("What's currently your most exciting project?"), "Helps seating arrangements"),
+                "biggest_challenge" => array(_("What's your biggest challenge right now?"), "Helps seating arrangements"),
+                "generally_help" => array(_("How can we help you in general?"), "Helps seating arrangements"),
+                "wants_to_skype" => array(_("Schedule a Skype call?"), "A short Skype call helps the ambassador understand your current challenges and projects."),
                 "why_not_attend" => array(_("Why do you not wish to attend this event?"), "This helps us make future events better for you"),
             );
             break;

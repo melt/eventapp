@@ -11,13 +11,13 @@ class ApiController extends userx\RestrictedController {
         $response = array();
         foreach($results as $result):
            $response[] = array(
-                $result->view('title'),
-                strip_tags($result->description),
-                $result->view('event_date'),
-                $result->view('event_time'),
-                $result->view('street'),
-                $result->view('zip'),
-                $result->view('city')
+                "title"=>$result->view('title'),
+                "description"=>strip_tags($result->description),
+                "event_date"=>$result->view('event_date'),
+                "event_time"=>$result->view('event_time'),
+                "street"=>$result->view('street'),
+                "zip"=>$result->view('zip'),
+                "city"=>$result->view('city')
                 );
         endforeach;
 

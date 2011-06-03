@@ -43,14 +43,6 @@ class OutsideController extends AppController {
         \nmvc\messenger\redirect_message(url("/"), _("Successfully unsubscribed to emails!"), "good");   
     }
 
-    public function api($city) {
-        $results = \nmvc\EventModel::select()->where("city")->is($city);
-        if($results->count() > 0)
-            \nmvc\request\send_json_data($results);
-        else
-            \nmvc\request\send_json_data(false);
-    }
-
     function r20110507() {
        $this->layout = "/layout_report";
     }

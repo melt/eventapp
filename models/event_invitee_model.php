@@ -2,8 +2,8 @@
 
 class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     /* N-N Relations */
-    public $event_id = array('core\PointerType', 'EventModel','CASCADE');
-    public $invitee_id = array('core\SelectModelType', 'userx\UserModel','CASCADE');
+    public $event_id = array(INDEXED_UNIQUE,'core\PointerType', 'EventModel','CASCADE');
+    public $invitee_id = array(INDEXED_UNIQUE,'core\SelectModelType', 'userx\UserModel','CASCADE');
     public $rvsp_page_hash = array('core\TextType',16);
     /* Invitee Meta Information */
     public $most_exciting_project = array('core\TextAreaType');

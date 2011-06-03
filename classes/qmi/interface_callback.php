@@ -10,9 +10,20 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $instance = $instances['nmvc\EventInviteeModel'][0];
         // Break up list of emails into an array
         $email_array = explode(",",$instance->list_of_emails);
+        $include_members = $instance->include_members_in_hub;
+
+        // If true, add hub members as invitees
+        if($include_members == true){
+            $members = \nmvc\userx\UserModel::select()->where("hub")->is($instance->event->hub);
+            foreach($members as $member){
+                 $invitee = new \nmvc\EventInviteeModel();
+                 $invitee->event = $instance->event;
+                 $invitee->invitee = $member;
+                 $invitee->store();
+            }
+        }
 
         foreach($email_array as $email){
-
             $email = trim($email);
             if (!\nmvc\string\email_validate($email))
                 break;

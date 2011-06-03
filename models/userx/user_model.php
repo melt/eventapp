@@ -95,7 +95,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             $err["username"] = _("Email address is incorrect.");
         foreach (array(
         "first_name", "last_name",
-        "phone", "city"
+        "phone", "city", "country"
         ) as $field) {
             $this->$field = trim($this->$field);
             if ($this->$field == "")

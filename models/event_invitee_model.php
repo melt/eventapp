@@ -12,7 +12,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     public $wants_to_skype = array('core\BooleanType');
     public $why_not_attend = array('core\TextAreaType');
     // Volatile fields for callback operations and actions
-    public $include_members = array(VOLATILE, 'core\BooleanType');
+    public $include_members_in_hub = array(VOLATILE, 'core\BooleanType');
     public $list_of_emails = array(VOLATILE, 'core\TextAreaType');
 
     /* RVSP */
@@ -23,10 +23,8 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
 
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
-        $this->rvsp_page_hash = \nmvc\string\random_hex_str(16);
+        $this->rvsp_page_hash = \nmvc\string\random_hex_str(16);        
     }
-
-
 
     public function uiValidate($interface_name) {
         $err = array();
@@ -57,11 +55,10 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
             return array(
                 // Invitees email addresses separated by comma
                 "list_of_emails" => array(_("Invitees by email"), "Enter email addresses of people to invite separated by comma (,)"),
+                "include_members_in_hub" => array(_("Include hub members"), "Add hub members to list")
             );
         case "add_invitees":
             return array(
-                "include_members" => array(_("Include"), "Invite all members of hub"),
-                 // Include user fields here if user
                 "invitee" => array(_("Invitee Users"), "Select users from list.."),
             );
             break;

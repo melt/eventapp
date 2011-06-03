@@ -31,7 +31,12 @@ class OutsideController extends AppController {
         $this->rvsp = EventInviteeModel::select()->where("rvsp_page_hash")->is($rvsp_page_hash)->first();
     }
 
-        public function api($city) {
+    public function rvsp_thanks(){
+        $this->rvsp = $_GET["rvsp"];
+        $this->email = $_GET["email"];
+    }
+
+    public function api($city) {
         $results = \nmvc\EventModel::select()->where("city")->is($city);
         if($results->count() > 0)
             \nmvc\request\send_json_data($results);

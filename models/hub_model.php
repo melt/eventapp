@@ -1,6 +1,6 @@
 <?php namespace nmvc;
 
-class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListable {
+class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListable, \nmvc\data_tables\DataTablesListable {
     /* Fields */
     public $city = array('core\TextType', 128);
     public $country = array('core\CountryType');
@@ -57,4 +57,16 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListab
         $this->unlink();
         //\nmvc\request\send_json_data(true);
     }
+
+    public static function getEnlistColumns() {
+        return array(
+            "city" => "City",
+            "country" => "Country"
+        );
+    }
+
+    public function getTableEnlistValues() {
+        return array();
+    }
+
 }

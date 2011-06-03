@@ -1,6 +1,6 @@
 <?php namespace nmvc;
 
-class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListable {
+class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListable, \nmvc\data_tables\DataTablesListable {
     /* Fields */
     public $title = array('core\TextType', 128);
     public $description = array('core\TextAreaType');
@@ -195,5 +195,18 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public function doRemove() {
         $this->unlink();
         //\nmvc\request\send_json_data(true);
+    }
+
+    public static function getEnlistColumns() {
+        return array(
+            "title" => "Title",
+            "hub" => "Hub",
+            "event_date" => "Date",
+            "event_time" => "Time"
+        );
+    }
+
+    public function getTableEnlistValues() {
+        return array();
     }
 }

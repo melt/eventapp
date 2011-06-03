@@ -18,4 +18,22 @@ class GroupModel extends GroupModel_app_overrideable {
         }
         return $group;
     }
+
+    public function __toString(){
+        switch ($this->context) {
+            case GroupModel::CONTEXT_GUEST:
+                return "Guest";
+                break;
+            case GroupModel::CONTEXT_MEMBER:
+                return "Member";
+                break;
+            case GroupModel::CONTEXT_AMBASSADOR:
+                return "Ambassador";
+                break;
+            case GroupModel::CONTEXT_ADMIN:
+            case GroupModel::CONTEXT_SUPERADMIN:
+                return "Administrator";
+                break;
+        }
+    }
 }

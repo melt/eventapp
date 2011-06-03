@@ -1,6 +1,6 @@
 <?php namespace nmvc\userx;
 
-class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable {
+class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable, \nmvc\data_tables\DataTablesListable {
     /* Facebook User ID */
     public $facebook_user = array('core\IntegerType');
     /* Fields */
@@ -247,6 +247,19 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         //\nmvc\request\send_json_data(true);
     }
 
+    public static function getEnlistColumns() {
+        return array(
+            "group" => "Type",
+            "first_name" => "First Name",
+            "last_name" => "Last Name",
+            "username" => "Email",
+            "hub" => "Hub",
+        );
+    }
+
+    public function getTableEnlistValues() {
+        return array();
+    }
 
 
 }

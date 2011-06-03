@@ -18,7 +18,8 @@ namespace nmvc {
 
 namespace nmvc\internal {
     modules_using(
-            "jquery"
+            "jquery",
+            "data_tables"
         // Add modules that your application uses here.
     );
 }

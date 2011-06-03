@@ -1,8 +1,8 @@
 <?php namespace nmvc; ?>
 
-<div id="stylized" class="myform">
-    <h1><?php echo _("Main Menu"); ?></h1>
-    <p><?php echo _("Select the action you wish to perform in %s.", APP_NAME); ?></p>
+<div id="stylized" class="fullwidth">
+    <h1><?php echo _("Welcome to %s!",APP_NAME); ?></h1>
+    <p><?php echo _("Select the action you wish to perform."); ?></p>
 
     <a class="navigation_button" href="<?php echo $this->logout_url; ?>"><?php echo _("Logout"); ?></a>
     
@@ -15,5 +15,65 @@
     <?php if( $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
     <a class="navigation_button" href="<?php echo url("/hub/add"); ?>"><?php echo _("Add new hub"); ?></a>
     <?php endif; ?>
-    
+    <br/><br/>
 </div>
+
+<?php if( $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
+<br/><br/>
+
+ <script>
+        $(function() {
+            $( "#tabs" ).tabs({cookie: {path: '/', domain: <?php echo string\quote(APP_ROOT_HOST); ?>}});
+        });
+    </script>
+
+    <div class="demo">
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1"><?php echo _("Users to Moderate"); ?></a></li>
+                <li><a href="#tabs-2"><?php echo _("Events"); ?></a></li>
+                <li><a href="#tabs-3"><?php echo _("Hubs"); ?></a></li>
+                <li><a href="#tabs-4"><?php echo _("Members"); ?></a></li>
+                <li><a href="#tabs-5"><?php echo _("Non-Members"); ?></a></li>
+
+
+            </ul>
+        <div id="tabs-1">
+
+
+
+        </div>
+        <div id="tabs-2">
+
+
+        <?php data_tables\list_model("nmvc\EventModel", "/"); ?>
+
+
+        </div>
+        <div id="tabs-3">
+
+        <?php data_tables\list_model("nmvc\HubModel", "/"); ?>
+
+
+
+
+        </div>
+
+        <div id="tabs-4">
+
+        <?php data_tables\list_model("nmvc\userx\UserModel", "/"); ?>
+
+
+        </div>
+
+
+        <div id="tabs-5">
+
+        </div>
+    </div>
+
+</div><!-- End demo -->
+
+
+<?php endif; ?>

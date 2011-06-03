@@ -4,14 +4,17 @@ font-size:12px;
 }
 p, h1, form, button{border:0; margin:0; padding:0;}
 .spacer{clear:both; height:1px;}
-/* ----------- My Form ----------- */
+/* ----------- Layout & Forms ----------- */
 .myform{
 margin:0 auto;
 width:500px;
 padding:14px;
 }
-
-/* ----------- stylized ----------- */
+.fullwidth{
+margin:0 auto;
+padding:14px;
+}
+/* ----------- Stylized ----------- */
 #stylized{
 border:solid 2px #b7ddf2;
 background:#ebf4fb;

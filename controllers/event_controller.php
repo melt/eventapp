@@ -6,6 +6,7 @@ class EventController extends userx\RestrictedController {
         $this->new_event = new \nmvc\EventModel();
     }
 
+
     public function add_invitees($event_id) {
         $this->event = EventModel::select()->where("id")->is($event_id)->first();
         // If invite already sent, do not allow to add more invitees

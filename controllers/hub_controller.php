@@ -5,6 +5,7 @@ class HubController extends userx\RestrictedController {
     public function add() {
         $this->new_hub = new \nmvc\HubModel();
         $this->new_hub_ambassador = new \nmvc\HubAmbassadorModel();
+        $this->new_hub_ambassador->hub = $this->new_hub;
     }
 
     

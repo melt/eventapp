@@ -8,12 +8,12 @@
     
     <a class="navigation_button" href="<?php echo url("/inside/my_profile"); ?>"><?php echo _("Edit my profile"); ?></a>
 
-    <?php if($this->user->isAdmin()): ?>
-    <a class="navigation_button" href="<?php echo url("/hub/add"); ?>"><?php echo _("Add new hub"); ?></a>
+    <?php if( $this->user->isAmbassador() || $this->user->isAdmin() ): ?>
+    <a class="navigation_button" href="<?php echo url("/event/add"); ?>"><?php echo _("Add new event"); ?></a>
     <?php endif; ?>
 
-    <?php if($this->user->isAmbassador()): ?>
-    <a class="navigation_button" href="<?php echo url("/event/new_event"); ?>"><?php echo _("Add new event"); ?></a>
+    <?php if( $this->user->isAdmin() ): ?>
+    <a class="navigation_button" href="<?php echo url("/hub/add"); ?>"><?php echo _("Add new hub"); ?></a>
     <?php endif; ?>
     
 </div>

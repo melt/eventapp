@@ -180,7 +180,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     }
 
     public function addInvitees() {
-        \nmvc\request\redirect("/admin/new_event_invitees/".$this->id);
+        \nmvc\request\redirect("/event/add_invitees/".$this->id);
     }
 
     public function doRemove() {

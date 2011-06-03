@@ -61,7 +61,7 @@ $(document).ready(function() {
 <h2>Is this still you?</h2>
     <?php $interface = new qmi\ModelInterface("rvsp_page", "cell"); ?>
     <?php //echo $interface->startForm(); ?>
-    <?php echo $interface->getInterface($this->user); ?>
+    <?php echo $interface->getInterface($this->rvsp->invitee); ?>
     <?php //echo $interface->finalizeForm(false); ?>
 </div>
 

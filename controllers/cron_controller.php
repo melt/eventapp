@@ -30,10 +30,24 @@ class CronController extends AppController {
     }
 
     /*
-     * Run this once to initiate user groups
+     * Run this once to setup user groups
      */
-    public function add_groups(){
-        $group = new \nmvc\userx\GroupModel("Superadmin",1,4);
+    public function setup_groups(){
+        $group_array(
+            array("name"=>"Superadmin","context"=>4,"root"=>1),
+            array("name"=>"Administrator","context"=>3,"root"=>0),
+            array("name"=>"Ambassador","context"=>2,"root"=>0),
+            array("name"=>"Guest","context"=>1,"root"=>0)
+
+        );
+
+        foreach($group_array as $group){
+            $this->group = new \nmvc\userx\GroupModel();
+        $this->group->name = $group->name;
+        $this->group->context = $group->context;
+        $this->group->root = $group->root;
+        }
+        
     }
 
 }

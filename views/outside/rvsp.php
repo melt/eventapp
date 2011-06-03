@@ -60,9 +60,6 @@ $(document).ready(function() {
 <div id="user_details"><br/><br/>
 <h1>Is this (still) you?</h1>
 <p><?php echo _("Please verify your contact details below."); ?></p>
-
-    <?php $interface = new qmi\ModelInterface("rvsp_page", "cell"); ?>
-    <?php echo $interface->startForm(); ?>
     <?php echo $interface->getInterface($this->rvsp->invitee); ?>
 <div class="spacer"></div>
 </div>

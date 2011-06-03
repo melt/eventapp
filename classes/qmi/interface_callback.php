@@ -35,9 +35,9 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $this->doValidate();
         $this->doStore();
         $instances = $this->getInstances();
-        $instance = $instances['nmvc\EventInviteeModel'][0];
+        $invitee = $instances['nmvc\EventInviteeModel'][0];
         // Redirect to thankyou page if save succeeds
-        \nmvc\messenger\redirect_message(url("/outside/rvsp_thanks",array("rvsp"=>$instance->rvsp,"email"=>$instance->invitee->username)), _("Thank you for your RVSP!"), "good");
+        \nmvc\messenger\redirect_message(url("/outside/rvsp_thanks/", array( "rvsp" => $invitee->rvsp, "email" => $invitee->invitee->username) ), _("Thank you for your RVSP!"), "good");
     }
 
     public function ic_user_profile() {

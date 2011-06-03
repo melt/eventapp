@@ -28,7 +28,7 @@ class OutsideController extends AppController {
      * The page where user RVSPs to event using a uniquely hashed link
      */
     public function rvsp($rvsp_page_hash){
-        $this->rvsp = EventInviteeModel::select()->where("rvsp_page_hash")->is($rvsp_page_hash)->first();
+        $this->rvsp = EventInviteeModel::select()->where("rvsp_page_hash")->is($rvsp_page_hash)->and("rvsp")->is(0)->first();
     }
 
     public function rvsp_thanks(){

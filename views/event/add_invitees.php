@@ -16,12 +16,12 @@
 <label>&nbsp;</label>
 <div class="field-group list_of_invitees">
 <?php foreach($this->existing_invitees as $invitee): ?>
-    <?php echo ($invitee->first_name=!"")? $invitee->getName().", ": ""; ?><?php echo $invitee->invitee->view('username'); ?>
+    <?php echo ($invitee->invitee->first_name != "") ? $invitee->invitee->getName() . ", ": ""; ?><?php echo $invitee->invitee->view('username'); ?>
     <a href="<?php echo qmi\get_action_link($invitee, "delete"); ?>"><?php echo _("Remove"); ?></a><br/>
 <?php endforeach; ?>
 </div>
 </div>
-<button href="<?php echo qmi\get_action_link($this->event, "sendInviteEmail", url("/")); ?>" role="button" aria-disabled="false"><?php echo _("Send Invitation Now"); ?></button> or <a href="<?php echo url("/"); ?>">Send it later</a>
+<button href="<?php echo qmi\get_action_link($this->event, "sendInviteEmail"); ?>" role="button" aria-disabled="false"><?php echo _("Send Invitation Now"); ?></button> or <a href="<?php echo url("/"); ?>">Send it later</a>
 <?php endif; ?>
 
 <div class="spacer"></div>

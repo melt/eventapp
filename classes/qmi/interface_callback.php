@@ -19,9 +19,15 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
             // Create a new invitee to the event
             $invitee = new \nmvc\EventInviteeModel();
             $invitee->event = $instance->event;
-            // Create a user to get the id
-            $user = new \nmvc\userx\UserModel();
-            $user->username = $email;
+
+            // Connect to existing user if he/she already exists
+            $user = \nmvc\userx\UserModel::select()->where("username")->is($email)->first();
+            // User does not exist
+            if($user->count() == 0){
+                // Create a user to get the id
+                $user = new \nmvc\userx\UserModel();
+                $user->username = $email;
+            }
             // Attach that id to the invitee before store
             $invitee->invitee = $user;
             // Store both

@@ -20,6 +20,11 @@ class EventController extends userx\RestrictedController {
         $this->existing_invitees = EventInviteeModel::select()->where("event")->is($event_id);
     }
 
+    public function test($event_id){
+        $this->event = EventModel::select()->where("id")->is($event_id)->first();
+        $this->event->sendInviteEmail();
+    }
+
     public static function getDefaultPermission(userx\GroupModel $group = null) {
         if ($group === null)
             return "Deny";

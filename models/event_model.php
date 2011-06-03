@@ -23,15 +23,24 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         }
     }
 
+    public function  afterStore($was_linked) {
+        parent::afterStore($was_linked);
+        \nmvc\messenger\redirect_message(url("/event/add_invitees/".$this->id), _("Event added! Now invite some people to it :-)"), "good");
+    }
+
     public function sendReminderEmail(){
-        self::sendInviteEmail("reminder");
+        self::sendEmail("reminder");
     }
 
     public function sendThankyouEmail(){
-        self::sendInviteEmail("thankyou");
+        self::sendEmail("thankyou");
     }
 
-    public function sendInviteEmail($type = "invite"){
+    public function sendInviteEmail(){
+        self::sendEmail("invite");
+    }
+
+    private function sendEmail($type = "invite"){
         switch($type){
             case "invite":
                 $invitees = EventInviteeModel::select()->where("event")->is($this)->and("invitee->is_unsubscribed")->is(false);
@@ -55,9 +64,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                 break;
         }
 
-        // TODO: Select ambassadors of current hub in range
-        $ambassadors = null;
-
 
         foreach($invitees as $invitee){
             \nmvc\MailHelper::sendMail($mail_view,
@@ -69,15 +75,15 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                         "street"=>$this->view('street'),
                         "zip"=>$this->view('zip'),
                         "city"=>$this->view('city'),
-                        "rvsp_link"=>"http://".\APP_ROOT_HOST . "/admin/rvsp/" . $invitee->view('rvsp_page_hash'),
+                        "rvsp_link"=>\APP_ROOT_URL . "/outside/rvsp/" . $invitee->view('rvsp_page_hash'),
                         "hub_name"=>$this->hub->view('city'),
-                        "ambassadors"=>$ambassadors,
+                        "ambassadors"=>$this->getAmbassadors(),
                         "map_image"=>$this->generateStaticGoogleMapsImage(),
                         "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee),
                         "attendees"=>$this->getAttendees()
                     ),
                     $subject,
-                    $invitee->view('email'),
+                    $invitee->invitee->view('username'),
                     false,
                     array()
                     );
@@ -100,8 +106,15 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     }
 
     private function getAttendees(){
-        $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )->all();
-        return userx\UserModel::select()->where("id")->in($invitees);
+        return userx\UserModel::select()->where("id")->isIn(
+            EventInviteeModel::select("id")->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )
+         );
+    }
+
+    private function getAmbassadors(){
+        return userx\UserModel::select()->where("id")->isIn(
+            HubAmbassadorModel::select("id")->where("hub")->is($this->hub)
+         );
     }
 
     private function generateStaticGoogleMapsImage(){
@@ -138,6 +151,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     
     public function uiValidate($interface_name) {
         $err = array();
+        if($this->hub == null)
+               $err[$this->hub] = _("Field must be entered!");
         foreach (array(
         "title", "street",
         "city"
@@ -175,18 +190,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             );
 
         }
-    }
-
-    public function addEventAndContinue(){
-        // Validate and store
-        $this->validate();
-        $this->store();
-        // Go to add invitees page
-        $this->addInvitees();
-    }
-
-    public function addInvitees() {
-        \nmvc\request\redirect("/event/add_invitees/".$this->id);
     }
 
     public function doRemove() {

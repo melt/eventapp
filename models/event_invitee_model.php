@@ -49,7 +49,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
                 "most_exciting_project" => array(_("What's currently your most exciting project?"), "Helps seating arrangements"),
                 "biggest_challenge" => array(_("What's your biggest challenge right now?"), "Helps seating arrangements"),
                 "generally_help" => array(_("How can we help you in general?"), "Helps seating arrangements"),
-                "wants_to_skype" => array(_("Schedule a Skype call?"), "A short Skype call helps the ambassador understand your current challenges and projects."),
+                "wants_to_skype" => array(_("Schedule a Skype call?"), "A short Skype call helps the Sandbox ambassador understand your current challenges and projects"),
                 "why_not_attend" => array(_("Why do you not wish to attend this event?"), "This helps us make future events better for you"),
             );
             break;

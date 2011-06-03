@@ -17,14 +17,17 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
             $email = trim($email);
             if (!\nmvc\string\email_validate($email))
                 break;
-
+            // Create a new invitee to the event
             $invitee = new \nmvc\EventInviteeModel();
             $invitee->event = $instance->event;
+            // Create a user to get the id
+            $user = new \nmvc\userx\UserModel();
+            $user->username = $email;
+            // Attach that id to the invitee before store
+            $invitee->invitee = $user;
+            // Store both
             $invitee->store();
-
-            $invitee_user = new \nmvc\UserModel();
-            $invitee_user->username = $email;
-            $invitee_user->store();
+            $user->store();
             
         }
     }

@@ -10,7 +10,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public $company = array('core\TextType', 128);
     public $street = array('core\TextType', 128);
     public $city = array('core\TextType', 128);
-    public $country = array('core\TextType', 128);
+    public $country = array('core\CountryType');
     public $photo_id = array('core\PictureType'); // Not used as of now
     public $is_unsubscribed = array('core\BooleanType');
     public $is_moderated = array('core\BooleanType');
@@ -95,7 +95,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             $err["username"] = _("Email address is incorrect.");
         foreach (array(
         "first_name", "last_name",
-        "phone"
+        "phone", "city"
         ) as $field) {
             $this->$field = trim($this->$field);
             if ($this->$field == "")
@@ -111,13 +111,14 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             return array(
                 //"first_name" => array(_("First Name"), ""),
                 //"last_name" => array(_("Last Name"), ""),
+                "username" => array(_("Email"), "Where to send invitations"),
                 "phone" => array(_("Phone"), "Where we can reach you"),
-                "company" => array(_("Company/Project"), "Coolest project right now"),
+                "company" => array(_("Company/Project"), "What keeps you busy"),
                 "street" => array(_("Street"), "Where you live right now"),
                 "city" => array(_("City"), "Where you live right now"),
                 "country" => array(_("Country"), "Where you live right now"),
                 //"user_type" => array(_("Type of User"), ""),
-                "username" => array(_("Email"), "Where to send invitations"),
+                
                 "hub"=> array(_("Hub"), "Primary hub of interest"),
                 "is_unsubscribed" => array(_("Unsubscribe to Invites"), "Do not receive any emails"),
                 //"password" => array(_("Password"), ""),
@@ -127,13 +128,14 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             break;
         case "rvsp_page":
             return array(
+                "username" => array(_("Email"), "Where to send invitations"),
                 "phone" => array(_("Phone"), "Where we can reach you"),
-                "company" => array(_("Company/Project"), "Coolest project right now"),
+                "company" => array(_("Company/Project"), "What keeps you busy"),
                 "street" => array(_("Street"), "Where you live right now"),
                 "city" => array(_("City"), "Where you live right now"),
                 "country" => array(_("Country"), "Where you live right now"),
                 //"user_type" => array(_("Type of User"), ""),
-                "username" => array(_("Email"), "Where to send invitations"),
+                
                 //"password" => array(_("Password"), ""),
                 //"_password_2" => array(_("Repeat Password"), ""),
                 //"remember_login" => array(_("Remember Login", "")),

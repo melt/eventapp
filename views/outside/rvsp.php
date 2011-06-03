@@ -13,6 +13,7 @@ $(document).ready(function() {
         $('.fc_generally_help').hide();
         $('.fc_wants_to_skype').hide();
         $('.user_update_form').hide();
+        $('#user_details').hide();
         $('#submit_button').hide();
   });
 
@@ -26,6 +27,7 @@ $(document).ready(function() {
             $('.fc_wants_to_skype').show();
             $('.user_update_form').show();
             $('.fc_why_not_attend').hide();
+            $('#user_details').show();
             $('#submit_button').show();
         } else if(selected.val() == 2){
             $('.fc_why_not_attend').show();
@@ -34,6 +36,7 @@ $(document).ready(function() {
             $('.fc_generally_help').hide();
             $('.fc_wants_to_skype').hide();
             $('.user_update_form').hide();
+            $('#user_details').hide();
             $('#submit_button').show();
         }
   }
@@ -50,23 +53,24 @@ $(document).ready(function() {
     <?php $interface = new qmi\ModelInterface("rvsp_page", "cell"); ?>
     <?php echo $interface->startForm(); ?>
     <?php echo $interface->getInterface($this->rvsp); ?>
+    <div class="spacer"></div>
 
 
 
+<div id="user_details"><br/><br/>
+<h1>Is this (still) you?</h1>
+<p><?php echo _("Please verify your contact details below."); ?></p>
 
-
-<?php if($this->user != null): ?>
-
-<div class="user_update_form">
-<h2>Is this still you?</h2>
     <?php $interface = new qmi\ModelInterface("rvsp_page", "cell"); ?>
-    <?php //echo $interface->startForm(); ?>
+    <?php echo $interface->startForm(); ?>
     <?php echo $interface->getInterface($this->rvsp->invitee); ?>
-    <?php //echo $interface->finalizeForm(false); ?>
+<div class="spacer"></div>
 </div>
 
-<?php endif; ?>
-
+<button id="submit_button" type="submit"><?php echo _("Send RVSP"); ?></button>
+<div class="spacer"></div>
+<?php echo $interface->finalizeForm(false); ?>
+</div>
 
 
 <?php else: ?>
@@ -76,9 +80,6 @@ $(document).ready(function() {
 <h2>If not, please recheck your invitation email and contact your local ambassador.</h2>
 <?php endif; ?>
 
-<button id="submit_button" type="submit"><?php echo _("Submit"); ?></button>
-<div class="spacer"></div>
-<?php echo $interface->finalizeForm(false); ?>
-</div>
+
 
 

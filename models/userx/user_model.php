@@ -13,21 +13,18 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public $country = array('core\TextType', 128);
     public $photo_id = array('core\PictureType'); // Not used as of now
     public $is_unsubscribed = array('core\BooleanType');
+    public $is_moderated = array('core\BooleanType');
     /* Object Relations */
     public $hub_id = array('core\SelectModelType', 'HubModel');
 
 
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
-        $this->password = \nmvc\string\random_hex_str(16);
-        // If no group is set, assume guest
-        if($this->group_id == null)
-            $this->group_id = \nmvc\userx\GroupModel::CONTEXT_GUEST;
+        //$this->password = \nmvc\string\random_hex_str(16);
     }
 
     public function  afterStore($was_linked) {
         parent::afterStore($was_linked);
-        //\nmvc\messenger\redirect_message(url("/"), _("Your profile was updated!"), "good");
     }
 
 
@@ -166,8 +163,24 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 $this->view('company'),
                 "Hub"=>$this->view('hub'),
             );
-        return $cells;
+            break;
+        case "guest_list":
+            $rvsp_count = \nmvc\EventInviteeModel::select()->where("invitee")->is($this)->and("rvsp")->is(true)->count();
+            $cells = array(
+                "Name"=>$this->getName(),
+                "Email"=>$this->view('username'),
+                "Attended Events"=>$rvsp_count
+            );
+            break;
+        case "moderation_list":
+            $cells = array(
+                "Name"=>$this->getName(),
+                "Email"=>$this->view('username')
+            );
+            break;
         }
+        return $cells;
+        
     }
 
     public function getAjaxListActions($interface_name) {
@@ -179,8 +192,45 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 , "confirm" => _("This will PERMANENTLY remove the user including all data. This action cannot be undone. Are you sure?")
             );
             break;
+        case "guest_list":
+            $actions["@doPromoteToMember"] = array(_("Promote to Member"));
+            $actions["@doRemove"] = array(_("Delete")
+                , "confirm" => _("This will PERMANENTLY remove the user including all data. This action cannot be undone. Are you sure?")
+            );
+            break;
+        case "moderation_list":
+            $actions[ \nmvc\qmi\get_action_link($this,"setRole",null,array("type"=>"guest"))] = array(_("Guest"));
+            $actions[ \nmvc\qmi\get_action_link($this,"setRole",null,array("type"=>"member")) ] = array(_("Member"));
+            $actions[ \nmvc\qmi\get_action_link($this,"setRole",null,array("type"=>"ambassador")) ] = array(_("Ambassador"));
+            $actions[ \nmvc\qmi\get_action_link($this,"setRole",null,array("type"=>"admin")) ] = array(_("Administrator"));
+            break;
         }
         return $actions;
+    }
+
+    public function setRole($type = "guest"){
+        switch($type){
+            case "guest":
+                $context = \nmvc\userx\GroupModel::CONTEXT_GUEST;
+                break;
+            case "member":
+                $context = \nmvc\userx\GroupModel::CONTEXT_MEMBER;
+                break;
+            case "ambassador":
+                $context = \nmvc\userx\GroupModel::CONTEXT_AMBASSADOR;
+                break;
+            case "admin":
+                $context = \nmvc\userx\GroupModel::CONTEXT_ADMIN;
+                break;
+        }
+        $this->is_moderated = true;
+        $this->group = \nmvc\userx\GroupModel::select("id")->where("context")->is($context)->first();
+        $this->store();
+    }
+
+    public function doPromoteToMember(){
+        $this->group = \nmvc\userx\GroupModel::select("id")->where("context")->is( \nmvc\userx\GroupModel::CONTEXT_MEMBER )->first();
+        $this->store();
     }
 
     public function doRemove() {

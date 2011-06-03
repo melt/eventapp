@@ -38,6 +38,7 @@ class AdminController extends userx\RestrictedController {
     }
 
     public function index() {
+        $this->unmoderated_users = \nmvc\userx\UserModel::select()->where("is_moderated")->is(0);
     }
 
     public function new_hub() {
@@ -62,9 +63,7 @@ class AdminController extends userx\RestrictedController {
         $this->existing_invitees = EventInviteeModel::select()->where("event")->is($event_id);
     }
 
-    public function my_profile() {
-        
-    }
+    public function my_profile() {}
 
     public function logout() {
         $this->facebook = null;

@@ -5,6 +5,8 @@
 class InterfaceCallback extends InterfaceCallback_app_overrideable {
 
     public function ic_add_invitees_by_email() {
+        $this->doValidate();
+
         $instances = $this->getInstances();
         $instance = $instances['nmvc\EventInviteeModel'][0];
         // Break up list of emails into an array
@@ -24,10 +26,16 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
     }
     
     public function ic_rvsp_page() {
-        $this->validate();
-        $this->store();
+        $this->doValidate();
+        $this->doStore();
         // Redirect to thankyou page if save succeeds
         \nmvc\messenger\redirect_message(url("/admin/thanks"), _("Thank you for your RVSP!"), "good");
+    }
+
+    public function ic_user_profile() {
+        $this->doValidate();
+        $this->doStore();
+        \nmvc\messenger\redirect_message(url("/"), _("Your profile was updated!"), "good");
     }
 
 }

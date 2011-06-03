@@ -56,7 +56,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         }
 
         // Select ambassadors of current hub
-        $ambassadors = null;
+        $ambassadors = userx\UserModel::select()->where("\nmvc\HubAmbassadorModel->hub")->is($this);
 
 
         foreach($invitees as $invitee){

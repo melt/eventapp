@@ -43,7 +43,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         $user->city = (isset($location_array[0])) ? $location_array[0]: null;
         $user->country = (isset($location_array[1])) ? $location_array[1]: null;
         $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
-        $user->sendUserApprovalEmail();
+        //$user->sendModerateUserEmail(); Activate to send moderation email to admins
         // Store user
         $user->store();
         return $user;
@@ -57,8 +57,12 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         $user->store();
     }
 
-    public function sendUserApprovalEmail(){
-        \nmvc\MailHelper::sendMail("user_approval", array("user_email"=>$this->username,"user_name"=>$this->getName()), _("User %s requires permissions to %s",$this->getName(),\nmvc\APP_NAME), \nmvc\APP_EMAIL, true);
+    public function sendModerateUserEmail(){
+        $admin_context = GroupModel::select()->where("context")->is(GroupModel::CONTEXT_ADMIN)->first();
+        $admins = UserModel::select()->where("group")->is($admin_context);
+        foreach($admins as $admin){
+            \nmvc\MailHelper::sendMail("user_approval", array("email"=>$this->view('username'),"name"=>$this->getName()), _("%s has registered on %s",$this->getName(),\nmvc\APP_NAME), $admin->username, true);
+        }
     }
 
     public function getName() {

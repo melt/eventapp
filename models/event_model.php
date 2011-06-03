@@ -202,7 +202,9 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             "title" => "Title",
             "hub" => "Hub",
             "event_date" => "Date",
-            "event_time" => "Time"
+            "event_time" => "Time",
+            "invite_email_sent" => "Invite Sent",
+            "reminder_email_sent" => "Reminder Sent",
         );
     }
 

@@ -15,8 +15,15 @@
 <h1 class="secondary-heading"><?php echo _("Attendees"); ?></h1>
 <p>
 <?php echo _("The following people attended this event."); ?>
+
+<?php if($this->attendees != null): ?>
+<?php foreach($this->attendees as $attendee): ?>
+    <?php echo $attendee->getName(); ?>, <?php echo $attendee->username; ?><br/>
+<?php endforeach; ?>
+<?php endif; ?>
 </p>
-<?php // list here ?>
+
+
 
             <p> <?php echo _("Cheers,"); ?><br/>
 <?php echo _("Sandbox %s Ambassadors", $this->hub_name); ?></p>

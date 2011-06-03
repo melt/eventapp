@@ -2,6 +2,9 @@
 
 class CronController extends AppController {
 
+    /*
+     * Automatically sends event emails depending on date
+     */
     public function cron(){
         // Dates to select in between
         $today = date("Y-m-d");
@@ -25,4 +28,12 @@ class CronController extends AppController {
         }
 
     }
+
+    /*
+     * Run this once to initiate user groups
+     */
+    public function add_groups(){
+        $group = new \nmvc\userx\GroupModel("Superadmin",1,4);
+    }
+
 }

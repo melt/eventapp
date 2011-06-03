@@ -34,21 +34,21 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public function sendInviteEmail($type = "invite"){
         switch($type){
             case "invite":
-                $invitees = EventInviteeModel::select()->where("event")->is($this);
+                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("invitee->is_unsubscribed")->is(false);
                 $subject = _("Invitation to %s",$this->view('title'));
                 $mail_view = "event_invite";
                 $this->invite_email_sent = true;
                 break;
             case "reminder":
                 // Only send reminder email to people that RVSP attending to avoid angry faces
-                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING);
+                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING)->and("invitee->is_unsubscribed")->is(false);
                 $subject = _("Reminder for %s",$this->view('title'));
                 $mail_view = "event_reminder";
                 $this->reminder_email_sent = true;
                 break;
             case "thankyou":
                 // Only send thankyou email to people that RVSP attending to avoid angry faces
-                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING);
+                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING)->and("invitee->is_unsubscribed")->is(false);
                 $subject = _("Thank you for attending %s",$this->view('title'));
                 $mail_view = "event_thankyou";
                 $this->thankyou_email_sent = true;

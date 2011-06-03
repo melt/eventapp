@@ -112,7 +112,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 //"user_type" => array(_("Type of User"), ""),
                 "username" => array(_("Email"), "Where to send invitations"),
                 "hub"=> array(_("Hub"), "Primary hub of interest"),
-                "is_unsubscribed" => array(_("Actively Unsubscribed"), "Do not receive any emails"),
+                "is_unsubscribed" => array(_("Unsubscribe to Invites"), "Do not receive any emails"),
                 //"password" => array(_("Password"), ""),
                 //"_password_2" => array(_("Repeat Password"), ""),
                 //"remember_login" => array(_("Remember Login", "")),

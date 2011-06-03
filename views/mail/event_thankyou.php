@@ -2,8 +2,8 @@
 
 <h2 class="primary-heading no-margin-top"><?php echo _("Hi,"); ?></h2>
 <p>
-<?php echo _("Thank you for attending this event."); ?><br/>
-<?php echo _("Below you will find the list of attendees for your convenience. Feel free to contact the ambassadors with your feedback!"); ?>
+<?php echo _("Thank's for attending the below event!"); ?><br/><br/>
+<?php echo _("Attached you will find the list of attendees for your convenience. Feel free to contact the ambassadors with your feedback."); ?>
 </p>
 
 <h1 class="secondary-heading"><?php echo $this->event_name; ?></h1>

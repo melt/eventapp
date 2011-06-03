@@ -87,7 +87,7 @@
 
 <?php
             AjaxController::invoke("_print_instances_list", array(
-                        userx\UserModel::select()->where("group->context")->isnt(\nmvc\userx\GroupModel::CONTEXT_GUEST),
+                        userx\UserModel::select()->where("group->context")->isnt(\nmvc\userx\GroupModel::CONTEXT_GUEST)->orderBy("group->context","ASC"),
                         _("Members"),
                         "/static/img/user.png",
                         "user_list"), true);

@@ -160,10 +160,10 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         switch ($interface_name) {
         case "user_list":
             $cells = array(
+                "Permissions"=>$this->view('group'),
                 "Name"=>$this->getName(),
                 "Email"=>$this->view('username'),
-                "Company/Project"=>$this->view('company'),
-                "Hub"=>$this->view('hub'),
+                "Company/Project"=>$this->view('company')
             );
             break;
         case "guest_list":
@@ -189,7 +189,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         $actions = array();
         switch ($interface_name) {
         case "user_list":
-            $actions["@doEdit"] = array(_("Edit"));
             $actions["@doRemove"] = array(_("Delete")
                 , "confirm" => _("This will PERMANENTLY remove the user including all data. This action cannot be undone. Are you sure?")
             );
@@ -238,10 +237,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
     public function doRemove() {
         $this->unlink();
         //\nmvc\request\send_json_data(true);
-    }
-
-    public function doEdit(){
-        \nmvc\request\redirect("/admin/user_edit/".$this->id);
     }
 
 

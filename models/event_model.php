@@ -22,7 +22,9 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public function sendInviteEmail($reminder = false){
         $invitees = EventInviteeModel::select()->where("event")->is($this);
         $hub = HubModel::select("city")->where("id")->is($this->hub_id)->first();
-        $ambassadors = userx\UserModel::select()->where("hub_id")->is($this->hub_id);
+
+        $ambassadors = null;
+
         if($reminder){
             $subject = _("Reminder for %s",$this->view('title'));
             $mail_view = "event_reminder";
@@ -50,27 +52,24 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                     ),
                     $subject,
                     $invitee->view('email'),
-                    false);
+                    false,
+                    array()
+                    );
         }
         $this->store();
     }
 
     public function getAjaxListActions($interface_name) {
         $actions = array();
-
         $has_invitees = EventInviteeModel::select("invitee")->where("event")->is($this)->count();
-        if($this->invite_email_sent==false || $this->reminder_email_sent == false)
-            $actions["@addInvitees"] = array(_("Add Invitees"));
-        if($has_invitees > 0 && $this->invite_email_sent==false)
-            $actions["@sendInviteEmail"] = array(_("Send Invite Email"));
-        if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == false)
-            $actions["@sendReminderEmail"] = array(_("Send Reminder Email"));
+        if($this->invite_email_sent==false)
+            $actions["@addInvitees"] = array(_("Send Invitation Email"));
         /*if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == true && $this->thankyou_email_sent == false)
             $actions["@sendThankyouEmail"] = array(_("Send Thankyou Email"));*/
-        $actions["@doEdit"] = array(_("Edit "));
-        $actions["@doRemove"] = array(_("Delete")
-            , "confirm" => _("Do you really want to delete this hub?")
-        );
+        if($has_invitees <= 0)
+            $actions["@doRemove"] = array(_("Delete Event")
+                , "confirm" => _("Do you really want to delete the event %s?",$this->view('title'))
+            );
         return $actions;
     }
 
@@ -88,8 +87,10 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         // If there is a complete address we will generate a map
         if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
             $destination_address = \rawurlencode( $this->view('street') ." ". $this->view('city') ." ". $this->view('zip') . " ". $this->hub->view('country') );
-            if ( $user != null )
-                $source_address = \rawurlencode( $user->view('street') ." ". $user->view('city') . " ". $user->view('country') );
+        if ( $user != null )
+            $source_address = \rawurlencode( $user->view('street') ." ". $user->view('city') . " ". $user->view('country') );
+        else
+            $source_address = "";
             return "http://maps.google.com/?saddr=$source_address&daddr=$destination_address";
         } else {
             return null;
@@ -98,8 +99,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
 
     public function getAjaxListCells($interface_name) {
         return array(
-            _("Hub") => '<strong>' . $this->view("hub") . '</strong>',
-            _("Title") => $this->view('title'),
+            _("Title") => '<strong>' . $this->view("title") . '</strong>',
+            _("Hub") => $this->view('hub'),
             _("Date") => $this->view('event_date'),
         );
     }
@@ -131,7 +132,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
 
         switch ($interface_name) {
         case "new_event":
-        case "event_edit":
             return array(
                 "hub" => array(_("Hub"), "Select from list"),
                 "title" => array(_("Title"), "Eg. Dinner @ My Place"),
@@ -149,13 +149,5 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public function doRemove() {
         $this->unlink();
         //\nmvc\request\send_json_data(true);
-    }
-
-    public function doEdit(){
-        \nmvc\request\redirect("/admin/event_edit/".$this->id);
-    }
-
-    public function addInvitees(){
-        \nmvc\request\redirect("/admin/add_invitees/".$this->id);
     }
 }

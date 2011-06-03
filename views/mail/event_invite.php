@@ -13,7 +13,7 @@
         <a href="<?php echo $this->rvsp_link ?>"><?php echo _("RVSP / Give Us Your Response"); ?></a>
     </p>
     <p>
-    Description: <?php if ($this->event_description != ""): ?><em><?php echo $this->event_description; ?></em><?php endif; ?>
+    <?php if ($this->event_description != ""): ?><em><?php echo $this->event_description; ?></em><?php endif; ?>
     </p>
 
 <?php if ($this->map_image != null): ?>
@@ -26,9 +26,11 @@
 <?php echo _("Sandbox %s Ambassadors", $this->hub_name); ?></p>
 
         <p>
-    <?php foreach ($this->ambassadors as $ambassador): ?>
+<?php if($this->ambassadors != null): ?>
+<?php foreach ($this->ambassadors as $ambassador): ?>
 <?php echo $ambassador->getName() . ", " . $ambassador->phone . ", " . $ambassador->username; ?>
 <?php endforeach; ?>
+<?php endif; ?>
 </p>
 
 

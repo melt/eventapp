@@ -8,7 +8,7 @@
 <?php $interface = new qmi\ModelInterface("user_profile", "cell"); ?>
 <?php echo $interface->startForm(); ?>
 <?php echo $interface->getInterface($this->user); ?>
-<button type="submit"><?php echo _("Submit"); ?></button>
+<button type="submit"><?php echo _("Submit"); ?></button> or <a href="<?php echo url("/"); ?>">Cancel</a>
 <div class="spacer"></div>
 <?php echo $interface->finalizeForm(false); ?>
 </div>

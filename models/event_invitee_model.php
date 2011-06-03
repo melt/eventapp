@@ -13,6 +13,9 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     public $generally_help = array('core\TextAreaType');
     public $wants_to_skype = array('core\BooleanType');
     public $why_not_attend = array('core\TextAreaType');
+    public $include_members = array(VOLATILE, 'core\BooleanType');
+    public $list_of_emails = array(VOLATILE, 'core\TextAreaType');
+
     /* RVSP */
     const NO_RVSP = 0;
     const ATTENDING = 1;
@@ -22,7 +25,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
         $this->rvsp_page_hash = \nmvc\string\random_hex_str(16);
-        // If we add a database user, copy the email to the invitee list
+        // If we add a user from the database, copy the email to the invitee list
         if($this->invitee!=null)
             $this->email = $this->invitee->username;
     }
@@ -54,12 +57,16 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
                 "why_not_attend" => array(_("Why do you not wish to attend this event?"), "This helps us make future events better for you"),
             );
             break;
-        case "new_event":
+    case "add_invitees_by_email":
             return array(
-                // Include user fields here if user
-                "email" => array(_("Invitee from Email Addresss"), "OR enter an email address"),
+                // Invitees email addresses separated by comma
+                "list_of_emails" => array(_("Invitees by email"), "Enter email addresses of people to invite separated by comma (,)"),
+            );
+        case "add_invitees":
+            return array(
+                "include_members" => array(_("Include"), "Invite all members of hub"),
                  // Include user fields here if user
-                "invitee" => array(_("Invitee from Users"), "Select from users in list.."),
+                "invitee" => array(_("Invitee Users"), "Select users from list.."),
             );
             break;
 

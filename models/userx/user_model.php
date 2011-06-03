@@ -27,11 +27,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
         $user_exists = UserModel::select()->where("facebook_user")->is($fb_user_data["id"])->first();
         // Create new user if not existing
         $user = (!$user_exists) ? new UserModel() : $user_exists;
-        // Update details since last login or set for first time for new user
-        $location_array = (isset($fb_user_data["location"]["name"])) ? explode(",",$fb_user_data["location"]["name"]): null;
-        $user->city = (isset($location_array[0])) ? $location_array[0]: null;
-        $user->country = (isset($location_array[1])) ? $location_array[1]: null;
-        $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
         $user->last_login_time = time();
         $user->last_login_ip = $_SERVER['REMOTE_ADDR'];
         // Only set this information the first time the user logs in
@@ -39,6 +34,10 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             $user->facebook_user = $fb_user_data["id"];
             $user->first_name = (isset($fb_user_data["first_name"])) ? $fb_user_data["first_name"]: null;
             $user->last_name = (isset($fb_user_data["last_name"])) ? $fb_user_data["last_name"]: null;
+            $location_array = (isset($fb_user_data["location"]["name"])) ? explode(",",$fb_user_data["location"]["name"]): null;
+            $user->city = (isset($location_array[0])) ? $location_array[0]: null;
+            $user->country = (isset($location_array[1])) ? $location_array[1]: null;
+            $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
             $user->sendUserApprovalEmail();
         }        
         // Store user
@@ -102,7 +101,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 "city" => array(_("City"), "Where you live right now"),
                 "country" => array(_("Country"), "Where you live right now"),
                 //"user_type" => array(_("Type of User"), ""),
-                "username" => array(_("Email"), "Updated from Facebook"),
+                "username" => array(_("Email"), "Where to send invitations"),
                 "hub"=> array(_("Hub"), "Primary hub of interest"),
                 "is_unsubscribed" => array(_("Actively Unsubscribed"), "Do not receive any emails"),
                 //"password" => array(_("Password"), ""),
@@ -112,13 +111,13 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
             break;
         case "rvsp_page":
             return array(
-                "phone" => array(_("Phone"), ""),
-                "company" => array(_("Primary Company/Project"), "The project you feel mostly affiliated with"),
-                "street" => array(_("Street"), "Where you live right now, to get map directions to events"),
+                "phone" => array(_("Phone"), "Where we can reach you"),
+                "company" => array(_("Company/Project"), "Primary project right now"),
+                "street" => array(_("Street"), "Where you live right now"),
                 "city" => array(_("City"), "Where you live right now"),
                 "country" => array(_("Country"), "Where you live right now"),
                 //"user_type" => array(_("Type of User"), ""),
-                "username" => array(_("Email"), ""),
+                "username" => array(_("Email"), "Where to send invitations"),
                 //"password" => array(_("Password"), ""),
                 //"_password_2" => array(_("Repeat Password"), ""),
                 //"remember_login" => array(_("Remember Login", "")),

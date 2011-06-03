@@ -43,7 +43,7 @@ font-weight:normal;
 text-align:right;
 width:140px;
 }
-#stylized input, #stylized select, #stylized textarea{
+#stylized input, #stylized select, #stylized textarea, #stylized .list_of_invitees{
 float:left;
 font-size:12px;
 padding:4px 2px;

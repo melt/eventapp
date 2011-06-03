@@ -16,7 +16,7 @@
     </p>
 
 <?php if ($this->map_image != null): ?>
-            <img src="<?php echo $this->map_image; ?>" alt=""/>
+            <img src="<?php echo $this->map_image; ?>" alt="<?php echo $this->event_name; ?>"/>
 <?php endif; ?>
 
 
@@ -26,7 +26,9 @@
 <?php echo _("Sandbox %s Ambassadors", $this->hub_name); ?></p>
 
         <p>
-    <?php foreach ($this->ambassadors as $ambassador): ?>
+<?php if($this->ambassadors != null): ?>
+<?php foreach ($this->ambassadors as $ambassador): ?>
 <?php echo $ambassador->getName() . ", " . $ambassador->phone . ", " . $ambassador->username; ?>
 <?php endforeach; ?>
+<?php endif; ?>
 </p>

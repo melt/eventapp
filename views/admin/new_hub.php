@@ -7,7 +7,7 @@
 <?php echo $interface->startForm(); ?>
 <?php echo $interface->getInterface($this->new_hub); ?>
 <?php echo $interface->getInterface($this->new_hub_ambassador); ?>
-<button type="submit"><?php echo _("Submit"); ?></button>
+<button type="submit"><?php echo _("Submit"); ?></button> or <a href="<?php echo url("/"); ?>">Cancel</a>
 <div class="spacer"></div>
 <?php echo $interface->finalizeForm(false); ?>
 </div>

@@ -18,6 +18,7 @@ class AdminController extends userx\RestrictedController {
             "thanks" => true,
             "new_hub" => true,
             "new_event" => true,
+            "new_event_invitees" => true,
             "my_profile" =>true
         ));
     }
@@ -46,10 +47,15 @@ class AdminController extends userx\RestrictedController {
 
     public function new_event() {
         $this->new_event = new \nmvc\EventModel();
-        // New invitee form
+        // New invitee form        
+    }
+
+    public function new_event_invitees($event_id) {
         $this->new_event_invitee = new \nmvc\EventInviteeModel();
         // Attach to current event
-       // $this->new_event_invitee->event_id = (int) $this->new_event->id;
+        $this->new_event_invitee->event_id = (int) $event_id;
+        $this->event = $this->new_event_invitee->event;
+        $this->existing_invitees = EventInviteeModel::select()->where("event")->is($event_id);
     }
 
     public function my_profile() {
@@ -71,21 +77,6 @@ class AdminController extends userx\RestrictedController {
         $this->user = userx\UserModel::select()->where("id")->is($user_id)->first();
     }
 
-    public function event_edit($event_id) {
-        $this->event = EventModel::select()->where("id")->is($event_id)->first();
-    }
-
-    public function add_invitees($event_id) {
-        $this->event = EventModel::select()->where("id")->is($event_id)->first();
-        // New invitee form
-        $this->event_invitee = new EventInviteeModel();
-        // Attach to current event
-        $this->event_invitee->event_id = (int) $event_id;
-        // Select existing invitees to show if they exist
-        $this->existing_invitees = EventInviteeModel::select()->where("event")->is($event_id);
-
-
-    }
 
     public function login() {
         $this->fb_user_data = $this->facebook->api('/me');

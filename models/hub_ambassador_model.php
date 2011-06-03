@@ -7,7 +7,7 @@ class HubAmbassadorModel extends AppModel implements qmi\UserInterfaceProvider {
 
     public function uiValidate($interface_name) {
         $err = array();
-        if($this->ambassador_id == null)
+        if($this->ambassador == null)
             $err[$this->ambassador_id] = _("Field must be entered!");
         /*foreach (array(
         "city", "country"

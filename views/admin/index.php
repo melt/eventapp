@@ -8,7 +8,7 @@
 
 <a class="navigation_button" href="<?php echo $this->logout_url; ?>"><?php echo _("Logout"); ?></a>
 
-<a class="navigation_button" href="<?php echo url("/admin/my_profile"); ?>"><?php echo _("Edit My Profile"); ?></a>
+<a class="navigation_button" href="<?php echo url("/admin/my_profile"); ?>"><?php echo _("Edit my profile"); ?></a>
 
 <a class="navigation_button" href="<?php echo url("/admin/new_hub"); ?>"><?php echo _("Add new hub"); ?></a>
 

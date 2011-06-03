@@ -155,7 +155,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                $err[$this->hub] = _("Field must be entered!");
         foreach (array(
         "title", "street",
-        "city"
+        "city", "event_time"
         ) as $field) {
             $this->$field = trim($this->$field);
             if ($this->$field == "")

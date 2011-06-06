@@ -19,7 +19,7 @@ padding:14px;
 border:solid 2px #b7ddf2;
 background:#ebf4fb;
 }
-#stylized #profile_picture img{
+#stylized #profile_picture img, #stylized #google_maps img{
 border:solid 3px #b7ddf2;
 background:#ebf4fb;
 max-width:130px;

@@ -18,8 +18,24 @@
             if($(".fc_description textarea").val()==default_text)
                 $(".fc_description textarea").val("");
         });
+
+        /*
+        $(".fc_street input").keypress(function() {
+            if($(this).val().length > 3 && $(".fc_city input").val().length > 3) {
+                   showMap($(".fc_street input").val(),$(".fc_city input").val());
+            }
+        });
+        $(".fc_city input").keypress(function() {
+            if($(this).val().length > 3 && $(".fc_street input").val().length > 3) {
+                   showMap($(".fc_street input").val(),$(".fc_city input").val());
+            }
+        });
+        $("#google_maps").hide();
+        */
         
   });
+
+  
 </script>
 
 

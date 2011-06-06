@@ -45,37 +45,6 @@ abstract class AppController extends Controller {
             $this->login_url = $this->facebook->getLoginUrl(array('redirect_uri' => url("/outside/login"), 'canvas' => 1, 'display' =>'page', 'fbconnect' => 0, 'req_perms' => 'user_about_me,user_birthday,user_location,user_work_history,email,user_website,user_checkins,user_status'));
         }
 
-      /*  // Create application instance
-        $facebook = new \Facebook(array(
-            'appId'  => FACEBOOK_APP_ID,
-            'secret' => FACEBOOK_APP_SECRET,
-            'cookie' => true
-        ));
-        // Check if Facebook user object connected via OATH
-        $this->fb_loggedin = $facebook->getUser();
-        
-
-        if ($user) {
-  try {
-    // Proceed knowing you have a logged in user who's authenticated.
-    $user_profile = $facebook->api('/me');
-  } catch (FacebookApiException $e) {
-    error_log($e);
-    $user = null;
-  }
-}
-
-
-        if ( $this->fb_loggedin ) {
-            $this->logout_url = $facebook->getLogoutUrl(array('next' => url("/admin/logout")));
-            if($facebook->getUser())
-                    $this->fb_user_data = $facebook->api('/me');
-        } else {
-            $this->fb_loggedin = null;
-            $this->login_url = $facebook->getLoginUrl(array('redirect_uri' => url("/admin/login"), 'canvas' => 1, 'display' =>'page', 'fbconnect' => 0, 'req_perms' => 'user_about_me,user_birthday,user_location,user_work_history,email,user_website,user_checkins'));
-        }
-*/
-
     }
 
     /**

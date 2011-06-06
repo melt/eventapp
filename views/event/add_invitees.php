@@ -38,6 +38,10 @@
 		var hidden = $(this).parent().next().find(">:input");
 		hidden.val( (hidden.val() ? hidden.val() + ";" : hidden.val()) + data[1]);
 	});
+	$('#sendInvites').click(function() {
+                window.location.href = this.href;
+	});
+
   });
 </script>
 
@@ -62,9 +66,10 @@
 <?php endforeach; ?>
 </div>
 </div>
-<button href="<?php echo qmi\get_action_link($this->event, "sendInviteEmail"); ?>" role="button" aria-disabled="false"><?php echo _("Send Invitation Now"); ?></button> or <a href="<?php echo url("/"); ?>">Send it later</a>
+<button id="sendInvites" href="<?php echo qmi\get_action_link($this->event, "sendInviteEmail"); ?>" role="button" aria-disabled="false"><?php echo _("Send Invitation Now"); ?></button> or <a href="<?php echo url("/"); ?>">Send it later</a>
 <?php endif; ?>
 
 <div class="spacer"></div>
 <?php echo $interface->finalizeForm(false); ?>
 </div>
+<br/>

@@ -38,6 +38,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
 
     public function sendInviteEmail(){
         self::sendEmail("invite");
+        \nmvc\messenger\redirect_message(url("/"), _("Your invites have been sent!"), "good");
     }
 
     private function sendEmail($type = "invite"){

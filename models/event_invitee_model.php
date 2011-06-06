@@ -2,8 +2,8 @@
 
 class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     /* N-N Relations */
-    public $event_id = array(INDEXED_UNIQUE,'core\PointerType', 'EventModel','CASCADE');
-    public $invitee_id = array(INDEXED_UNIQUE,'core\SelectModelType', 'userx\UserModel','CASCADE');
+    public $event_id = array('core\PointerType', 'EventModel','CASCADE');
+    public $invitee_id = array('core\SelectModelType', 'userx\UserModel','CASCADE');
     public $rvsp_page_hash = array('core\TextType',16);
     /* Invitee Meta Information */
     public $most_exciting_project = array('core\TextAreaType');
@@ -33,6 +33,13 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
 
     public function generateUnsubscribeLink(){
         return \APP_ROOT_URL . "outside/unsubscribe/" . $this->invitee->id;
+    }
+
+    public static function inviteeExists($event_id,$email){
+        if(\nmvc\EventInviteeModel::select()->where("event")->is($event_id)->and("invitee->username")->is($email)->count() > 0)
+            return true;
+        else
+            return false;
     }
 
     public function uiValidate($interface_name) {

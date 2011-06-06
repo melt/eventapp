@@ -26,6 +26,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
             }
         }
 
+
         if(!empty($invitees)) {
             foreach($invitees as $email){
                 $email = trim($email);

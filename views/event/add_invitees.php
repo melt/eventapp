@@ -66,9 +66,11 @@
 <?php endforeach; ?>
 </div>
 </div>
-<?php echo $interface->finalizeForm(false); ?>
+
 <button id="sendInvites" href="<?php echo qmi\get_action_link($this->event, "sendInviteEmail"); ?>" role="button" aria-disabled="false"><?php echo _("Send Invitation Now"); ?></button> or <a href="<?php echo url("/"); ?>">Send it later</a>
 <?php endif; ?>
+
+<?php echo $interface->finalizeForm(false); ?>
 
 <div class="spacer"></div>
 </div>

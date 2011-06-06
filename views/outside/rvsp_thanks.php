@@ -4,6 +4,6 @@
     <?php if($this->rvsp==1): ?>
     <p><?php echo _("You will receive a reminder to <b>%s</b> one day before the event.",$this->email); ?></p>
     <?php else: ?>
-    <p><?php echo _("We will miss you this time! See you at the next event."); ?></p>
+    <p><?php echo _("We will miss you! See you at the next event."); ?></p>
     <?php endif; ?>
 </div>

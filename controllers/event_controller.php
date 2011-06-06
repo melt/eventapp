@@ -10,9 +10,9 @@ class EventController extends userx\RestrictedController {
     public function add_invitees($event_id) {
         $this->event = EventModel::select()->where("id")->is($event_id)->first();
         // If invite already sent, do not allow to add more invitees
-        if($this->event->invite_email_sent == true)
+        /*if($this->event->invite_email_sent == true)
             \nmvc\messenger\redirect_message(url("/"), _("Invite email already sent!"), "bad");
-
+            */
         $this->new_event_invitee = new \nmvc\EventInviteeModel();
         // Attach to current event
         $this->new_event_invitee->event_id = (int) $event_id;

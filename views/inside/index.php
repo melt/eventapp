@@ -57,13 +57,15 @@
 
         <div id="tabs-4">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", "/", null, null, \nmvc\userx\UserModel::select()->where("group->context")->isnt( \nmvc\userx\GroupModel::CONTEXT_GUEST ) ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", "/", null, null, null ); ?>
 
 
         </div>
 
 
         <div id="tabs-5">
+
+        <?php data_tables\list_model("nmvc\userx\UserModel", "/", null, null, null ); ?>
 
         </div>
     </div>

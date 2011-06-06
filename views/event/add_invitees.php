@@ -48,7 +48,7 @@
 
 <div id="stylized" class="myform">
 <h1><?php echo _("Add invitees to %s in the %s hub.",$this->event->view('title'),$this->event->hub->view('city')); ?></h1>
-<p><?php echo _("Use this form to add invitees to the event <b>%s</b> on <b>%s</b> at <b>%s</b>.",$this->event->view('title'),$this->event->view('event_date'),$this->event->view('event_time')); ?></p>
+<p><?php echo _("Use this form to add invitees to the event <b>%s</b>.",$this->event->view('title')); ?></p>
 <?php $interface = new qmi\ModelInterface("add_invitees", "cell"); ?>
 <?php echo $interface->startForm(); ?>
 <?php echo $interface->getInterface($this->new_event_invitee); ?>

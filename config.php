@@ -18,7 +18,7 @@ namespace nmvc {
 
 namespace nmvc\internal {
     modules_using(
-            "jquery",
+            //"jquery",
             "data_tables"
         // Add modules that your application uses here.
     );
@@ -86,17 +86,19 @@ namespace nmvc\userx\config {
     const SESSION_TIMEOUT_MINUTES = 0x7fffffff;
 }
 
-namespace nmvc\jquery\config {
+namespace nmvc\js\config {
     const JQUERY_UI_THEME = "/static/jq-ui-theme/jquery-ui-1.8.6.custom.css";
+    const INCLUDE_LESS_CSS = true;
     const INCLUDE_JQUERY_JSTREE = true;
-    const INCLUDE_JQUERY_DATATABLES = true;
-    const INCLUDE_JQUERY_RESIZE = true;
-    const INCLUDE_JQUERY_COOKIE = true;
     const INCLUDE_JQUERY_HOTKEYS = true;
-    const INCLUDE_JQUERY_ALERTS = true;
-    const INCLUDE_JQUERY_CORNER = false;
-    const INCLUDE_JQUERY_LIGHTBOX = false;
-    const INCLUDE_JQUERY_AUTOCOMPLETE = false;
-    const INCLUDE_JQUERY_AUTORESIZE = true;
+    const INCLUDE_JQUERY_RESIZE = true;
     const INCLUDE_JQUERY_FORM = true;
+    const INCLUDE_JQUERY_COOKIE = true;
+    const INCLUDE_JQUERY_AUTORESIZE = true;
+    const INCLUDE_JQUERY_AUTOCOMPLETE = true;
+    const INCLUDE_JQUERY_DATATABLES = true;
+    const INCLUDE_JQUERY_LIGHTBOX = true;
+    const INCLUDE_JQUERY_CORNER = true;
+    const INCLUDE_JQUERY_ALERTS = true;
+    const JQUERY_UI_THEME = 'ui-lightness';
 }

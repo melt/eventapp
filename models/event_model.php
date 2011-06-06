@@ -25,7 +25,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
 
     public function  afterStore($was_linked) {
         parent::afterStore($was_linked);
-        \nmvc\messenger\redirect_message(url("/event/add_invitees/".$this->id), _("Event successfully added! Now invite some people to it :-)"), "good");
+        \nmvc\messenger\redirect_message(url("/event/add_invitees/".$this->id), _("Event successfully added! Now add some invitees :-)"), "good");
     }
 
     public function sendReminderEmail(){

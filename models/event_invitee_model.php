@@ -14,6 +14,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     // Volatile fields for callback operations and actions
     public $include_members_in_hub = array(VOLATILE, 'core\BooleanType');
     public $list_of_emails = array(VOLATILE, 'core\TextAreaType');
+    public $list_of_members = array(VOLATILE, 'core\TextAreaType');
 
     /* RVSP */
     const NO_RVSP = 0;
@@ -31,7 +32,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     }
 
     public function generateUnsubscribeLink(){
-        return \APP_ROOT_URL . "outside/unsubscribe/" . $invitee->invitee->id;
+        return \APP_ROOT_URL . "outside/unsubscribe/" . $this->invitee->id;
     }
 
     public function uiValidate($interface_name) {
@@ -59,15 +60,12 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
                 "why_not_attend" => array(_("Why do you not wish to attend this event?"), "This helps us make future events better for you"),
             );
             break;
-    case "add_invitees_by_email":
-            return array(
-                // Invitees email addresses separated by comma
-                "list_of_emails" => array(_("Invitees by email"), "Enter email addresses of people to invite separated by comma (,)"),
-                "include_members_in_hub" => array(_("Include hub members"), "Add hub members to list")
-            );
         case "add_invitees":
             return array(
-                "invitee" => array(_("Invitee Users"), "Select users from list.."),
+                // Invitees email addresses separated by comma
+                "include_members_in_hub" => array(_("Include hub members"), "Add all members to list"),
+                "list_of_members" => array(_("Invite previous guests"), "Search and add members and previous guests"),
+                "list_of_emails" => array(_("Invite new guests"), "Enter email addresses of people to invite separated by comma (,)"),
             );
             break;
 

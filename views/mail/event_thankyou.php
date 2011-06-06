@@ -7,13 +7,12 @@
 
 <?php if($this->invitee_type == 0): // User is a guest ?>
 <p>
-<?php echo _("Those of you who are not yet admitted to our selective community, please apply <a %s>on the Sandbox website</a>",'href="http://www.sandbox-network.com/join/"'); ?>
+<?php echo _("Those of you who are not yet admitted to our selective community,<br/>please apply <a %s>on the Sandbox website</a>.",'href="http://www.sandbox-network.com/join/"'); ?>
 </p>
 <?php endif; ?>
 
 <p>
-<b><?php echo _("Attached you will find the list of attendees for your convenience. Please let us know how you felt about the event so that we can improve them in the future."); ?></b>
-</p>
+<?php echo _("<b>Attached you will find the list of attendees for your convenience.</b> Please let us know how you felt about the event so that we can improve your experience in the future."); ?></p>
 
 <h1 class="secondary-heading"><?php echo $this->event_name; ?></h1>
 <p>
@@ -28,7 +27,7 @@
 <p>
 <?php if($this->attendees != null): ?>
 <?php foreach($this->attendees as $attendee): ?>
-    <?php echo ($attendee->first_name=!"")? $attendee->getName().", ": ""; ?><?php echo $attendee->username; ?><br/>
+    <?php echo ($attendee->first_name!="")? $attendee->getName().", ": ""; ?><?php echo $attendee->username; ?><br/>
 <?php endforeach; ?>
 <?php endif; ?>
 </p><br/><br/>

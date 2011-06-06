@@ -1,5 +1,15 @@
 <?php namespace nmvc; ?>
 
+
+<Add a teaser (one sentence of the overall topic of the evening, for example “April’s
+Fools”, “Summer dinner”; exciting special guests; etc.)>
+
+Please confirm your participation as soon as possible. You will receive a confirmation
+email with the name of the location a couple of days beforehand.
+
+
+
+
 <div id="stylized" class="myform">
 <h1><?php echo _("Add new event"); ?></h1>
 <p><?php echo _("Use this form to add a new event to %s.",APP_NAME); ?></p>

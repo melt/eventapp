@@ -44,7 +44,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         switch($type){
             case "invite":
                 $invitees = EventInviteeModel::select()->where("event")->is($this)->and("invitee->is_unsubscribed")->is(false);
-                $subject = _("Invitation to %s",$this->view('title'));
+                $subject = _("Personal invitation to %s",$this->view('title'));
                 $mail_view = "event_invite";
                 $this->invite_email_sent = true;
                 break;

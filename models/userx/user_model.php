@@ -249,11 +249,11 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
 
     public static function getEnlistColumns() {
         return array(
-            "group" => "Type",
             "first_name" => "First Name",
             "last_name" => "Last Name",
             "username" => "Email",
             "hub" => "Hub",
+            "group" => "Type",
         );
     }
 

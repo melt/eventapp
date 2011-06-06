@@ -11,7 +11,7 @@
  */
 namespace nmvc {
     const APP_NAME = "Sandbox Events";
-    const APP_EMAIL = "per.d.jonsson@gmail.com";
+    const APP_EMAIL = "per.d.jonsson+spam@gmail.com";
     const FACEBOOK_APP_ID = "211329565552399";
     const FACEBOOK_APP_SECRET = "0bbb416cd5bd7ff8cb618eeb4e848d15";
 }

@@ -42,10 +42,6 @@ class OutsideController extends AppController {
         $this->user->store();
         \nmvc\messenger\redirect_message(url("/"), _("Successfully unsubscribed to emails!"), "good");   
     }
-
-    function r20110507() {
-       $this->layout = "/layout_report";
-    }
     
     function spec(){}
 

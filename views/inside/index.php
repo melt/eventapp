@@ -31,19 +31,14 @@
 
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1"><?php echo _("Users to Moderate"); ?></a></li>
                 <li><a href="#tabs-2"><?php echo _("Events"); ?></a></li>
                 <li><a href="#tabs-3"><?php echo _("Hubs"); ?></a></li>
                 <li><a href="#tabs-4"><?php echo _("Members"); ?></a></li>
-                <li><a href="#tabs-5"><?php echo _("Non-Members"); ?></a></li>
+                <li><a href="#tabs-5"><?php echo _("Guests & Applicants"); ?></a></li>
 
 
             </ul>
-        <div id="tabs-1">
 
-
-
-        </div>
         <div id="tabs-2">
 
 
@@ -62,7 +57,7 @@
 
         <div id="tabs-4">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", "/"); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", "/", null, null, \nmvc\userx\UserModel::select()->where("group->context")->isnt( \nmvc\userx\GroupModel::CONTEXT_GUEST ) ); ?>
 
 
         </div>

@@ -83,6 +83,9 @@ color:#FFFFFF;
 font-size:11px;
 font-weight:bold;
 }
+#stylized .fc_list_of_members textarea, #stylized .fc_list_of_emails textarea {
+    min-height:100px;
+}
 
 .qmi_error {
     clear:both;

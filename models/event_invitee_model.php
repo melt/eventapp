@@ -52,7 +52,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
         case "rvsp_page":
             return array(
                 // Include user fields here if user
-                "rvsp" => array(_("RVSP"), "Select whether or not to attend this event"),
+                "rvsp" => array(_("RVSP"), "Select whether or not you wish to attend this event"),
                 "most_exciting_project" => array(_("What's currently your most exciting project?"), "Helps seating arrangements"),
                 "biggest_challenge" => array(_("What's your biggest challenge right now?"), "Helps seating arrangements"),
                 "generally_help" => array(_("How can we help you in general?"), "Helps seating arrangements"),
@@ -64,7 +64,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
             return array(
                 // Invitees email addresses separated by comma
                 "include_members_in_hub" => array(_("Include hub members"), "Add all members to list"),
-                "list_of_members" => array(_("Invite previous guests"), "Search and add members and previous guests"),
+                "list_of_members" => array(_("Invite members and previous guests"), "Search and add Sandbox members, applicants and previous guests at Sandbox events"),
                 "list_of_emails" => array(_("Invite new guests"), "Enter email addresses of people to invite separated by comma (,)"),
             );
             break;

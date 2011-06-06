@@ -34,7 +34,7 @@
                 <li><a href="#tabs-2"><?php echo _("Events"); ?></a></li>
                 <li><a href="#tabs-3"><?php echo _("Hubs"); ?></a></li>
                 <li><a href="#tabs-4"><?php echo _("Members"); ?></a></li>
-                <li><a href="#tabs-5"><?php echo _("Guests & Applicants"); ?></a></li>
+                <li><a href="#tabs-5"><?php echo _("Guests"); ?></a></li>
 
 
             </ul>
@@ -42,13 +42,13 @@
         <div id="tabs-2">
 
 
-        <?php data_tables\list_model("nmvc\EventModel", "/"); ?>
+        <?php data_tables\list_model("nmvc\EventModel", null, "event/add_invitees", "", null, null, false, array()); ?>
 
 
         </div>
         <div id="tabs-3">
 
-        <?php data_tables\list_model("nmvc\HubModel", "/"); ?>
+        <?php data_tables\list_model("nmvc\HubModel", null); ?>
 
 
 
@@ -57,7 +57,7 @@
 
         <div id="tabs-4">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", "/", null, null, null ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, null, null, db\expr("group->context")->isnt( userx\GroupModel::CONTEXT_GUEST ) ); ?>
 
 
         </div>
@@ -65,7 +65,8 @@
 
         <div id="tabs-5">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", "/", null, null, null ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, null, null, db\expr("group->context")->is( userx\GroupModel::CONTEXT_GUEST ) ); ?>
+
 
         </div>
     </div>

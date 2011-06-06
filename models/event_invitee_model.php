@@ -23,7 +23,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     public $rvsp = array('core\SelectType', array(self::NO_RVSP => "––", self::ATTENDING => "Attending", self::NOT_ATTENDING => "Not Attending"));
 
     public function  beforeStore($is_linked) {
-        parent::beforeStore($is_linked);
+        parent::beforeStore($is_linked);            
         $this->rvsp_page_hash = \nmvc\string\random_hex_str(16);        
     }
 
@@ -35,8 +35,8 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
         return \APP_ROOT_URL . "outside/unsubscribe/" . $this->invitee->id;
     }
 
-    public static function inviteeExists($event_id,$email){
-        if(\nmvc\EventInviteeModel::select()->where("event")->is($event_id)->and("invitee->username")->is($email)->count() > 0)
+    private function inviteeExists(){
+        if($this->select()->where("event")->is($this->event)->and("invitee->username")->is($this->invitee->username)->count() > 0)
             return true;
         else
             return false;

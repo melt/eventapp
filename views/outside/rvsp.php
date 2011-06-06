@@ -72,9 +72,13 @@ $(document).ready(function() {
 
 <?php else: ?>
 
-<h2>Invalid invitee link: did you already RVSP to this event?</h2>
+<div id="stylized" class="fullwidth">
+<h1><?php echo _("Invalid invitee link: did you already RVSP to this event?"); ?></h1>
 
-<h2>If not, please recheck your invitation email and contact your local ambassador.</h2>
+<p><?php echo _("If you did not RVSP, please check your email again for the RVSP. If you believe there is an error, please contact your local ambassador manually via email."); ?></p>
+</div>
+
+
 <?php endif; ?>
 
 

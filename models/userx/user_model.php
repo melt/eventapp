@@ -26,10 +26,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
             $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
     }
 
-    public function  afterStore($was_linked) {
-        parent::afterStore($was_linked);
-    }
-
     public static function addNewUser($fb_user_data) {
         // Create new user
         $user = new UserModel();
@@ -182,19 +178,13 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
         $this->store();
     }
 
-    public function doRemove() {
-        $this->unlink();
-        //\nmvc\request\send_json_data(true);
-    }
-
     public static function getEnlistColumns() {
         return array(
             "first_name" => "First Name",
             "last_name" => "Last Name",
             "username" => "Email",
             "hub" => "Hub",
-            "attended_events" => "Attended",
-            //"group" => "Permissions",
+            "attended_events" => "Attended"
         );
     }
 

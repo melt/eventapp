@@ -11,9 +11,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
     public $city = array('core\TextType', 128);
     /* Object Relations */
     public $hub_id = array('core\SelectModelType', 'HubModel', 'CASCADE');
-    //public $invite_email_sent = array('core\BooleanType');
-    //public $reminder_email_sent = array('core\BooleanType');
-    //public $thankyou_email_sent = array('core\BooleanType');
 
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
@@ -21,10 +18,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
         /*if($this->event_date == date('Y-m-d')){
             $this->reminder_email_sent = true;
         }*/
-    }
-
-    public function  afterStore($was_linked) {
-        parent::afterStore($was_linked);
     }
 
     public function sendReminderEmail(){
@@ -48,7 +41,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
                     and("invite_email_sent")->is(false);
                 $subject = _("Personal invitation to %s",$this->view('title'));
                 $mail_view = "event_invite";
-                //$this->invite_email_sent = true;
                 break;
             case "reminder":
                 // Only send reminder email to people that RVSP attending to avoid angry faces
@@ -59,7 +51,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
                     and("reminder_email_sent")->is(false);
                 $subject = _("Reminder for %s",$this->view('title'));
                 $mail_view = "event_reminder";
-                //$this->reminder_email_sent = true;
                 break;
             case "thankyou":
                 // Only send thankyou email to people that RVSP attending to avoid angry faces
@@ -71,7 +62,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
                     and("thankyou_email_sent")->is(false);
                 $subject = _("Thank you for attending %s",$this->view('title'));
                 $mail_view = "event_thankyou";
-                //$this->thankyou_email_sent = true;
                 break;
         }
 

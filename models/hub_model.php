@@ -21,8 +21,6 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\data
     public function __toString() {
         return $this->view('city') . " (" . $this->country . ")";
     }
-
-
     
     public static function uiGetInterface($interface_name, $field_set) {
   
@@ -36,10 +34,6 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\data
         }
     }
 
-    public function doRemove() {
-        $this->unlink();
-        //\nmvc\request\send_json_data(true);
-    }
 
     public static function getEnlistColumns() {
         return array(

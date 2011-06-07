@@ -59,16 +59,9 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
     }
 
     public function ic_new_hub() {
-
-
         $this->doValidate();
         $this->doStore();
-        $instances = $this->getInstances();
-        $hub_instance = $instances['nmvc\HubModel'][0];
-        $ambassador_instance = $instances['nmvc\HubAmbassadorModel'][0];
-
-        //$this->hub_ambassador->hub = $this->hub;
-        \nmvc\messenger\redirect_message(url("/"), _("Hub was added!"), "good");
+        \nmvc\messenger\redirect_message(url("/"), _("Hub was added/updated!"), "good");
     }
 
     public function ic_new_event() {

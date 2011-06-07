@@ -14,6 +14,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public $invite_email_sent = array('core\BooleanType');
     public $reminder_email_sent = array('core\BooleanType');
     public $thankyou_email_sent = array('core\BooleanType');
+    /* Volatile fields for display purposes */
+    public $attendees = array(VOLATILE, 'core\IntegerType');
 
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
@@ -206,9 +208,10 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             "title" => "Title",
             "hub" => "Hub",
             "event_date" => "Date",
-            "invite_email_sent" => "Invites",
-            "reminder_email_sent" => "Reminder",
-            "thankyou_email_sent" => "Thankyou",
+            //"attendees" => "RVSP+", // TODO: fetch this value
+            "invite_email_sent" => "Inv",
+            "reminder_email_sent" => "Rem",
+            "thankyou_email_sent" => "Tha",
         );
     }
 

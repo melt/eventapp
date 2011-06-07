@@ -4,24 +4,23 @@
 
 --------------------
 
-What's currently your most exciting project?
-
+— What's currently your most exciting project?
 <?php echo $this->mep; ?>
 
 --------------------
 
-What's your biggest challenge right now?
-
+— What's your biggest challenge right now?
 <?php echo $this->bc; ?>
 
 --------------------
 
-How can we help you in general?
-
+— How can we help you in general?
 <?php echo $this->gh; ?>
 
 --------------------
 
-Schedule a Skype call?
-
+— Schedule a Skype call?
 <?php echo $this->skype; ?>
+
+
+

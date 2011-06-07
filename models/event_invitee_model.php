@@ -54,9 +54,9 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
                         "name" => $this->invitee->getName(),
                         "email" => $this->invitee->view('username'),
                         "phone" => $this->invitee->view('phone'),
-                        "mep" => $this->view('most_exciting_project'),
-                        "bc" => $this->view('biggest_challenge'),
-                        "gh" => $this->view('generally_help'),
+                        "mep" => $this->most_exciting_project,
+                        "bc" => $this->biggest_challenge,
+                        "gh" => $this->generally_help,
                         "skype" => $this->view('wants_to_skype')
                     ),
                     $subject,

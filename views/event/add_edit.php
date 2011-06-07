@@ -1,4 +1,5 @@
 <?php namespace nmvc; ?>
+<?php if($this->event->id == 0): // If new event, set default textarea description ?>
 <script type="text/javascript">
     $(document).ready(function() {
         var default_text = "<Add a teaser (one sentence of the overall topic of the evening, for example “April’s Fools”, “Summer dinner”; exciting special guests; etc.)>";
@@ -34,10 +35,9 @@
         */
         
   });
-
   
 </script>
-
+<?php endif; ?>
 
 <div id="stylized" class="myform">
 <h1><?php echo ($this->event->id != 0)? _("Edit"): _("Add new"); ?> <?php echo _("event"); ?></h1>

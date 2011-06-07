@@ -28,9 +28,12 @@
     </script>
 
     <div class="demo">
-
+        <?php $users_to_moderate = userx\UserModel::select()->where("is_moderated")->is(false)->count(); ?>
         <div id="tabs">
             <ul>
+                <?php if($users_to_moderate > 0): ?>
+                    <li><a href="#tabs-1"><?php echo _("New Users to Moderate (%s)",$users_to_moderate); ?></a></li>
+                <?php endif; ?>
                 <li><a href="#tabs-2"><?php echo _("Events"); ?></a></li>
                 <li><a href="#tabs-3"><?php echo _("Hubs"); ?></a></li>
                 <li><a href="#tabs-4"><?php echo _("Members"); ?></a></li>
@@ -38,6 +41,16 @@
 
 
             </ul>
+
+        <?php if($users_to_moderate > 0): ?>
+        <div id="tabs-1">
+
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, null, null, db\expr("is_moderated")->is( false ) ); ?>
+
+
+        </div>
+        <?php endif; ?>
+
 
         <div id="tabs-2">
 

@@ -6,7 +6,6 @@ class HubController extends userx\RestrictedController {
         if($hub_id == false){
             $this->hub = new \nmvc\HubModel();
             $this->hub_ambassador = new \nmvc\HubAmbassadorModel();
-            $this->hub_ambassador->hub = $this->hub;
         } else {
             $this->hub = HubModel::select()->where("id")->is($hub_id)->first();
             //$this->hub_ambassador = HubAmbassadorModel::select()->where("hub")->is($this->hub)->first();

@@ -6,7 +6,7 @@
 <?php $interface = new qmi\ModelInterface("new_hub", "cell"); ?>
 <?php echo $interface->startForm(); ?>
 <?php echo $interface->getInterface($this->hub); ?>
-<?php //echo $interface->getInterface($this->hub_ambassador); ?>
+<?php echo $interface->getInterface($this->hub_ambassador); ?>
 <button type="submit"><?php echo _("Submit"); ?></button> or <a href="<?php echo url("/"); ?>">Cancel</a>
 <div class="spacer"></div>
 <?php echo $interface->finalizeForm(false); ?>

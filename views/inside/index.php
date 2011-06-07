@@ -57,7 +57,7 @@
 
         <div id="tabs-4">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", null, null, null, db\expr("group->context")->isnt( userx\GroupModel::CONTEXT_GUEST ) ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->isnt( userx\GroupModel::CONTEXT_GUEST ) ); ?>
 
 
         </div>
@@ -65,7 +65,7 @@
 
         <div id="tabs-5">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", null, null, null, db\expr("group->context")->is( userx\GroupModel::CONTEXT_GUEST ) ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->is( userx\GroupModel::CONTEXT_GUEST ) ); ?>
 
 
         </div>

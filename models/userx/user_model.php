@@ -109,21 +109,14 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
         switch ($interface_name) {
         case "user_profile":
             return array(
-                //"first_name" => array(_("First Name"), ""),
-                //"last_name" => array(_("Last Name"), ""),
                 "username" => array(_("Email"), "Where to send invitations"),
                 "phone" => array(_("Phone"), "Where we can reach you"),
                 "company" => array(_("Company/Project"), "What keeps you busy"),
                 "street" => array(_("Street"), "Where you live right now"),
                 "city" => array(_("City"), "Where you live right now"),
-                "country" => array(_("Country"), "Where you live right now"),
-                //"user_type" => array(_("Type of User"), ""),
-                
+                "country" => array(_("Country"), "Where you live right now"),                
                 "hub"=> array(_("Hub"), "Primary hub of interest"),
                 "is_unsubscribed" => array(_("Unsubscribe to Invites"), "Do not receive any emails"),
-                //"password" => array(_("Password"), ""),
-                //"_password_2" => array(_("Repeat Password"), ""),
-                //"remember_login" => array(_("Remember Login", "")),
             );
             break;
         case "rvsp_page":
@@ -138,7 +131,17 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
             break;
         case "user_edit":
             return array(
-                "hub"=> array(_("Belongs to Hub"), "User will receive information from this hub per default"),
+                "group" => array(_("Permissions"), ""),
+                "first_name" => array(_("First Name"), ""),
+                "last_name" => array(_("Last Name"), ""),
+                "username" => array(_("Email"), "Where to send invitations"),
+                "phone" => array(_("Phone"), "Where we can reach you"),
+                "company" => array(_("Company/Project"), "What keeps you busy"),
+                "street" => array(_("Street"), "Where you live right now"),
+                "city" => array(_("City"), "Where you live right now"),
+                "country" => array(_("Country"), "Where you live right now"),
+                "hub"=> array(_("Hub"), "Primary hub of interest"),
+                "is_unsubscribed" => array(_("Unsubscribe to Invites"), "Do not receive any emails"),
             );
             break;
         /* Deprecated: Using strictly only Facebook login
@@ -195,12 +198,16 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
             "last_name" => "Last Name",
             "username" => "Email",
             "hub" => "Hub",
-            "group" => "Type",
+            "attended_events" => "Attended",
+            //"group" => "Permissions",
         );
     }
 
     public function getTableEnlistValues() {
-        return array();
+        $attended_events = \nmvc\EventInviteeModel::select()->where("invitee")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )->count();
+        return array(
+            "attended_events" => "<b>".$attended_events ."</b> events"
+        );
     }
 
 

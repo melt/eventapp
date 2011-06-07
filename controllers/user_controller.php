@@ -3,6 +3,10 @@
 class UserController extends userx\RestrictedController {
 
 
+    public function edit($user_id) {
+        $this->user = userx\UserModel::select()->where("id")->is($user_id)->first();
+    }
+
     public static function getDefaultPermission(userx\GroupModel $group = null) {
         if ($group === null)
             return "Deny";

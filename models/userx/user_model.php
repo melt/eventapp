@@ -182,11 +182,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
         $this->store();
     }
 
-    public function doPromoteToMember(){
-        $this->group = \nmvc\userx\GroupModel::select("id")->where("context")->is( \nmvc\userx\GroupModel::CONTEXT_MEMBER )->first();
-        $this->store();
-    }
-
     public function doRemove() {
         $this->unlink();
         //\nmvc\request\send_json_data(true);
@@ -205,8 +200,13 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
 
     public function getTableEnlistValues() {
         $attended_events = \nmvc\EventInviteeModel::select()->where("invitee")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )->count();
+        $set_ambassador = \nmvc\qmi\get_action_link($this, "setRole",null,array("type"=>"ambassador"));
+        $set_member = \nmvc\qmi\get_action_link($this, "setRole",null,array("type"=>"member"));
+        $set_guest = \nmvc\qmi\get_action_link($this, "setRole",null,array("type"=>"guest"));
+
         return array(
-            "attended_events" => "<b>".$attended_events ."</b> events"
+            "attended_events" => "<b>".$attended_events ."</b> events",
+            "set_permissions" => "<a href=\"$set_guest\">Guest</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$set_member\">Member</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$set_ambassador\">Ambassador</a>"
         );
     }
 

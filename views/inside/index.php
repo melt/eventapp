@@ -45,7 +45,12 @@
         <?php if($users_to_moderate > 0): ?>
         <div id="tabs-1">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", null, null, null, db\expr("is_moderated")->is( false ) ); ?>
+        <?php data_tables\list_model_lite("nmvc\userx\UserModel", null, null, null, db\expr("is_moderated")->is( false ), array(
+            "first_name" => "First Name",
+            "last_name" => "Last Name",
+            "username" => "Email",
+            "set_permissions" => "Who is this person?"
+        ) ); ?>
 
 
         </div>

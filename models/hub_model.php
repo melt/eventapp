@@ -49,12 +49,17 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\data
     public static function getEnlistColumns() {
         return array(
             "city" => "City",
-            "country" => "Country"
+            "country" => "Country",
+            "ambassador" => "Ambassador"
         );
     }
 
     public function getTableEnlistValues() {
-        return array();
+        $ambassador = \nmvc\HubAmbassadorModel::select()->where("hub")->is($this);
+        $name = $ambassador->view('ambassador');
+        return array(
+            "ambassador" => $name
+        );
     }
 
 }

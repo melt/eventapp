@@ -45,7 +45,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     private function sendEmail($type = "invite"){
         switch($type){
             case "invite":
-                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("invitee->is_unsubscribed")->is(false);
+                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("invitee->is_unsubscribed")->is(false)->and("invitee->invite_email_sent")->is(false);
                 $subject = _("Personal invitation to %s",$this->view('title'));
                 $mail_view = "event_invite";
                 $this->invite_email_sent = true;
@@ -90,6 +90,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
                     false,
                     array()
                     );
+            $invitee->invite_email_sent = true;
+            $invitee->store();
         }
         // Store that email is sent
         $this->store();

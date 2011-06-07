@@ -203,10 +203,11 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
         $set_ambassador = \nmvc\qmi\get_action_link($this, "setRole",null,array("type"=>"ambassador"));
         $set_member = \nmvc\qmi\get_action_link($this, "setRole",null,array("type"=>"member"));
         $set_guest = \nmvc\qmi\get_action_link($this, "setRole",null,array("type"=>"guest"));
+        $delete = \nmvc\qmi\get_action_link($this, "doRemove");
 
         return array(
             "attended_events" => "<b>".$attended_events ."</b> events",
-            "set_permissions" => "<a href=\"$set_guest\">Guest</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$set_member\">Member</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$set_ambassador\">Ambassador</a>"
+            "set_permissions" => "<a href=\"$set_guest\">Guest</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$set_member\">Member</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$set_ambassador\">Ambassador</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"$delete\">DELETE USER</a>"
         );
     }
 

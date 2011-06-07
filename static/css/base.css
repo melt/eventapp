@@ -26,7 +26,7 @@ a.navigation_button{
 clear:both;
 margin-right:10px;
 height:31px;
-background:#666666 url(img/button.png) no-repeat;
+background:#666666 no-repeat; /*url(img/button.png)*/
 text-align:center;
 color:#FFFFFF;
 font-size:11px;

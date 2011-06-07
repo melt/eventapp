@@ -11,16 +11,16 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
     public $city = array('core\TextType', 128);
     /* Object Relations */
     public $hub_id = array('core\SelectModelType', 'HubModel', 'CASCADE');
-    public $invite_email_sent = array('core\BooleanType');
-    public $reminder_email_sent = array('core\BooleanType');
-    public $thankyou_email_sent = array('core\BooleanType');
+    //public $invite_email_sent = array('core\BooleanType');
+    //public $reminder_email_sent = array('core\BooleanType');
+    //public $thankyou_email_sent = array('core\BooleanType');
 
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
         // If event takes place today we simulate that reminder email already has been sent
-        if($this->event_date == date('Y-m-d')){
+        /*if($this->event_date == date('Y-m-d')){
             $this->reminder_email_sent = true;
-        }
+        }*/
     }
 
     public function  afterStore($was_linked) {
@@ -43,28 +43,39 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
     private function sendEmail($type = "invite"){
         switch($type){
             case "invite":
-                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("invitee->is_unsubscribed")->is(false)->and("invite_email_sent")->is(false);
+                $invitees = EventInviteeModel::select()->where("event")->is($this)->
+                    and("invitee->is_unsubscribed")->is(false)->
+                    and("invite_email_sent")->is(false);
                 $subject = _("Personal invitation to %s",$this->view('title'));
                 $mail_view = "event_invite";
-                $this->invite_email_sent = true;
+                //$this->invite_email_sent = true;
                 break;
             case "reminder":
                 // Only send reminder email to people that RVSP attending to avoid angry faces
-                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING)->and("invitee->is_unsubscribed")->is(false);
+                $invitees = EventInviteeModel::select()->
+                    where("event")->is($this)->
+                    and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING)->
+                    and("invitee->is_unsubscribed")->is(false)->
+                    and("reminder_email_sent")->is(false);
                 $subject = _("Reminder for %s",$this->view('title'));
                 $mail_view = "event_reminder";
-                $this->reminder_email_sent = true;
+                //$this->reminder_email_sent = true;
                 break;
             case "thankyou":
                 // Only send thankyou email to people that RVSP attending to avoid angry faces
-                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING)->and("invitee->is_unsubscribed")->is(false);
+                $invitees = EventInviteeModel::select()->
+                    where("event")->is($this)->
+                    and("rvsp")->is(\nmvc\EventInviteeModel::ATTENDING)->
+                    and("invitee->is_unsubscribed")->is(false)->
+                    and("reminder_email_sent")->is(true)->
+                    and("thankyou_email_sent")->is(false);
                 $subject = _("Thank you for attending %s",$this->view('title'));
                 $mail_view = "event_thankyou";
-                $this->thankyou_email_sent = true;
+                //$this->thankyou_email_sent = true;
                 break;
         }
 
-        foreach($invitees as $invitee){
+        foreach($invitees as $invitee):
             \nmvc\MailHelper::sendMail($mail_view,
                     array(
                         "event_name"=>$this->view('title'),
@@ -88,9 +99,21 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
                     false,
                     array()
                     );
-            $invitee->invite_email_sent = true;
+
+            switch($type){
+                case "invite":
+                    $invitee->invite_email_sent = true;
+                    break;
+                case "reminder":
+                    $invitee->reminder_email_sent = true;
+                    break;
+                case "thankyou":
+                    $invitee->thankyou_email_sent = true;
+                    break;
+            }
+
             $invitee->store();
-        }
+        endforeach;
         // Store that email is sent
         $this->store();
     }
@@ -184,28 +207,21 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
         }
     }
 
-    public function doRemove() {
-        $this->unlink();
-        //\nmvc\request\send_json_data(true);
-    }
-
     public static function getEnlistColumns() {
         return array(
             "title" => "Title",
             "hub" => "Hub",
             "event_date" => "Date",
-            "attendees" => "Attendees",
-            "invite_email_sent" => "I",
-            "reminder_email_sent" => "R",
-            "thankyou_email_sent" => "T",
+            "attendees" => "Attendees"
         );
     }
 
     public function getTableEnlistValues() {
         $rvsp_yes = \nmvc\EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )->count();
         $invitees = \nmvc\EventInviteeModel::select()->where("event")->is($this)->and("invite_email_sent")->is(true)->count();
+        $have_not_replied = \nmvc\EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::NO_RVSP )->count();
         return array(
-            "attendees" => "<b>".$rvsp_yes."</b> (".$invitees." invited)"
+            "attendees" => "<b>$rvsp_yes</b> (<b>$invitees</b> invited, <b>$have_not_replied</b> have not yet replied)"
         );
     }
 }

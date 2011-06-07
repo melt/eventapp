@@ -2,9 +2,6 @@
 
 
 <div id="stylized" class="myform">
-<div id="profile_picture">
-    <img src="https://graph.facebook.com/<?php echo $this->fb_user; ?>/picture?type=large">
-</div>
 <h1><?php echo _("Edit %s",$this->user->getName()); ?></h1>
 <p><?php echo _("Use this form to edit the user details."); ?></p>
 <?php $interface = new qmi\ModelInterface("user_edit", "cell"); ?>

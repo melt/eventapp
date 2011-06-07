@@ -4,8 +4,11 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
     /* N-N Relations */
     public $event_id = array('core\PointerType', 'EventModel','CASCADE');
     public $invitee_id = array('core\SelectModelType', 'userx\UserModel','CASCADE');
-    public $invite_email_sent = array('core\BooleanType');
     public $rvsp_page_hash = array('core\TextType',16);
+    /* Tracks the different emails that the invitee can receive */
+    public $invite_email_sent = array('core\BooleanType');
+    public $reminder_email_sent = array('core\BooleanType'); // Only if RVSP ATTENDING
+    public $thankyou_email_sent = array('core\BooleanType'); // Only if RVSP ATTENDING
     /* Invitee Meta Information */
     public $most_exciting_project = array('core\TextAreaType');
     public $biggest_challenge = array('core\TextAreaType');

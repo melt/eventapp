@@ -66,7 +66,7 @@
         </div>
         <div id="tabs-3">
 
-        <?php data_tables\list_model("nmvc\HubModel", null, "hub/add_edit"); ?>
+        <?php data_tables\list_model("nmvc\HubModel", null, "hub/add_edit", null, null, null, true); ?>
 
 
 
@@ -75,7 +75,7 @@
 
         <div id="tabs-4">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->isnt( userx\GroupModel::CONTEXT_GUEST ) ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->isnt( userx\GroupModel::CONTEXT_GUEST ), null, true ); ?>
 
 
         </div>
@@ -83,7 +83,7 @@
 
         <div id="tabs-5">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->is( userx\GroupModel::CONTEXT_GUEST ) ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->is( userx\GroupModel::CONTEXT_GUEST ), null, true ); ?>
 
 
         </div>

@@ -34,7 +34,7 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\data
         switch ($interface_name) {
         case "new_hub":
             return array(
-                "city" => array(_("City"), "Enter name of hub"),
+                "city" => array(_("City"), "Name of hub"),
                 "country" => array(_("Country"), ""),
             );
 

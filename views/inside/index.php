@@ -13,7 +13,7 @@
     <?php endif; ?>
 
     <?php if( $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
-    <a class="navigation_button" href="<?php echo url("/hub/add"); ?>"><?php echo _("Add new hub"); ?></a>
+    <a class="navigation_button" href="<?php echo url("/hub/add_edit"); ?>"><?php echo _("Add new hub"); ?></a>
     <?php endif; ?>
     <br/><br/>
 </div>
@@ -48,7 +48,7 @@
         </div>
         <div id="tabs-3">
 
-        <?php data_tables\list_model("nmvc\HubModel", null); ?>
+        <?php data_tables\list_model("nmvc\HubModel", null, "hub/add_edit"); ?>
 
 
 

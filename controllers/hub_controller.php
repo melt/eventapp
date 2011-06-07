@@ -2,10 +2,15 @@
 
 class HubController extends userx\RestrictedController {
 
-    public function add() {
-        $this->new_hub = new \nmvc\HubModel();
-        $this->new_hub_ambassador = new \nmvc\HubAmbassadorModel();
-        $this->new_hub_ambassador->hub = $this->new_hub;
+    public function add_edit($hub_id = false) {
+        if($hub_id == false){
+            $this->hub = new \nmvc\HubModel();
+            $this->hub_ambassador = new \nmvc\HubAmbassadorModel();
+            $this->hub_ambassador->hub = $this->hub;
+        } else {
+            $this->hub = HubModel::select()->where("id")->is($hub_id)->first();
+            //$this->hub_ambassador = HubAmbassadorModel::select()->where("hub")->is($this->hub)->first();
+        }
     }
 
     

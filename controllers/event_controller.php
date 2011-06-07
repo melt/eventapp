@@ -2,10 +2,12 @@
 
 class EventController extends userx\RestrictedController {
 
-    public function add() {
-        $this->new_event = new \nmvc\EventModel();
+    public function add_edit($event_id = false) {
+        if($event_id == false)
+            $this->event = new \nmvc\EventModel();
+        else
+            $this->event = EventModel::select()->where("id")->is($event_id)->first();
     }
-
 
     public function add_invitees($event_id) {
         $this->event = EventModel::select()->where("id")->is($event_id)->first();

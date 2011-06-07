@@ -1,6 +1,6 @@
 <?php namespace nmvc;
 
-class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxListable, \nmvc\data_tables\DataTablesListable {
+class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\data_tables\DataTablesListable {
     /* Fields */
     public $title = array('core\TextType', 128);
     public $description = array('core\TextAreaType');
@@ -14,8 +14,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     public $invite_email_sent = array('core\BooleanType');
     public $reminder_email_sent = array('core\BooleanType');
     public $thankyou_email_sent = array('core\BooleanType');
-    /* Volatile fields for display purposes */
-    public $attendees = array(VOLATILE, 'core\IntegerType');
 
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
@@ -45,7 +43,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
     private function sendEmail($type = "invite"){
         switch($type){
             case "invite":
-                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("invitee->is_unsubscribed")->is(false)->and("invitee->invite_email_sent")->is(false);
+                $invitees = EventInviteeModel::select()->where("event")->is($this)->and("invitee->is_unsubscribed")->is(false)->and("invite_email_sent")->is(false);
                 $subject = _("Personal invitation to %s",$this->view('title'));
                 $mail_view = "event_invite";
                 $this->invite_email_sent = true;
@@ -97,19 +95,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
         $this->store();
     }
 
-    public function getAjaxListActions($interface_name) {
-        $actions = array();
-        $has_invitees = EventInviteeModel::select("invitee")->where("event")->is($this)->count();
-        if($this->invite_email_sent==false)
-            $actions["@addInvitees"] = array(_("Add Invitees"));
-        /*if($has_invitees > 0 && $this->invite_email_sent==true && $this->reminder_email_sent == true && $this->thankyou_email_sent == false)
-            $actions["@sendThankyouEmail"] = array(_("Send Thankyou Email"));*/
-        if($has_invitees <= 0)
-            $actions["@doRemove"] = array(_("Delete")
-                , "confirm" => _("Do you really want to delete the event %s?",$this->view('title'))
-            );
-        return $actions;
-    }
 
     private function getAttendees(){
         return userx\UserModel::select()->where("id")->isIn(
@@ -123,11 +108,16 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
          );
     }
 
-    private function generateStaticGoogleMapsImage(){
+    /*
+     *  Generates a static map using the Google Maps static API
+     *  @params size Size of map in widthxheight format
+     *  @params zoom Zoom factor
+     */
+    public function generateStaticGoogleMapsImage( $size = "512x300", $zoom = "14" ){
         // If there is a complete address we will generate a map
         if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
             $url_friendly_address = \rawurlencode( $this->view('street') ." ". $this->view('city') . " ". $this->hub->view('country') );
-            return "http://maps.google.com/maps/api/staticmap?center=$url_friendly_address&zoom=14&size=512x300&maptype=roadmap&markers=color:red|label:Here|$url_friendly_address&sensor=false";
+            return "http://maps.google.com/maps/api/staticmap?center=$url_friendly_address&zoom=$zoom&size=$size&maptype=roadmap&markers=color:red|label:Here|$url_friendly_address&sensor=false";
         } else {
             return null;
         }
@@ -149,13 +139,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
 
 
 
-    public function getAjaxListCells($interface_name) {
-        return array(
-            _("Title") => '<strong>' . $this->view("title") . '</strong>',
-            _("Hub") => $this->view('hub'),
-            _("Date") => $this->view('event_date'),
-        );
-    }
+
     
     public function uiValidate($interface_name) {
         $err = array();
@@ -210,14 +194,18 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, AjaxList
             "title" => "Title",
             "hub" => "Hub",
             "event_date" => "Date",
-            //"attendees" => "RVSP+", // TODO: fetch this value
-            "invite_email_sent" => "Inv",
-            "reminder_email_sent" => "Rem",
-            "thankyou_email_sent" => "Tha",
+            "attendees" => "Attendees",
+            "invite_email_sent" => "I",
+            "reminder_email_sent" => "R",
+            "thankyou_email_sent" => "T",
         );
     }
 
     public function getTableEnlistValues() {
-        return array();
+        $rvsp_yes = \nmvc\EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )->count();
+        $invitees = \nmvc\EventInviteeModel::select()->where("event")->is($this)->and("invite_email_sent")->is(true)->count();
+        return array(
+            "attendees" => "<b>".$rvsp_yes."</b> (".$invitees." invited)"
+        );
     }
 }

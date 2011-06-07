@@ -40,11 +40,11 @@
 
 
 <div id="stylized" class="myform">
-<h1><?php echo _("Add new event"); ?></h1>
-<p><?php echo _("Use this form to add a new event to %s.",APP_NAME); ?></p>
+<h1><?php echo ($this->event->id != 0)? _("Edit"): _("Add new"); ?> <?php echo _("event"); ?></h1>
+<p><?php echo _("Use this form to"); ?> <?php echo ($this->event->id != 0)? _("edit the event <b>%s</b>.",$this->event->title): _("add a new event to %s.",APP_NAME); ?></p>
 <?php $interface = new qmi\ModelInterface("new_event", "cell"); ?>
 <?php echo $interface->startForm(array("id"=>"new_event_form")); ?>
-<?php echo $interface->getInterface($this->new_event); ?>
+<?php echo $interface->getInterface($this->event); ?>
 <button type="submit "role="button" aria-disabled="false"><?php echo _("Next Step"); ?></button> or <a href="<?php echo url("/"); ?>">Cancel</a>
 <div class="spacer"></div>
 <?php echo $interface->finalizeForm(false); ?>

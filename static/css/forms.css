@@ -19,10 +19,15 @@ padding:14px;
 border:solid 2px #b7ddf2;
 background:#ebf4fb;
 }
-#stylized #profile_picture img, #stylized #google_maps img{
+#stylized #profile_picture img{
 border:solid 3px #b7ddf2;
 background:#ebf4fb;
 max-width:130px;
+margin-bottom:10px;
+}
+#stylized img#google_maps {
+border:solid 3px #b7ddf2;
+background:#ebf4fb;
 margin-bottom:10px;
 }
 #stylized h1 {

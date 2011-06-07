@@ -1,6 +1,6 @@
 <?php namespace nmvc\userx;
 
-class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable, \nmvc\data_tables\DataTablesListable {
+class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\DataTablesListable {
     /* Facebook User ID */
     public $facebook_user = array('core\IntegerType');
     /* Fields */
@@ -133,12 +133,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 "company" => array(_("Company/Project"), "What keeps you busy"),
                 "street" => array(_("Street"), "Where you live right now"),
                 "city" => array(_("City"), "Where you live right now"),
-                "country" => array(_("Country"), "Where you live right now"),
-                //"user_type" => array(_("Type of User"), ""),
-                
-                //"password" => array(_("Password"), ""),
-                //"_password_2" => array(_("Repeat Password"), ""),
-                //"remember_login" => array(_("Remember Login", "")),
+                "country" => array(_("Country"), "Where you live right now")
             );
             break;
         case "user_edit":
@@ -163,59 +158,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\AjaxListable
                 "_password_2" => array(_("Repeat password"), ""),
             );*/
         }
-    }
-
-     public function getAjaxListCells($interface_name) {
-        switch ($interface_name) {
-        case "user_list":
-            $cells = array(
-                //"Permissions"=>$this->view('group'),
-                "Name"=>$this->getName(),
-                "Email"=>$this->view('username'),
-                "Company/Project"=>$this->view('company')
-            );
-            break;
-        case "guest_list":
-            $rvsp_count = \nmvc\EventInviteeModel::select()->where("invitee")->is($this)->and("rvsp")->is(true)->count();
-            $cells = array(
-                "Name"=>$this->getName(),
-                "Email"=>$this->view('username'),
-                "Attended Events"=>$rvsp_count
-            );
-            break;
-        case "moderation_list":
-            $cells = array(
-                "Name"=>$this->getName(),
-                "Email"=>$this->view('username')
-            );
-            break;
-        }
-        return $cells;
-        
-    }
-
-    public function getAjaxListActions($interface_name) {
-        $actions = array();
-        switch ($interface_name) {
-        case "user_list":
-            $actions["@doRemove"] = array(_("Delete")
-                , "confirm" => _("This will PERMANENTLY remove the user including all data. This action cannot be undone. Are you sure?")
-            );
-            break;
-        case "guest_list":
-            $actions["@doPromoteToMember"] = array(_("Promote to Member"));
-            $actions["@doRemove"] = array(_("Delete")
-                , "confirm" => _("This will PERMANENTLY remove the user including all data. This action cannot be undone. Are you sure?")
-            );
-            break;
-        case "moderation_list":
-            $actions[ \nmvc\qmi\get_action_link($this,"setRole",null,array("type"=>"guest"))] = array(_("Guest"));
-            $actions[ \nmvc\qmi\get_action_link($this,"setRole",null,array("type"=>"member")) ] = array(_("Member"));
-            $actions[ \nmvc\qmi\get_action_link($this,"setRole",null,array("type"=>"ambassador")) ] = array(_("Ambassador"));
-            $actions[ \nmvc\qmi\get_action_link($this,"setRole",null,array("type"=>"admin")) ] = array(_("Administrator"));
-            break;
-        }
-        return $actions;
     }
 
     public function setRole($type = "guest"){

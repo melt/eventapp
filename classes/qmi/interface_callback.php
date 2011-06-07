@@ -71,7 +71,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $this->doStore();
         $instances = $this->getInstances();
         $instance = $instances['nmvc\EventInviteeModel'][0];
-        $invitee = \nmvc\EventInviteeModel::select()->where("id")->is($instance->id);
+        $invitee = \nmvc\EventInviteeModel::select()->where("id")->is($instance->id)->first();
         // If person is attending, send the input to the hub ambassadors
         if($invitee->rvsp == 1)
                 $invitee->sendDataToAmbassadors();

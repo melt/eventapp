@@ -9,7 +9,8 @@
          **/
         $(".fc_description textarea").val( default_text );
         $(".fc_description textarea").focus(function() {
-            $(this).val("");
+            if($(this).val() == default_text)
+                $(this).val("");
         });
         $(".fc_description textarea").blur(function() {
             if($(this).val()=="")

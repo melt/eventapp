@@ -70,7 +70,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
     }
 
     public function __toString() {
-        return $this->getName() . " (" . $this->username . ")";
+        return $this->getName() . " (" . $this->view('username') . ")";
     }
 
     public function isSuperAdmin() {

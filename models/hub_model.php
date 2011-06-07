@@ -5,11 +5,6 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\data
     public $city = array('core\TextType', 128);
     public $country = array('core\CountryType');
 
-    public function  afterStore($was_linked) {
-        parent::afterStore($was_linked);
-        \nmvc\messenger\redirect_message(url("/"), _("The hub was added!"), "good");
-    }
-
     public function uiValidate($interface_name) {
         $err = array();
         foreach (array(
@@ -56,9 +51,8 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\data
 
     public function getTableEnlistValues() {
         $ambassador = \nmvc\HubAmbassadorModel::select()->where("hub")->is($this);
-        $name = $ambassador->view('ambassador');
         return array(
-            "ambassador" => $name
+            "ambassador" => $ambassador->view('ambassador')
         );
     }
 

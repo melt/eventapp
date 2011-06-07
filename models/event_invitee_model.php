@@ -42,6 +42,28 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
             return false;
     }
 
+    public function sendDataToAmbassadors(){
+        $ambassadors = HubAmbassadorModel::select()->where("hub")->is($this->event->hub);
+        $subject = $this->invitee->getName()." is attending ".$this->event->view('title');
+        foreach($ambassadors as $ambassador){
+            \nmvc\MailHelper::sendMail("event_attendee_data",
+                    array(
+                        "name" => $this->invitee->getName(),
+                        "email" => $this->invitee->view('username'),
+                        "phone" => $this->invitee->view('phone'),
+                        "mep" => $this->view('most_exciting_project'),
+                        "bc" => $this->view('biggest_challenge'),
+                        "gh" => $this->view('generally_help'),
+                        "skype" => $this->view('wants_to_skype')
+                    ),
+                    $subject,
+                    $ambassador->ambassador->view("username"),
+                    true,
+                    array()
+                    );
+        }
+    }
+
     public function uiValidate($interface_name) {
         $err = array();
         foreach (array(

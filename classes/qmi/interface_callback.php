@@ -70,7 +70,11 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $this->doValidate();
         $this->doStore();
         $instances = $this->getInstances();
-        $invitee = $instances['nmvc\EventInviteeModel'][0];
+        $instance = $instances['nmvc\EventInviteeModel'][0];
+        $invitee = \nmvc\EventInviteeModel::select()->where("id")->is($instance->id);
+        // If person is attending, send the input to the hub ambassadors
+        if($invitee->rvsp == 1)
+                $invitee->sendDataToAmbassadors();
         // Redirect to thankyou page if save succeeds
         \nmvc\messenger\redirect_message(url("/outside/rvsp_thanks/", array( "rvsp" => $invitee->rvsp, "email" => $invitee->invitee->username) ), _("Thank you for your RVSP!"), "good");
     }

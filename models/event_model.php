@@ -81,7 +81,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
                         "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee),
                         "attendees"=>$this->getAttendees(),
                         "unsubscribe_link"=>$invitee->generateUnsubscribeLink(),
-                        "invitee_type"=>$invitee->invitee->group->context
+                        "invitee_type"=>$invitee->invitee->group->view('context')
                     ),
                     $subject,
                     $invitee->invitee->view('username'),

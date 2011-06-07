@@ -6,7 +6,8 @@
          * Requires autocomplete and does not accept other input
          **/
         $('.fc_list_of_members textarea').autocomplete("<?php echo url("/event/search_invitee"); ?>", {
-		selectFirst: true,
+		delay: 50,
+                selectFirst: true,
                 multiple: true,
 		mustMatch: true,
 		autoFill: true,
@@ -19,6 +20,7 @@
          * Does not require autocomplete but gives hints if user can be found in database
          **/
         $('.fc_list_of_emails textarea').autocomplete("<?php echo url("/event/search_invitee"); ?>", {
+                delay: 50,
                 multiple: true,
 		mustMatch: false,
 		autoFill: true,

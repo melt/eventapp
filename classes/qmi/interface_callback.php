@@ -64,11 +64,12 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $instances = $this->getInstances();
         $hub_instance = $instances['nmvc\HubModel'][0];
         $ambassador_instance = $instances['nmvc\HubAmbassadorModel'][0];
+        // Create ambassador to attach
         $ambassador = new \nmvc\HubAmbassadorModel();
         $ambassador->hub = $hub_instance->id;
-        $ambassador->ambassador = $ambassador_instance->id;
+        $ambassador->ambassador = $ambassador_instance->ambassador_id;
         $ambassador->store();
-        $this->hub_ambassador->hub = $this->hub;
+        //$this->hub_ambassador->hub = $this->hub;
         \nmvc\messenger\redirect_message(url("/"), _("Hub was added!"), "good");
     }
 
@@ -90,7 +91,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         if($invitee->rvsp == 1)
                 $invitee->sendDataToAmbassadors();
         // Redirect to thankyou page if save succeeds
-        \nmvc\messenger\redirect_message(url("/outside/rvsp_thanks/", array( "rvsp" => $invitee->rvsp, "email" => $invitee->invitee->username) ), _("Thank you for your RVSP!"), "good");
+        \nmvc\request\redirect(url("/outside/rvsp_thanks/", array( "rvsp" => $invitee->rvsp, "email" => $invitee->invitee->username ) ) );
     }
 
     public function ic_user_profile() {

@@ -22,6 +22,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
                  $invitee = new \nmvc\EventInviteeModel();
                  $invitee->event = $instance->event;
                  $invitee->invitee = $member;
+                 $invitee->rvsp_page_hash = \nmvc\string\random_hex_str(16);
                  $invitee->store();
             }
         }
@@ -39,7 +40,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
                 // Create a new invitee to the event
                 $invitee = new \nmvc\EventInviteeModel();
                 $invitee->event = $instance->event;
-
+                $invitee->rvsp_page_hash = \nmvc\string\random_hex_str(16);
                 // Connect to existing user if he/she already exists
                 $user = \nmvc\userx\UserModel::select()->where("username")->is($email)->first();
                 // User does not exist

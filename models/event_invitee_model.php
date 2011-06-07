@@ -25,7 +25,6 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
 
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);            
-        $this->rvsp_page_hash = \nmvc\string\random_hex_str(16);        
     }
 
     public function generateRvspLink(){

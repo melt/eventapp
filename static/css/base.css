@@ -38,6 +38,8 @@ a.navigation_button:hover {
     text-decoration: underline;
 }
 
-.ui-tabs .ui-tabs-nav li a {
-font-size: 1.2em!important;
+#content .ui-tabs .ui-tabs-nav li a {
+font-size: 1em;
 }
+
+#content .ui-widget { font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif; font-size: 1em; }

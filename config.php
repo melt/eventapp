@@ -87,7 +87,6 @@ namespace nmvc\userx\config {
 }
 
 namespace nmvc\js\config {
-    const JQUERY_UI_THEME = "/static/jq-ui-theme/jquery-ui-1.8.6.custom.css";
     const INCLUDE_LESS_CSS = true;
     const INCLUDE_JQUERY_JSTREE = true;
     const INCLUDE_JQUERY_HOTKEYS = true;
@@ -100,5 +99,5 @@ namespace nmvc\js\config {
     const INCLUDE_JQUERY_LIGHTBOX = true;
     const INCLUDE_JQUERY_CORNER = true;
     const INCLUDE_JQUERY_ALERTS = true;
-    const JQUERY_UI_THEME = 'ui-lightness';
+    const JQUERY_UI_THEME = 'smoothness';
 }

@@ -1,4 +1,8 @@
 
+.dataTables_wrapper table.data_tables th {
+   font-weight: bold!important;
+}
+
 .dataTables_wrapper table.data_tables tr.odd {
     background-color:#eff8fe!important;
 }

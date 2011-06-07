@@ -48,8 +48,8 @@
 <div id="stylized" class="myform">
 <a title="<?php echo _("Click on map to return and edit address"); ?>" href="<?php echo url("/event/add_edit/".$this->event->id); ?>"><img id="google_maps" src="<?php echo $this->event->generateStaticGoogleMapsImage("200x120","13"); ?>"/></a>
 
-<h1><?php echo _("Add invitees to %s in the %s hub.",$this->event->view('title'),$this->event->hub->view('city')); ?></h1>
-<p><?php echo _("Use this form to add invitees to the event <b>%s</b>.",$this->event->view('title')); ?></p>
+<h1><?php echo _("Add invitees to %s",$this->event->view('title')); ?></h1>
+<p><?php echo _("Use this form to add invitees to the event <b>%s</b> in the <b>%s</b> hub.",$this->event->view('title'),$this->event->hub->view('city')); ?></p>
 <?php $interface = new qmi\ModelInterface("add_invitees", "cell"); ?>
 <?php echo $interface->startForm(); ?>
 <?php echo $interface->getInterface($this->new_event_invitee); ?>

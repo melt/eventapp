@@ -80,4 +80,10 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         \nmvc\messenger\redirect_message(url("/"), _("Your profile was updated!"), "good");
     }
 
+    public function ic_user_edit() {
+        $this->doValidate();
+        $this->doStore();
+        \nmvc\messenger\redirect_message(url("/"), _("User was updated!"), "good");
+    }
+
 }

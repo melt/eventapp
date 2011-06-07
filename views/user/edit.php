@@ -6,7 +6,7 @@
     <img src="https://graph.facebook.com/<?php echo $this->fb_user; ?>/picture?type=large">
 </div>
 <h1><?php echo _("Edit %s",$this->user->getName()); ?></h1>
-<p><?php echo _("Use this form to edit the details for user .",$this->user->getName()); ?></p>
+<p><?php echo _("Use this form to edit the user details."); ?></p>
 <?php $interface = new qmi\ModelInterface("user_edit", "cell"); ?>
 <?php echo $interface->startForm(); ?>
 <?php echo $interface->getInterface($this->user); ?>

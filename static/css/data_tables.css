@@ -17,6 +17,9 @@
 }
 
 
+.dataTables_wrapper table.data_tables a.dt_edit_btn {
+    background:url(../img/users.png)!important;
+}
 
 
 

@@ -37,3 +37,7 @@ text-decoration: none;
 a.navigation_button:hover {
     text-decoration: underline;
 }
+
+.ui-tabs .ui-tabs-nav li a {
+font-size: 1.2em!important;
+}

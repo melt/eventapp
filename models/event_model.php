@@ -221,7 +221,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
         $invitees = \nmvc\EventInviteeModel::select()->where("event")->is($this)->and("invite_email_sent")->is(true)->count();
         $have_not_replied = \nmvc\EventInviteeModel::select()->where("event")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::NO_RVSP )->count();
         return array(
-            "attendees" => "<b>$rvsp_yes</b> (<b>$invitees</b> invited, <b>$have_not_replied</b> have not yet replied)"
+            "attendees" => "<b>$rvsp_yes</b> (<b>$invitees</b> invites, awaiting <b>$have_not_replied</b> replies)"
         );
     }
 }

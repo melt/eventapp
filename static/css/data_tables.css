@@ -16,8 +16,7 @@
     cursor:hand!important;
 }
 
-
-.dataTables_wrapper table.data_tables a.dt_edit_btn {
+.dataTables_wrapper table.data_tables a.dt_show_btn {
     background:url(../img/users.png)!important;
 }
 

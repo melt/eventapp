@@ -62,7 +62,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $this->doStore();
         $instances = $this->getInstances();
         $instance = $instances['nmvc\EventModel'][0];
-        \nmvc\messenger\redirect_message(url("/event/add_invitees/".$instance->id), _("Event successfully added! Now add some invitees :-)"), "good");
+        \nmvc\request\redirect(url("/event/add_invitees/".$instance->id));
     }
 
     public function ic_rvsp_page() {

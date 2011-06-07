@@ -42,7 +42,7 @@
         <div id="tabs-2">
 
 
-        <?php data_tables\list_model("nmvc\EventModel", null, "event/add_invitees", "", null, null, false, array()); ?>
+        <?php data_tables\list_model("nmvc\EventModel", "/event/add_invitees", "event/add_edit", "", null, null, false, array()); ?>
 
 
         </div>

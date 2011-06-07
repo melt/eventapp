@@ -87,16 +87,16 @@ namespace nmvc\userx\config {
 }
 
 namespace nmvc\js\config {
-    const INCLUDE_LESS_CSS = true;
-    const INCLUDE_JQUERY_JSTREE = true;
-    const INCLUDE_JQUERY_HOTKEYS = true;
-    const INCLUDE_JQUERY_RESIZE = true;
+    const INCLUDE_LESS_CSS = false;
+    const INCLUDE_JQUERY_JSTREE = false;
+    const INCLUDE_JQUERY_HOTKEYS = false;
+    const INCLUDE_JQUERY_RESIZE = false;
     const INCLUDE_JQUERY_FORM = true;
     const INCLUDE_JQUERY_COOKIE = true;
-    const INCLUDE_JQUERY_AUTORESIZE = true;
+    const INCLUDE_JQUERY_AUTORESIZE = false;
     const INCLUDE_JQUERY_AUTOCOMPLETE = true;
     const INCLUDE_JQUERY_DATATABLES = true;
-    const INCLUDE_JQUERY_LIGHTBOX = true;
+    const INCLUDE_JQUERY_LIGHTBOX = false;
     const INCLUDE_JQUERY_CORNER = true;
     const INCLUDE_JQUERY_ALERTS = true;
     const JQUERY_UI_THEME = 'smoothness';

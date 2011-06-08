@@ -31,8 +31,10 @@ class GroupModel extends GroupModel_app_overrideable {
                 $name = "Ambassador";
                 break;
             case GroupModel::CONTEXT_ADMIN:
-            case GroupModel::CONTEXT_SUPERADMIN:
                 $name = "Administrator";
+                break;
+            case GroupModel::CONTEXT_SUPERADMIN:
+                $name = "Superadmin";
                 break;
             
         }

@@ -46,6 +46,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
                     // Create a user to get the id
                     $user = new \nmvc\userx\UserModel();
                     $user->username = $email;
+                    $user->hub = $invitee->event->hub;
                 }
                 // Attach that id to the invitee before store
                 $invitee->invitee = $user;

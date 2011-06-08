@@ -47,7 +47,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
 
     public function sendRVSPToAmbassadors(){
         $ambassadors = HubAmbassadorModel::select()->where("hub")->is($this->event->hub);
-        $subject = $this->invitee->getName()." is attending ".$this->event->view('title');
+        $subject = "[".\nmvc\APP_NAME."] ".$this->invitee->getName()." is attending ".$this->event->view('title');
         foreach($ambassadors as $ambassador){
             \nmvc\MailHelper::sendMail("event_attendee_data",
                     array(

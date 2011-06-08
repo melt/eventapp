@@ -27,7 +27,7 @@
 <p>
 <?php if($this->attendees != null): ?>
 <?php foreach($this->attendees as $attendee): ?>
-    <?php echo ($attendee->first_name!="")? $attendee->getName().", ": ""; ?><?php echo $attendee->username; ?><br/>
+    <?php echo ($attendee->first_name!="")? "<b>".$attendee->getName()."</b>, ": ""; ?><?php echo $attendee->getGroupName(); ?>, <?php echo $attendee->username; ?><br/>
 <?php endforeach; ?>
 <?php endif; ?>
 </p><br/><br/>

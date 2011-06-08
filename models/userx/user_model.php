@@ -53,16 +53,15 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
         $user->store();
     }
 
-    public function sendModerateUserEmail(){
-        $admin_context = GroupModel::select()->where("context")->is(GroupModel::CONTEXT_ADMIN)->first();
-        $admins = UserModel::select()->where("group")->is($admin_context);
-        foreach($admins as $admin){
-            \nmvc\MailHelper::sendMail("user_approval", array("email"=>$this->view('username'),"name"=>$this->getName()), _("%s has registered on %s",$this->getName(),\nmvc\APP_NAME), $admin->username, true);
-        }
-    }
-
     public function getName() {
         return $this->view('first_name') . " " . $this->view('last_name');
+    }
+
+    public function getGroupName(){
+        if($this->isAdmin()) return _("Sandbox Team");
+        elseif($this->isSuperAdmin() || $this->isAmbassador()) return _("Sandbox Ambassador");
+        elseif($this->isMember()) return _("Sandbox Member");
+        else return _("Guest");
     }
 
     public function __toString() {

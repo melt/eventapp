@@ -33,10 +33,8 @@
                 <?php endif; ?>
                 <li><a href="#tabs-2"><?php echo _("Events"); ?></a></li>
                 <li><a href="#tabs-3"><?php echo _("Hubs"); ?></a></li>
-                <li><a href="#tabs-4"><?php echo _("Members"); ?></a></li>
-                <li><a href="#tabs-5"><?php echo _("Guests"); ?></a></li>
-
-
+                <li><a href="#tabs-4"><?php echo _("Sandbox Members"); ?></a></li>
+                <li><a href="#tabs-5"><?php echo _("Event Guests"); ?></a></li>
             </ul>
 
         <?php if( ($this->user->isAdmin() || $this->user->isSuperAdmin()) && $users_to_moderate > 0): ?>
@@ -72,7 +70,7 @@
 
         <div id="tabs-4">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->isnt( userx\GroupModel::CONTEXT_GUEST ), null, true ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->isnt( userx\GroupModel::CONTEXT_GUEST )->and("is_moderated")->is( true ), null, true ); ?>
 
 
         </div>
@@ -80,7 +78,7 @@
 
         <div id="tabs-5">
 
-        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->is( userx\GroupModel::CONTEXT_GUEST ), null, true ); ?>
+        <?php data_tables\list_model("nmvc\userx\UserModel", null, "user/edit", null, db\expr("group->context")->is( userx\GroupModel::CONTEXT_GUEST )->and("is_moderated")->is( true ), null, true ); ?>
 
 
         </div>

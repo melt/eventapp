@@ -19,7 +19,7 @@
 
 	});
 	function formatItem(row) {
-		return row[0] + " (<strong>" + row[1] + "</strong>)";
+		return row[0] + "\n" + row[1] + "\n";
 	}
 	function formatResult(row) {
                 return row[1];

@@ -25,8 +25,9 @@ class EventController extends userx\RestrictedController {
         $users = \nmvc\userx\UserModel::select()->where("first_name")->isLike("%".$q."%")->or("last_name")->isLike("%".$q."%")->or("username")->isLike("%".$q."%");
         if($users->count() == 0) return;
         foreach($users as $user){
+            $attended_events = \nmvc\EventInviteeModel::select()->where("invitee")->is($user)->and("rvsp")->is( EventInviteeModel::ATTENDING )->count();
             $items = array(
-                $user->first_name." ".$user->last_name => $user->username
+                $user->getName()." (".$user->view('username').")" => $user->getGroupName().", ".$attended_events." attended events"
             );
         }
         foreach ($items as $key=>$value) {

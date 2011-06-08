@@ -10,9 +10,7 @@
 
     <?php if( $this->user->isAmbassador() || $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
     <a class="navigation_button" href="<?php echo url("/event/add_edit"); ?>"><?php echo _("Add new event"); ?></a>
-    <?php endif; ?>
 
-    <?php if( $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
     <a class="navigation_button" href="<?php echo url("/hub/add_edit"); ?>"><?php echo _("Add new hub"); ?></a>
     <?php endif; ?>
     <br/><br/>

@@ -27,7 +27,7 @@ class HubController extends userx\RestrictedController {
         else if ($group->context == userx\GroupModel::CONTEXT_MEMBER)
             return "Deny";
         else if ($group->context == userx\GroupModel::CONTEXT_AMBASSADOR)
-            return "Deny";
+            return "Allow";
         else if ($group->context == userx\GroupModel::CONTEXT_ADMIN)
             return "Allow";
         else if ($group->context == userx\GroupModel::CONTEXT_SUPERADMIN)

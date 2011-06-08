@@ -75,7 +75,9 @@ $(document).ready(function() {
 <div id="stylized" class="fullwidth">
 <h1><?php echo _("Invalid invitee link: did you already RVSP to this event?"); ?></h1>
 
-<p><?php echo _("If you did not RVSP, please check your email again for the RVSP. If you believe there is an error, please contact your local ambassador manually via email."); ?></p>
+<p><?php echo _("If you selected to attend the event, you will receive a reminder with directions to the venue one day before the event"); ?></p>
+
+<p><?php echo _("If you did not yet RVSP, please check that the URL matches the link you received in your email.<br/>If you believe there is an error, please contact your local ambassador via email."); ?></p>
 </div>
 
 

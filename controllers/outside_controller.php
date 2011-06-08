@@ -8,7 +8,7 @@ class OutsideController extends AppController {
         $this->fb_user_data = $this->facebook->api('/me');
         if($this->user){
         // User exists in database, update login details
-            $this->user->updateUser($this->fb_user_data);
+            $this->user->updateUser();
         } else {
         // Add user to database
             $this->user = \nmvc\userx\UserModel::addNewUser($this->fb_user_data);

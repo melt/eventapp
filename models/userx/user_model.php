@@ -45,7 +45,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
         return $user;
     }
     
-    public function updateUser($fb_user_data) {
+    public function updateUser() {
         $user = $this;
         $user->last_login_time = time();
         $user->last_login_ip = $_SERVER['REMOTE_ADDR'];      

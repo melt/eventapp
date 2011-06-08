@@ -22,7 +22,7 @@ class EventController extends userx\RestrictedController {
     public function search_invitee() {
         $q = strtolower($_GET["q"]);
         if (!$q) return;
-        $users = \nmvc\userx\UserModel::select()->where("first_name")->isLike($q)->or("last_name")->isLike($q)->or("username")->isLike($q);
+        $users = \nmvc\userx\UserModel::select()->where("first_name")->isLike("%".$q."%")->or("last_name")->isLike("%".$q."%")->or("username")->isLike("%".$q."%");
         if($users->count() == 0) return;
         foreach($users as $user){
             $items = array(

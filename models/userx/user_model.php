@@ -165,13 +165,13 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
                 $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
                 break;
             case "member":
-                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
+                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_MEMBER);
                 break;
             case "ambassador":
-                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
+                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_AMBASSADOR);
                 break;
             case "admin":
-                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_GUEST);
+                $this->group = GroupModel::getStandardGroup(GroupModel::CONTEXT_ADMIN);
                 break;
         }
         $this->is_moderated = true;

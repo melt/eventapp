@@ -29,7 +29,7 @@ class EventController extends userx\RestrictedController {
             $name = ($user->first_name!="")? $user->getName(): $user->view('username');
 
             $items = array(
-               "$name, ".$user->getGroupName().", $attended_events attended events" => $user->view('username')
+               "$name - ".$user->getGroupName()." - $attended_events attended events" => $user->view('username')
             );
         }
         foreach ($items as $key=>$value) {

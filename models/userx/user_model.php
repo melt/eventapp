@@ -39,7 +39,6 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
         $user->city = (isset($location_array[0])) ? $location_array[0]: null;
         $user->country = (isset($location_array[1])) ? $location_array[1]: null;
         $user->username = (isset($fb_user_data["email"])) ? $fb_user_data["email"]: null;
-        //$user->sendModerateUserEmail(); Activate to send moderation email to admins
         // Store user
         $user->store();
         return $user;

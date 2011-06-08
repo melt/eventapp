@@ -2,23 +2,13 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        /*
-         * Requires autocomplete and does not accept other input
-         **/
-        $('.fc_list_of_members textarea').autocomplete("<?php echo url("/event/search_invitee"); ?>", {
-                width: 300,
-                multiple: true,
-		autoFill: true,
-                matchContains: true,
-		formatItem: formatItem,
-		formatResult: formatResult
 
-	});
         /*
-         * Does not require autocomplete but gives hints if user can be found in database
+         * Gives hints if user can be found in database and completes names and emails
          **/
         $('.fc_list_of_emails textarea').autocomplete("<?php echo url("/event/search_invitee"); ?>", {
                 width: 300,
+                delay: 50,
                 multiple: true,
 		autoFill: true,
                 matchContains: true,

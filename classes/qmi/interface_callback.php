@@ -9,10 +9,8 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $instances = $this->getInstances();
         $instance = $instances['nmvc\EventInviteeModel'][0];
         // Break up lists of emails into an array
-        $invitees_previous = explode(",",$instance->list_of_members);
-        $invitees_new = explode(",",$instance->list_of_emails);
-        // Merge array to receive complete list of invitees
-        $invitees = array_filter( array_map('trim', array_merge($invitees_previous,$invitees_new) ) );
+        $invitees = explode(",",$instance->list_of_emails);
+        $invitees = array_filter( array_map('trim', $invitees ) );
         $include_members = $instance->include_members_in_hub;
 
         // If checkbox is true, add hub members as invitees

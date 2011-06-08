@@ -97,8 +97,8 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
             return array(
                 // Invitees email addresses separated by comma
                 "include_members_in_hub" => array(_("Include hub members"), "Add all members to list"),
-                "list_of_members" => array(_("Invite members and previous guests"), "Search and add Sandbox members, applicants and previous guests at Sandbox events"),
-                "list_of_emails" => array(_("Invite new guests"), "Enter email addresses of people to invite separated by comma (,)"),
+                //"list_of_members" => array(_("Invite members and previous guests"), "Search and add Sandbox members, applicants and previous guests at Sandbox events"),
+                "list_of_emails" => array(_("Invite by name or email"), "Enter names or email addresses of people to invite separated by comma (,). Automatically searches for Sandbox members and previous guests."),
             );
             break;
 

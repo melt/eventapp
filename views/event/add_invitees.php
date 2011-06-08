@@ -6,10 +6,8 @@
          * Requires autocomplete and does not accept other input
          **/
         $('.fc_list_of_members textarea').autocomplete("<?php echo url("/event/search_invitee"); ?>", {
-		delay: 50,
-                selectFirst: true,
+                width: 300,
                 multiple: true,
-		mustMatch: true,
 		autoFill: true,
                 matchContains: true,
 		formatItem: formatItem,
@@ -20,11 +18,12 @@
          * Does not require autocomplete but gives hints if user can be found in database
          **/
         $('.fc_list_of_emails textarea').autocomplete("<?php echo url("/event/search_invitee"); ?>", {
-                delay: 50,
+                width: 300,
                 multiple: true,
-		mustMatch: false,
 		autoFill: true,
                 matchContains: true,
+                //selectFirst: true,
+                minChars: 0,
 		formatItem: formatItem,
 		formatResult: formatResult
 
@@ -36,8 +35,8 @@
                 return row[1];
 		//return row[0].replace(/(<.+?>)/gi, '');
 	}
-	$('.fc_list_of_members textarea').result(function(event, data, formatted) {
-		var hidden = $(this).parent().next().find(">:input");
+	$('.fc_list_of_emails textarea').result(function(event, data, formatted) {
+		var hidden = $(this).parent().next().find(">:textarea");
 		hidden.val( (hidden.val() ? hidden.val() + ";" : hidden.val()) + data[1]);
 	});
 	$('#sendInvites').click(function() {

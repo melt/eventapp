@@ -28,4 +28,6 @@
 
 --------------------
 
+You are receiving this email as ambassador of the <?php echo $this->hub; ?> hub.
+
 

@@ -26,10 +26,10 @@ class EventController extends userx\RestrictedController {
         if($users->count() == 0) return;
         foreach($users as $user){
             $attended_events = \nmvc\EventInviteeModel::select()->where("invitee")->is($user)->and("rvsp")->is( EventInviteeModel::ATTENDING )->count();
-            $name ($user->first_name!="")? $user->getName(): $user->view('username');
+            $name = ($user->first_name!="")? $user->getName(): $user->view('username');
 
             $items = array(
-                $name.", ".$user->getGroupName().", ".$attended_events." attended events" => $user->view('username')
+               "$name, ".$user->getGroupName().", $attended_events attended events" => $user->view('username')
             );
         }
         foreach ($items as $key=>$value) {

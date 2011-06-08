@@ -21,7 +21,7 @@ class CronController extends userx\RestrictedController {
 
         // Select events to send thankyou email for
         $this->thankyou_events = \nmvc\EventModel::select()->where(
-        expr("event_date")->isLessThan($one_day_ago)
+        expr("event_date")->isntLessThan($one_day_ago)->and("event_date")->isLessThan($today)
         )->orderBy("event_date", "asc")->all();
         foreach($this->thankyou_events as $event){
             $event->sendThankyouEmail();

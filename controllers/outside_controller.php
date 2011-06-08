@@ -31,10 +31,9 @@ class OutsideController extends AppController {
         $this->rvsp = EventInviteeModel::select()->where("rvsp_page_hash")->is($rvsp_page_hash)->and("rvsp")->is(0)->first();
     }
 
-    public function rvsp_thanks(){
-        $this->rvsp = trim(@$_GET["rvsp"]);
-        $this->email = trim(@$_GET["email"]);
-    }
+    public function rvsp_accept(){}
+
+    public function rvsp_decline(){}
 
     public function unsubscribe($user_id){
         $this->user == userx\UserModel::select()->where("id")->is($user_id)->first();

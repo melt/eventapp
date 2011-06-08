@@ -4,7 +4,10 @@ class UserController extends userx\RestrictedController {
 
 
     public function edit($user_id) {
-        $this->user = userx\UserModel::select()->where("id")->is($user_id)->first();
+        $this->edit_user = userx\UserModel::select()->where("id")->is($user_id)->first();
+        $this->user = userx\get_user();
+        if( $this->edit_user->group->context == userx\GroupModel::CONTEXT_SUPERADMIN && $this->user->group->context != userx\GroupModel::CONTEXT_SUPERADMIN )
+            \nmvc\messenger\redirect_message(url("/"), _("You do not have permissions to edit the details of superadmins!"), "bad");
     }
 
     public static function getDefaultPermission(userx\GroupModel $group = null) {

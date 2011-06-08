@@ -18,9 +18,8 @@
     <br/><br/>
 </div>
 
-<?php if( $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
 <br/><br/>
-
+<?php if( $this->user->isAmbassador() || $this->user->isAdmin() || $this->user->isSuperAdmin() ): ?>
  <script>
         $(function() {
             $( "#tabs" ).tabs({cookie: {path: '/', domain: <?php echo string\quote(APP_ROOT_HOST); ?>}});
@@ -31,7 +30,7 @@
         <?php $users_to_moderate = userx\UserModel::select()->where("is_moderated")->is(false)->count(); ?>
         <div id="tabs">
             <ul>
-                <?php if($users_to_moderate > 0): ?>
+                <?php if( ($this->user->isAdmin() || $this->user->isSuperAdmin()) && $users_to_moderate > 0): ?>
                     <li><a href="#tabs-1"><?php echo _("New Users to Moderate (%s)",$users_to_moderate); ?></a></li>
                 <?php endif; ?>
                 <li><a href="#tabs-2"><?php echo _("Events"); ?></a></li>
@@ -42,7 +41,7 @@
 
             </ul>
 
-        <?php if($users_to_moderate > 0): ?>
+        <?php if( ($this->user->isAdmin() || $this->user->isSuperAdmin()) && $users_to_moderate > 0): ?>
         <div id="tabs-1">
 
         <?php data_tables\list_model_lite("nmvc\userx\UserModel", null, null, null, db\expr("is_moderated")->is( false ), array(

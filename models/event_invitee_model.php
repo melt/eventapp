@@ -45,7 +45,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider {
             return false;
     }
 
-    public function sendDataToAmbassadors(){
+    public function sendRVSPToAmbassadors(){
         $ambassadors = HubAmbassadorModel::select()->where("hub")->is($this->event->hub);
         $subject = $this->invitee->getName()." is attending ".$this->event->view('title');
         foreach($ambassadors as $ambassador){

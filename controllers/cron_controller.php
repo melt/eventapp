@@ -26,7 +26,6 @@ class CronController extends userx\RestrictedController {
         foreach($this->thankyou_events as $event){
             $event->sendThankyouEmail();
         }
-
     }
 
     public static function getDefaultPermission(userx\GroupModel $group = null) {

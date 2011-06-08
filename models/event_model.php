@@ -15,9 +15,9 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
     public function  beforeStore($is_linked) {
         parent::beforeStore($is_linked);
         // If event takes place today we simulate that reminder email already has been sent
-        /*if($this->event_date == date('Y-m-d')){
+        if($this->event_date == date('Y-m-d')){
             $this->reminder_email_sent = true;
-        }*/
+        }
     }
 
     public function sendReminderEmail(){
@@ -107,7 +107,6 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
         // Store that email is sent
         $this->store();
     }
-
 
     private function getAttendees(){
         return userx\UserModel::select()->where("id")->isIn(

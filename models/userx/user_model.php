@@ -125,7 +125,7 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
             break;
         case "user_edit":
             return array(
-                "group" => array(_("Permissions"), ""),
+                "group" => array(_("Role"), "Select the role that best corresponds with this person"),
                 "first_name" => array(_("First Name"), ""),
                 "last_name" => array(_("Last Name"), ""),
                 "username" => array(_("Email"), "Where to send invitations"),

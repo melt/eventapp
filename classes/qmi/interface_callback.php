@@ -76,7 +76,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $this->doStore();
         $instances = $this->getInstances();
         $instance = $instances['nmvc\EventInviteeModel'][0];
-        $invitee = \nmvc\EventInviteeModel::select()->where("invitee")->is($instance->invitee_id)->first();
+        $invitee = \nmvc\EventInviteeModel::select()->where("invitee")->is($instance->invitee_id)->and("event")->is($instance->event_id)->first();
         if($instance->rvsp == 1){
             $invitee->sendRVSPToAmbassadors();
             \nmvc\request\redirect(url("/outside/rvsp_accept/"));

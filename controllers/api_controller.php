@@ -7,7 +7,7 @@ class ApiController extends userx\RestrictedController {
      * Public API call to get events in certain hub.
      */
     public function get_events($hub_name) {
-        $results = \nmvc\EventModel::select()->where("hub->city")->isLike($hub_name);
+        $results = \nmvc\EventModel::select()->where("hub->city")->isLike("%".$hub_name."%");
         $response = array();
         foreach($results as $result):
            $response[] = array(

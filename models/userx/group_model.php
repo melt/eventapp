@@ -1,10 +1,10 @@
 <?php namespace nmvc\userx;
 
 class GroupModel extends GroupModel_app_overrideable {
-    const CONTEXT_GUEST = 0;
-    const CONTEXT_MEMBER = 1;
-    const CONTEXT_AMBASSADOR = 2;
-    const CONTEXT_ADMIN = 3;
+    const CONTEXT_GUEST = 0; // Can only sign up to events to which they have been explicitly invited
+    const CONTEXT_MEMBER = 1; // Can sign up to members only events
+    const CONTEXT_AMBASSADOR = 2; // The group of people that wants to create an event
+    const CONTEXT_ADMIN = 3; // Delete operations, creating hubs, assigning ambassadors
     const CONTEXT_SUPERADMIN = 4; // Reserved for later
 
     public $context = 'core\IntegerType';

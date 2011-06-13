@@ -82,6 +82,10 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
     public function isMember() {
         return ($this->group->context === GroupModel::CONTEXT_MEMBER);
     }
+    
+    public function isGuest() {
+        return ($this->group->context === GroupModel::CONTEXT_GUEST);
+    }
 
     public function uiValidate($interface_name) {
         $err = array();

@@ -68,6 +68,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, \nmvc\da
         foreach($invitees as $invitee):
             \nmvc\MailHelper::sendMail($mail_view,
                     array(
+                        "user"=>$invitee->invitee,
                         "event_name"=>$this->view('title'),
                         "event_description"=>$this->description,
                         "event_date"=>$this->view('event_date'),

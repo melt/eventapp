@@ -6,9 +6,9 @@ class ApiController extends userx\RestrictedController {
     /*
      * Public API call to get events in certain hub.
      */
-    public function get_events($hub_name,$selection = "all") {
-        $selection = @$_GET["selection"];
-        switch($selection){
+    public function get_events( $hub_name, $scope = "all" ) {
+        $scope = @$_GET["scope"];
+        switch($scope){
             case "all":
                 $results = \nmvc\EventModel::select()->where("hub->city")->isLike("%".$hub_name."%")->orderBy("event_date","ASC");
                 break;

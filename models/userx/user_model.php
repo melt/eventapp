@@ -190,6 +190,10 @@ class UserModel extends UserModel_app_overrideable implements \nmvc\data_tables\
         );
     }
 
+    public function doRemove() {
+        $this->unlink();
+    }
+
     public function getTableEnlistValues() {
         $attended_events = \nmvc\EventInviteeModel::select()->where("invitee")->is($this)->and("rvsp")->is( \nmvc\EventInviteeModel::ATTENDING )->count();
         $set_ambassador = \nmvc\qmi\get_action_link($this, "setRole",null,array("type"=>"ambassador"));

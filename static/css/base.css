@@ -1,7 +1,7 @@
 html, body { font-family: 'Trebuchet MS', Helvetica, Arial, Verdana, sans-serif; font-size: 14px; color: #4F4F4F; }
 
 #content {
-    width:800px;
+    width:500px;
     margin:0 auto;
     text-align:left;
 }
@@ -38,17 +38,40 @@ a.navigation_button:hover {
     text-decoration: underline;
 }
 
-#content .ui-tabs .ui-tabs-nav li {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-}
-
-#content .ui-tabs .ui-tabs-nav li a {
-font-size: 12px;
-font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;
-font-weight:bold;
-text-shadow: white 1px 1px 0px;
+h2 {
+    margin: 10px 0 20px 0;
 
 }
 
-#content .ui-widget { font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif; font-size: 1em; }
+ul.nav {
+    margin: 10px 0 15px 0;
+    width: 100%;
+    list-style: none;
+    clear: both;
+}
+
+ul.nav li {
+    display: inline;
+    float: left;
+
+}
+
+ul.nav li a {
+    border: 2px solid #8FCEEF;
+    background-color: #8FCEEF;
+    color: #fff;
+    display: block;
+    margin: 0 10px 20px 0;
+    padding: 4px 8px 4px 8px;
+    text-decoration: none;
+}
+
+ul.nav li.current a {
+    border: 2px solid #2F9BD6;
+    background-color: #38B2F4;
+    color: #fff;
+}
+
+ul.nav li a:hover {
+    border: 2px solid #2F9BD6;
+}

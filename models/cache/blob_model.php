@@ -1,4 +1,4 @@
-<?php namespace nmvc\cache;
+<?php namespace melt\cache;
 /* Auto generated empty class override. */
 
 

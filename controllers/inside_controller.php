@@ -1,12 +1,32 @@
-<?php namespace nmvc;
+<?php namespace melt;
 
-class InsideController extends userx\RestrictedController {
+ class InsideController extends userx\RestrictedController {
 
-    public function index() {}
+    public $menu = array();
+    
+    
 
-    public function my_profile() {}
+    public function beforeRender($action_name, $arguments) {
+        
+        
+        $this->menu[_("My Profile")] = "/,^/$|/$|/$";
+        $this->menu[_("About")] = "/about,^/about$";
+        $this->menu[_("Contact")] = "/contact,^/contact$";
+        $this->menu[_("Logout")] = "/#logout,^/logout$";
+        
+        
+        $this->menu = core\generate_ul_navigation($this->menu, "current");
+    }
+    
+    function index() {}
 
-
+    function about() {}
+    
+    function contact() {
+        $this->contact_form = new ContactFormModel();
+    }
+    
+    
     public static function getDefaultPermission(userx\GroupModel $group = null) {
         if ($group === null)
             return "Deny";
@@ -23,5 +43,7 @@ class InsideController extends userx\RestrictedController {
         else
             return false;
     }
+    
+
 
 }

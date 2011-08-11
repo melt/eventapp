@@ -2,102 +2,92 @@
 /**
  * Contains the configuration for this application.
  *
- * nanoMVC configuration options are named constants that resides in the
- * namespace \nanomvc\$MODULE\config where $MODULE is the module that uses the
+ * Melt Framework configuration options are named constants that resides in the
+ * namespace \melt\$MODULE\config where $MODULE is the module that uses the
  * configuration option.
  *
- * NanoMVC will automatically insert missing directives into this file
+ * Melt Framework will automatically insert missing directives into this file
  * so don't be suprised when it starts editing itself.
  */
-namespace nmvc {
-    const APP_NAME = "Sandbox Events";
-    const APP_EMAIL = "events@sandbox-network.com";
-    const FACEBOOK_APP_ID = "211329565552399";
-    const FACEBOOK_APP_SECRET = "0bbb416cd5bd7ff8cb618eeb4e848d15";
+
+namespace melt {
+    const APP_NAME = "Events @ Sandbox";
+    const FACEBOOK_APP_ID = "255479344470646";
+    const FACEBOOK_APP_SECRET = "9cda275bea97d8a1bbd948f7b364029e";
 }
 
-namespace nmvc\internal {
-    modules_using(
-            //"jquery",
-            "data_tables"
-        // Add modules that your application uses here.
-    );
-}
-
-namespace nmvc\core\config {
+namespace melt\core\config {
+    const MAINTENANCE_MODE = true;
+    const DEVELOPER_KEY = '';
+    const CONSOLE_MOTD = 'Greetings. Welcome to Melt framework. We hope you enjoy this unix-ish console. Run "install" if you have not done so yet!';
+    const NO_MAINTENANCE_CONTROLLERS = '';
     const PHP_BINARY = 'php';
     const SESSION_ENFORCE_HTTPS = false;
     const SESSION_DOMAIN = NULL;
     const DEFAULT_LANGUAGE = 'en';
-    const RECAPTCHA_PUBLIC_KEY = '';
-    const RECAPTCHA_PRIVATE_KEY = '';
     const DISPLAY_DEVMODE_NOTICE = true;
-    const DOWN_MESSAGE = 'Application is currently under development. Please check back later or contact per.d.jonsson@gmail.com.';
+    const DOWN_MESSAGE = '';
     const IGNORE_64_BIT_WARNING = false;
     const TRANSLATION_MIN_Q = 0.4;
     const TRANSLATION_ENABLED = false;
     const PEAR_AUTOLOAD = false;
     const ERROR_LOG = NULL;
     const FORCE_ERROR_FLAGS = false;
-    const FORCE_ERROR_DISPLAY = true;
-    const MAINTENANCE_MODE = false;
-    const NO_MAINTENANCE_CONTROLLERS = 'nmvc\IndexController';
-    const DEVELOPER_KEY = 'BLOODYMARY';
+    const FORCE_ERROR_DISPLAY = false;
 }
 
 
-namespace nmvc\db\config {
+namespace melt\db\config {
     const STORAGE_ENGINE = 'auto';
     const REQUEST_LEVEL_TRANSACTIONALITY = true;
     const DEBUG_QUERY_BENCHMARK = false;
     const USE_TRIGGER_SEQUENCING = true;
     const PREFIX = '';
-    const NAME = 'u10006_event';
-    const PORT = 5000;
-    const PASSWORD = '5a4e40911eae0559';
-    const USER = 'u10006_event';
-    const HOST = 'webbhotell.omnicloud.org';
+    const NAME = 'melt';
+    const PORT = 3306;
+    const PASSWORD = '';
+    const USER = 'root';
+    const HOST = NULL;
 }
 
 
+namespace melt\js\config {
+    const INCLUDE_LESS_CSS = true;
+    const INCLUDE_JQUERY_RESIZE = true;
+    const INCLUDE_JQUERY_FORM = true;
+    const INCLUDE_JQUERY_COOKIE = true;
+    const INCLUDE_JQUERY_AUTORESIZE = true;
+    const INCLUDE_JQUERY_AUTOCOMPLETE = true;
+    const INCLUDE_JQUERY_DATATABLES = true;
+    const INCLUDE_JQUERY_LIGHTBOX = true;
+    const INCLUDE_JQUERY_CORNER = true;
+    const INCLUDE_JQUERY_ALERTS = true;
+    const JQUERY_UI_THEME = 'redmond';
+}
 
 
-namespace nmvc\mail\config {
+namespace melt\mail\config {
     const SPOOL_RETRY_INTERVAL_SECONDS = 300;
-    const SMTP_TIMEOUT = 10;
-    const SMTP_PORT = 6000;
-    const SMTP_HOST = '127.0.0.1';
-    const SMTP_FROM_HOST = "va1ehf69kgihsclflfd.localhost";
-    const SMTP_AUTH_ENABLE = false;
     const SMTP_AUTH_PASSWORD = 'password';
     const SMTP_AUTH_USER = 'user';
+    const SMTP_AUTH_ENABLE = false;
     const SMTP_TLS_ENABLE = false;
+    const SMTP_FROM_HOST = NULL;
+    const SMTP_TIMEOUT = 10;
+    const SMTP_PORT = 25;
+    const SMTP_HOST = 'localhost';
+    const FROM_ADDRESS = '';
+    const FROM_NAME = '';
 }
 
-namespace nmvc\userx\config {
+
+namespace melt\userx\config {
     const LAST_DENY_AUTOREDIRECT = true;
     const SHELL_LOGIN = false;
     const MULTIPLE_GROUPS = false;
     const MULTIPLE_IDENTITIES = false;
     const HASHING_ALGORITHM = 'crypt';
-    const SOFT_403 = "/";
+    const SOFT_403 = false;
     const REMEMBER_ME_DAYS = 356;
-    // Extremely long session timeout
-    const SESSION_TIMEOUT_MINUTES = 0x7fffffff;
-}
-
-namespace nmvc\js\config {
-    const INCLUDE_LESS_CSS = false;
-    const INCLUDE_JQUERY_JSTREE = false;
-    const INCLUDE_JQUERY_HOTKEYS = false;
-    const INCLUDE_JQUERY_RESIZE = false;
-    const INCLUDE_JQUERY_FORM = true;
-    const INCLUDE_JQUERY_COOKIE = true;
-    const INCLUDE_JQUERY_AUTORESIZE = false;
-    const INCLUDE_JQUERY_AUTOCOMPLETE = true;
-    const INCLUDE_JQUERY_DATATABLES = true;
-    const INCLUDE_JQUERY_LIGHTBOX = false;
-    const INCLUDE_JQUERY_CORNER = true;
-    const INCLUDE_JQUERY_ALERTS = true;
-    const JQUERY_UI_THEME = 'smoothness';
+    const SESSION_TIMEOUT_MINUTES = false;
 }

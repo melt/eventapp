@@ -1,4 +1,4 @@
-<?php namespace nmvc\userx;
+<?php namespace melt\userx;
 /* Auto generated empty class override. */
 
 

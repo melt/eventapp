@@ -1,4 +1,4 @@
-<?php namespace nmvc;
+<?php namespace melt;
 
 /** Application specific model. */
 abstract class AppModel extends Model {

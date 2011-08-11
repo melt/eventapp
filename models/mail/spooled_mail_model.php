@@ -1,4 +1,4 @@
-<?php namespace nmvc\mail;
+<?php namespace melt\mail;
 /* Auto generated empty class override. */
 
 

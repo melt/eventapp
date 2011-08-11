@@ -1,4 +1,6 @@
-<?php namespace nmvc\userx;
+<?php namespace melt\userx;
+/* Auto generated empty class override. */
+
 
 class GroupModel extends GroupModel_app_overrideable {
     const CONTEXT_GUEST = 0; // Can only sign up to events to which they have been explicitly invited
@@ -39,5 +41,5 @@ class GroupModel extends GroupModel_app_overrideable {
             
         }
         return $name . " (" . $this->context. ")";
-    }
+    }	
 }

@@ -11,7 +11,7 @@ Options +FollowSymLinks
 # Start the rewrite engine.
 RewriteEngine On
 
-# Use nanoMVC to display error documents.
+# Use melt to display error documents.
 ErrorDocument 400 /core/core.php
 ErrorDocument 401 /core/core.php
 ErrorDocument 402 /core/core.php
@@ -41,9 +41,9 @@ ErrorDocument 505 /core/core.php
 RewriteBase /
 
 # Rewrite static module files to their appropriate locations.
-RewriteRule ^static/cmod/([^/]+)/(.*)$ core/modules/$1/static/$2 [L]
+RewriteRule ^static/cmod/([^/]+)/(.*)$ core/$1/static/$2 [L]
 RewriteRule ^static/mod/([^/]+)/(.*)$ modules/$1/static/$2 [L]
 
-# Rewrite everything non-static to nanoMVC core.
+# Rewrite everything non-static to melt core.
 RewriteCond %{REQUEST_URI} !/static
 RewriteRule .* core/core.php [L]

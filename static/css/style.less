@@ -1,0 +1,305 @@
+/*
+Theme Name: Melt sample app
+Description: A neat template for your Melt projects. Built with LESS css, for more information visit http://lesscss.org/ . Inspired by http://www.elmastudio.de
+
+Author: Daniel Marklund
+Author URI: http://www.danielmarklund.se
+Version: 1.0
+
+License: BSD License
+License URI: http://meltframework.org/license
+
+*/
+
+
+/* LESS Variables & Styles
+----------------------------------*/
+
+@bg-color: #ececec;
+@font-color: #777;
+@font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+@header-color: #0099cc;
+@the-border: 1px solid #DDDDDD;
+
+.drop-shadow {
+    -moz-box-shadow: 2px 2px 5px #ccc;
+    -webkit-box-shadow: 2px 2px 5px #ccc;
+    box-shadow: 2px 2px 5px #ccc;
+}
+
+.selection {
+    ::selection {background-color: @header-color; color: #fff;}
+    ::-moz-selection {background-color: @header-color; color: #fff;}
+    ::-webkit-selection {background-color: @header-color; color: #fff;}
+}
+
+
+/* Structure
+----------------------------------*/
+
+
+body {
+    background-color: @bg-color;
+    text-align: center;
+    .selection;
+}
+
+#wrapper {
+    background-color: #fff;
+    margin: 30px auto;
+    overflow: hidden; /* Make sures floating content stays in the wrapper */
+    padding: 30px;
+    text-align: left;
+    width: 900px;
+    .drop-shadow;
+}
+
+#social-media {
+    width: 200px;
+    float: right;
+    text-align: right;
+}
+
+#header {
+    width: 100%;
+    clear: both;
+}
+
+    #header img {
+        margin: 0 0 20px;
+    }
+
+#menu {
+    border-top: @the-border;
+    border-bottom: @the-border;
+    clear: both;
+    float: left;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+#main {
+    border-top: @the-border;
+    float: left;
+    margin-top: 15px;
+    padding-top: 10px;
+    width: 620px;
+}
+
+#sidebar {
+    background-color: @bg-color;
+    border-top: @the-border;
+    border-bottom: @the-border;
+    clear: right;
+    float: left;
+    margin: 15px 0 0 20px;
+    padding: 10px 15px 15px 15px;
+    width: 230px;
+
+}
+
+
+/* Typography
+----------------------------------*/
+
+body {	
+    font-family: @font-family;
+    font-size: 62.5%; /* Setting 1 em to 10 px for easy converting */
+}
+
+#main, #sidebar {
+    font-size: 1.4em;
+    line-height: 1.6em;
+    color: @font-color;
+}
+
+h1 {}
+
+    #header h1 {
+        color: @header-color;
+        float: left;
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0 10px 10px 0;
+        text-transform: uppercase;
+    }
+
+h2 {}
+
+    #header h2#site-description {
+        color: @font-color;
+        font-size: 18px;
+        margin: 11px 0 0;
+        vertical-align: bottom;
+        float: left;
+    }
+
+    #main h2, #sidebar h2 {
+        color: @header-color;
+        letter-spacing: -1px;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 15px 0;
+    }
+
+#main h1,h3,h4,h5 {
+    color: @header-color;
+    margin: 15px 0;
+}
+    
+p {}
+    
+    #main p, #sidebar p {
+        margin: 15px 0 0;
+    }
+
+
+/* Menu and navigation
+----------------------------------*/
+
+#menu ul {
+    float: left;
+
+    li {
+        display: inline;
+        float: left;
+        
+        a {
+            color: @font-color;
+            font-size: 16px;
+            display: block;
+            font-weight: bold;
+            margin-right: 7px;
+            padding: 2px 2px 2px 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            &:hover { text-decoration: underline; }
+        }
+
+        &.current {
+            a {color: @header-color;}
+            a::before {content: "»";}
+            a:hover {text-decoration: none;}
+        }
+
+    }
+
+}
+
+#social-media a {
+    margin-left: 10px;
+    height: 30px;
+    background-color: @bg-color; 
+    display: inline-block;
+    &:hover {background-color: @header-color;}
+}
+
+/* Lists
+----------------------------------*/
+
+#main ul {
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:disc;
+    margin: 15px 0;
+    li {
+        margin:3px 0 3px 20px;
+    }
+}
+
+#main ol {
+margin: 15px 0;
+    li {
+        list-style-image:none;
+        list-style-position:outside;
+        list-style-type:decimal;
+        margin:3px 0 3px 20px;
+    }
+}
+
+/* Links
+----------------------------------*/
+
+a:link, a:visited {
+    color: @header-color;
+    text-decoration: none;
+}
+a:hover,a:active {
+    color: @font-color;
+    text-decoration: underline;
+}
+
+#main a::after {
+    content: " →";
+}
+
+#main a.img::after {
+    content: none;
+}
+
+
+/* Forms
+----------------------------------*/
+
+input[type=text],textarea {
+    font-family: @font-family;
+    border: @font-color 1px solid;
+    width: 260px;
+    font-size: 14px;
+    padding: 4px 2px;
+}
+
+label {
+    color: @header-color;
+    font-weight: bold;
+}
+
+input[type=submit] {
+    background: #999 url(../images/gradient.png) repeat-x 0 -40px!important;
+    border: solid 1px #666;
+    color: #444;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 8px 8px;
+    margin: 15px 0;
+    text-shadow: 0 1px 0 rgba(255,255,255, 1);
+    text-decoration: none;
+    line-height: 20px;
+    &:hover {
+        background: #999 url(../images/gradient.png) repeat-x 0 -20px!important;
+        color: #000;
+    }   
+}
+
+.qmi_component {
+    position: relative;
+}
+.qmi_error {
+    color: #990000;
+    position: absolute;
+    top: 25px;
+    left: 280px;
+}
+
+.c_name {
+    width: 280px;
+}
+
+/* Other
+----------------------------------*/
+.clear {clear: both;}
+
+strong {font-weight: bold;}
+em {font-style:italic;}
+
+
+
+
+/*
+    Bring the cold, cold water,
+    from the dark, dark well,
+    to the warm hearth fire,
+    when the ice begins to melt.
+*/

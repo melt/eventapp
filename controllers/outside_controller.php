@@ -1,48 +1,42 @@
-<?php namespace nmvc;
+<?php namespace melt;
 
-class OutsideController extends AppController {
+ class OutsideController extends AppController {
 
-    public function index(){}
-
-    public function login() {
-        $this->fb_user_data = $this->facebook->api('/me');
-        if($this->user){
-        // User exists in database, update login details
-            $this->user->updateUser();
-        } else {
-        // Add user to database
-            $this->user = \nmvc\userx\UserModel::addNewUser($this->fb_user_data);
-        }
-        \nmvc\userx\login($this->user);
-        \nmvc\messenger\redirect_message(url("/inside/"), _("Successfully logged in!"), "good");
+    public $menu = array();
+    
+    
+    public function beforeRender($action_name, $arguments) {
+        
+        
+        $this->menu[_("Login")] = "/outside,^/outside$";
+        $this->menu[_("About")] = "/outside/about,^/outside/about$";        
+        
+        $this->menu = core\generate_ul_navigation($this->menu, "current");
     }
+    
+    function index() {}
 
-    public function logout() {
+    function about() {}
+    
+    function login() {
+        $this->fb_user_data = $this->facebook->api('/me');
+        //debug($this->fb_user_data);        
+        if($this->user){
+        // User already exists in database, update login time and IP
+            $this->user->updateUserLastLogin();
+        } else {
+        // User does not exist in database, add new user
+            $this->user = userx\UserModel::addNewUser($this->fb_user_data);
+        }
+        \melt\userx\login($this->user);
+        \melt\request\redirect( url("/") );
+    }
+    
+    function logout() {
         $this->facebook = null;
         $this->user = null;
         \session_destroy();
-        \nmvc\messenger\redirect_message(url("/"), _("Successfully logged out!"), "good");
+        \melt\request\redirect( url("/outside") );
     }
 
-    /*
-     * The page where user RVSPs to event using a uniquely hashed link
-     */
-    public function rvsp($rvsp_page_hash){
-        $this->rvsp = EventInviteeModel::select()->where("rvsp_page_hash")->is($rvsp_page_hash)->and("rvsp")->is(0)->first();
-    }
-
-    public function rvsp_accept(){}
-
-    public function rvsp_decline(){}
-
-    public function unsubscribe($user_id){
-        $this->user == userx\UserModel::select()->where("id")->is($user_id)->first();
-        $this->user->is_unsubscribed = true;
-        $this->user->store();
-        \nmvc\messenger\redirect_message(url("/"), _("Successfully unsubscribed to emails!"), "good");   
-    }
-    
-    function spec(){}
-
-    function forbidden_403(){}
 }

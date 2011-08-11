@@ -20,12 +20,11 @@ abstract class AppController extends Controller {
           'appId'  => FACEBOOK_APP_ID,
           'secret' => FACEBOOK_APP_SECRET,
           'cookie' => true,
-        ));
+        ));        
+        $this->login_url = $this->facebook->getLoginUrl(array('redirect_uri' => url("/outside/login"), 'canvas' => 1, 'display' =>'page', 'fbconnect' => 0, 'scope' => 'user_about_me,user_birthday,user_location,user_work_history,email,user_website'));
+        $this->logout_url = $this->facebook->getLogoutUrl(array('next' => url("/outside/logout")));
         /* Check if Facebook user exists in database */
-        $this->fb_user = $this->facebook->getUser();
-        $this->user = \melt\userx\UserModel::select()->where("facebook_user")->is($this->fb_user)->first();
-        $this->login_url = $this->facebook->getLoginUrl(array('redirect_uri' => url("/outside/login"), 'canvas' => 1, 'display' =>'page', 'fbconnect' => 0, 'scope' => 'user_about_me,user_birthday,user_location,user_work_history,email,user_website,user_checkins,user_status'));
-        $this->logout_url = $this->facebook->getLogoutUrl(array('next' => url("/outside/logout")));        
+        $this->user = \melt\userx\UserModel::select()->where("facebook_user")->is( $this->facebook->getUser() )->first();
     }
 
     /**

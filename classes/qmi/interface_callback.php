@@ -5,18 +5,13 @@
 class InterfaceCallback extends InterfaceCallback_app_overrideable {
 	
     /* Custom interface callback for contact form - instead of saving instance to database */
-    public function ic_contact_form() {
+    public function ic_events_details() {
         // Validate the form
         $this->doValidate();
-        // Get the form instance
+        // Store the results
+        $this->doStore();
         $instances = $this->getInstances();
-        $instance = $instances['melt\ContactFormModel'][0];
-        // Generate the email
-        $mailer = new \melt\mail\Mailer();
-        $mailer->to->add("team@meltframework.org", "The Melt Framework Team");
-        $mailer->subject = "Melt Default Application Contact Form";        
-        $mailer->from->set($instance->name,$instance->email);
-        // Send the email in plaintext, mailHTML is also available
-        $mailer->mailPlain($instance->message);        
+        $event = $instances['melt\EventModel'][0];
+        \melt\request\redirect( url("/events_invitees/". $event->id ) );  
     }
 }

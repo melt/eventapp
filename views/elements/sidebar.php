@@ -1,6 +1,6 @@
 <?php namespace melt; ?>
 <?php /* For Visitors */ ?>
-<?php if( $this->fb_user == null ): ?>
+<?php if( $this->user == null ): ?>
 
 <h3>What is <?php echo APP_NAME; ?>?</h3>
 <p>
@@ -16,9 +16,6 @@
 
 
 <h2>Sidebar</h2>
-<p> Melt version: <strong><?php echo \melt\internal\VERSION; ?></strong><br/>
-    Accessed at: <strong><?php echo $_SERVER['SERVER_NAME']; ?></strong><br/>
-    Running on: <strong><?php print_r($_SERVER['SERVER_SOFTWARE']); ?></strong>
-</p>
+<p> PUT USEFUL INFO HERE </p>
 
 <?php endif;?>

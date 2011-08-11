@@ -6,8 +6,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet"  type="text/css" media="screen, projection" href="<?php echo url('static/css/reset.css'); ?>">
         <link rel="stylesheet/less" type="text/css" href="<?php echo url('static/css/style.less'); ?>">
+        <link rel="stylesheet/less" type="text/css" href="<?php echo url('static/css/breadcrumb.css'); ?>">
+        <?php 
+        // JUST USING DESIGN OF JBREADCRUMB, NOT FEATURES
+        /*
+        <script type="text/javascript" src="<?php echo url('static/js/jquery.jBreadCrumb.1.1.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo url('static/js/jquery.easing.1.3.js'); ?>"></script> */
+        ?>
         <?php echo $this->head; ?>
-        <?php if($this->fb_user != null): ?>
+        <script type="text/javascript" src="<?php echo url('static/js/jquery.googlemaps.js'); ?>"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps?file=api&v=3&sensor=false&key=ABQIAAAAKGEYmPHtezDllFTRq-FclBSEt0YhZ7J67ffvofDDVT83-6WjahRkYUDnMb86AFSeSWojYRloOdWfsA"></script>
+        <?php if($this->user != null): ?>
             <script>
             $(document).ready(function(){
                 $('a[href$="#logout"]').attr("href", "<?php echo $this->logout_url; ?>")

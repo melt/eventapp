@@ -1,0 +1,125 @@
+/* Float Clearing
+ ---------------------------------------------------------------------*/
+
+.module:after
+{
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+/* float clearing for IE6 */
+* html .module
+{
+	height: 1%;
+	overflow: visible;
+}
+
+/* float clearing for IE7 */
+* + html .module
+{
+	min-height: 1%;
+}
+
+/* Breadcrumb Styles
+ ---------------------------------------------------------------------*/
+
+.breadCrumb
+{
+	margin: 0;
+
+	float: left;
+	display: block;
+	height: 31px;
+	overflow: hidden;
+        width:610px;
+	padding:5px;
+	border:solid 1px #ddd;
+	background:#fff;
+}
+.breadCrumb li a:after {
+        content: none!important;
+}
+.breadCrumb ul
+{
+	margin: 0!important;
+	padding: 0;
+	height: 21px;
+	display: block;
+}
+.breadCrumb ul li
+{
+	display: block;
+	float: left;
+	position: relative;
+	height: 31px;
+	overflow: hidden;
+	line-height: 31px;
+	margin: 0px 8px 0px 0!important;
+	padding: 0px 14px 0px 0!important;
+	font-size: 14px;
+	background: url(../images/Chevron.gif) no-repeat 100% center;
+}
+.breadCrumb ul li.current a {
+        color: #0099CC!important;
+        
+}
+.breadCrumb ul li a {
+        color: #777!important;
+        cursor: default!important;
+        
+}
+.breadCrumb ul li a {
+    text-decoration: none!important;
+}
+.breadCrumb ul li div.chevronOverlay
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+}
+.breadCrumb ul li span
+{
+	display: block;
+	overflow: hidden;
+}
+.breadCrumb ul li a
+{
+	display: block;
+	position: relative;
+	height: 31px;
+	line-height: 31px;
+	overflow: hidden;
+	float: left;
+}
+.breadCrumb ul li:first-child a
+{
+	height: 16px !important;
+	text-indent:-1000em;
+	width:16px;
+	padding: 0;
+	margin-top: 7px;
+	overflow: hidden;
+	background:url(../images/IconHome.gif) no-repeat 0 0;
+        cursor: pointer!important;
+}
+.breadCrumb ul li:first-child a:hover
+{
+	background-position: 0 -16px;
+}
+.breadCrumb ul li:last-child
+{
+	background: none;
+	margin-right: 0;
+	padding-right: 0;
+}
+.chevronOverlay
+{
+	display: none;
+	background: url(../images/ChevronOverlay.png) no-repeat 100% 0;
+	width: 13px;
+	height: 20px;
+}

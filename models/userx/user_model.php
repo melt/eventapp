@@ -45,12 +45,12 @@ class UserModel extends UserModel_app_overrideable {
         $location_array = (isset($fb_user_data["location"]["name"])) ? explode( "," ,$fb_user_data["location"]["name"] ): null;
         $user->city = (isset($location_array[0])) ? trim( $location_array[0] ) : null;
         $user->country = (isset($location_array[1])) ? \melt\CountryType::getAlpha2FromName( trim($location_array[1]) ) : null;
-        $user->birthday = (isset($fb_user_data["birthday"])) ? date("Y-m-d", strtotime($fb_user_data["birthday"])): "0000-00-00"; 
+        $user->birthday = (isset($fb_user_data["birthday"])) ? date("Y-m-d", strtotime($fb_user_data["birthday"])): "1970-01-01"; 
         $user->timezone_utc_offset = (isset($fb_user_data["timezone"])) ? $fb_user_data["timezone"]: null;
         $user->facebook_profile_link = (isset($fb_user_data["link"])) ? $fb_user_data["link"]: null;
         $user->company = (isset($fb_user_data["work"][0]["employer"]["name"])) ? $fb_user_data["work"][0]["employer"]["name"]: null;
         $user->website = (isset($fb_user_data["website"])) ? "http://".$fb_user_data["website"]: null;
-        // Photo ID not set yet
+        //$user->photo = (isset($fb_user_data["picture"])) ? $user->getPictureFromUrl( $fb_user_data["picture?type=large"] ): null;
         // Update last loggedin
         $user->updateUserLastLogin();
         // Store user
@@ -102,7 +102,7 @@ class UserModel extends UserModel_app_overrideable {
         if (!\melt\string\email_validate($this->username)){
             $err["username"] = "Incorrect email address!";
         }
-        if (!\melt\string\http_validate_url($this->website)){
+        if (!\melt\string\http_url_validate($this->website)){
             $err["website"] = "Incorrect url format!";
         }
         return $err;

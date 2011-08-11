@@ -6,7 +6,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
     public $title = array('core\TextType', 128);
     public $description = array('core\TextAreaType');
     public $event_date = array('core\DateType');
-    //public $event_time = array('TimeType');
+    public $event_time = array('TimeType');
     public $location = array('core\TextType', 128);
     public $street = array('core\TextType', 128);
     /* A little bit special: we include city here in case event is outside hub city */
@@ -48,6 +48,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
                 case "when":
                     return array(
                         "event_date" => _("Event Date"),
+                        "event_time" => _("Event Time (24 hr clock)")
                     );
                 case "where_later":
                      return array(
@@ -97,8 +98,9 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
                 return array(
                     "title" => _("Title"),
                     "hub" => _("Hub"),
-                    "description" => _("Description"),
+                    //"description" => _("Description"),
                     "event_date" => _("Event Date"),
+                    "event_time" => _("Event Time")
                     );
         }
     }

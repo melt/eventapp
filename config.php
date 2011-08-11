@@ -53,15 +53,15 @@ namespace melt\db\config {
 
 namespace melt\js\config {
     const INCLUDE_LESS_CSS = true;
-    const INCLUDE_JQUERY_RESIZE = true;
-    const INCLUDE_JQUERY_FORM = true;
-    const INCLUDE_JQUERY_COOKIE = true;
-    const INCLUDE_JQUERY_AUTORESIZE = true;
+    const INCLUDE_JQUERY_RESIZE = false;
+    const INCLUDE_JQUERY_FORM = false;
+    const INCLUDE_JQUERY_COOKIE = false;
+    const INCLUDE_JQUERY_AUTORESIZE = false;
     const INCLUDE_JQUERY_AUTOCOMPLETE = true;
     const INCLUDE_JQUERY_DATATABLES = true;
-    const INCLUDE_JQUERY_LIGHTBOX = true;
-    const INCLUDE_JQUERY_CORNER = true;
-    const INCLUDE_JQUERY_ALERTS = true;
+    const INCLUDE_JQUERY_LIGHTBOX = false;
+    const INCLUDE_JQUERY_CORNER = false;
+    const INCLUDE_JQUERY_ALERTS = false;
     const JQUERY_UI_THEME = 'redmond';
 }
 

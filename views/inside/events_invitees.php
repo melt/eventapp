@@ -6,13 +6,13 @@
         /*
          * Gives hints if user can be found in database and completes names and emails
          **/
-        $('.fc_list_of_emails textarea').autocomplete("<?php echo url("/event/search_invitee"); ?>", {
+        $('.c_search_invitee textarea').autocomplete("<?php echo url("/search_invitee"); ?>", {
                 width: 300,
                 delay: 50,
                 multiple: true,
 		autoFill: true,
                 matchContains: true,
-                //selectFirst: true,
+                selectFirst: true,
                 minChars: 0,
 		formatItem: formatItem,
 		formatResult: formatResult
@@ -39,6 +39,7 @@
 <h2>Invitees to <?php echo $this->event->title; ?></h2>
 
 <?php echo $this->display("events_breadcrumb",array("events_breadcrumb"=>$this->events_breadcrumb)); ?>
+
 <p>Add some people to the list of invitees.<br/>Nothing is sent and no one is notified until you press Send Invitations in the next step.</p>
 <?php $interface = new qmi\ModelInterface("invitees"); ?>
 <?php echo $interface->startForm(); ?>

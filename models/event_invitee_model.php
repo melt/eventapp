@@ -17,7 +17,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
     //public $wants_to_skype = array('core\BooleanType');
     public $why_not_attend = array('core\TextAreaType');
     // Volatile fields for callback operations and actions
-    public $search_invitee = array(VOLATILE, 'core\TextAreaType');  
+    public $email_addresses = array(VOLATILE, 'core\TextAreaType');  
      /* RVSP */
     const NO_RSVP = 0;
     const ATTENDING = 1;
@@ -50,7 +50,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
             switch ($field_set) {
                 case "list":
                     return array(
-                        "search_invitee" => _("Enter Email Address(es) Separated by Comma"),
+                        "email_addresses" => _("Enter Email Address(es) Separated by Comma"),
                     );
             }
         

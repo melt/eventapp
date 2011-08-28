@@ -27,6 +27,24 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         \melt\request\redirect( url("/events/invitees/". $event->id ) );  
     }
     
+    public function ic_invitees() {
+        $instances = $this->getInstances();
+        $invitees = $instances['melt\EventInviteeModel'][0];
+        $emails = explode(",", $invitees->email_addresses);
+        foreach($emails as $email){
+                $user = \melt\userx\UserModel::select()->where("username")->isLike("%".$email."%")->first();
+                if($user == null){
+                    $user = new \melt\userx\UserModel();
+                    $user->username = $email;
+                    $user->store();
+                }
+                $invitee = new \melt\EventInviteeModel;
+                $invitee->invitee = $user;
+                $invitee->event = $invitees->event;
+                $invitee->store();
+        }
+    }
+    
     public function ic_user_details() {
         // Validate the form
         $this->doValidate();
@@ -66,4 +84,5 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         \melt\SendEmailModel::sendEmailToHub($email);
         \melt\messenger\redirect_message("/hubs","Message was successfully sent!","good");
     }
+
 }

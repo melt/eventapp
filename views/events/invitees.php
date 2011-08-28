@@ -6,7 +6,7 @@
         /*
          * Gives hints if user can be found in database and completes names and emails
          **/
-        $('.c_search_invitee textarea').autocomplete("<?php echo url("/events/search_invitee"); ?>", {
+        $('.c_email_addresses textarea').autocomplete("<?php echo url("/events/search_invitee"); ?>", {
                 width: 300,
                 delay: 50,
                 multiple: true,
@@ -25,7 +25,7 @@
                 return row[1];
 		//return row[0].replace(/(<.+?>)/gi, '');
 	}
-	$('.c_search_invitee textarea').result(function(event, data, formatted) {
+	$('.c_email_addresses textarea').result(function(event, data, formatted) {
 		var hidden = $(this).parent().next().find(">:textarea");
 		hidden.val( (hidden.val() ? hidden.val() + ";" : hidden.val()) + data[1]);
 	});

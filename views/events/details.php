@@ -34,21 +34,17 @@
   
 </script>
 <?php $this->layout->exitSection(); ?>
-<?php if($this->event->id==0): ?>
-<h2>Add New Event</h2>
-<?php else: ?>
-<h2>Editing Event <?php echo $this->event->title; ?></h2>
-<?php endif; ?>
+<h2><?php echo ($this->event->id==0)? "Add New": "Edit"; ?> Event</h2>
 
 
 <?php echo $this->display("events_breadcrumb",array("events_breadcrumb"=>$this->events_breadcrumb)); ?>
 
-<?php $interface = new qmi\ModelInterface("events_details"); ?>
+<?php $interface = new qmi\ModelInterface("event_details"); ?>
 <?php echo $interface->startForm(); ?>
 
 <?php if($this->event->hub == null): ?>
 <h3>HUB</h3>
-<p>Enter the hub that this event belongs to. If its a global event, select the "Global" hub.</p>
+<p>Enter the hub that this event belongs to. If this is a global event, select "Global".</p>
 <?php echo $interface->getInterface($this->event,"hub"); ?>
 <?php endif; ?>
 
@@ -69,7 +65,7 @@
 <h3>WHERE</h3>
 <?php echo $interface->getInterface($this->event,"where_later"); ?>
 <div id="where">
-<p>Enter the location of the event. The address will be traced on Google Maps and included in the invitation - so be sure you get it right.</p>
+<p>Enter the location of the event. The address will be retrieved via Google Maps and attached to the invitation - so make sure you get it right.</p>
 <?php echo $interface->getInterface($this->event,"where"); ?>
 <p><label>Map</label></p>
 <div id="map_canvas" style="width: 500px; height: 300px; position: relative; background-color: rgb(229, 227, 223);"></div>

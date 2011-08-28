@@ -5,14 +5,26 @@
 class InterfaceCallback extends InterfaceCallback_app_overrideable {
 	
     /* Custom interface callback for contact form - instead of saving instance to database */
-    public function ic_events_details() {
+    public function ic_event_details() {
         // Validate the form
         $this->doValidate();
         // Store the results
         $this->doStore();
         $instances = $this->getInstances();
         $event = $instances['melt\EventModel'][0];
-        \melt\request\redirect( url("/events_invitees/". $event->id ) );  
+        
+        if( $event->closed_event == \melt\EventModel::CLOSED_FOR_MEMBERS || $event->closed_event == \melt\EventModel::CLOSED_FOR_EVERYONE ){
+        // Add hub members to list as of default
+        $members = $event->hub->getMembers();
+            foreach($members as $member){
+                $invitee = new \melt\EventInviteeModel;
+                $invitee->invitee = $member;
+                $invitee->event = $event;
+                $invitee->store();
+            }
+        }
+        
+        \melt\request\redirect( url("/events/invitees/". $event->id ) );  
     }
     
     public function ic_user_details() {

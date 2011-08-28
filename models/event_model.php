@@ -5,6 +5,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
     /* Event Information */
     public $title = array('core\TextType', 128);
     public $description = array('core\TextAreaType');
+    public $closed_event = array('core\SelectType','getClosedEventLabels');
     public $event_date = array('core\DateType');
     public $event_time = array('TimeType');
     public $location = array('core\TextType', 128);
@@ -16,6 +17,19 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
     /* Volatile fields in order to skip entering data for later */
     public $when_later = array(VOLATILE,'core\BooleanType');
     public $where_later = array(VOLATILE,'core\BooleanType');
+    
+    
+    const CLOSED_FOR_MEMBERS = 1;
+    const CLOSED_FOR_INVITEES = 2;
+    const CLOSED_FOR_EVERYONE = 3;
+    public function getClosedEventLabels() {
+        return array(
+            0 => _("-- Please select --"),
+            self::CLOSED_FOR_MEMBERS => _("Yes, just for members"),
+            self::CLOSED_FOR_INVITEES => _("Yes, just for specific people I invite"),
+            self::CLOSED_FOR_EVERYONE => _("No, members can bring friends")
+        );
+    }
     
     
     protected function beforeStore($is_linked) {
@@ -40,6 +54,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
                     return array(
                         "title" => _("What To Do?"),
                         "description" => _("More Details.."),
+                        "closed_event" => _("Is this a closed event  ?")
                     );
                 case "when_later":
                     return array(
@@ -72,6 +87,10 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
             if ($this->$field == "")
                 $err[$field] = _("Field must be entered!");
         }
+        if($this->closed_event == 0)
+        {
+            $err["closed_event"] = _("You must select an option!");
+        }
         if($this->when_later == false){
         // Validate when part
         }
@@ -100,15 +119,17 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
                     "hub" => _("Hub"),
                     //"description" => _("Description"),
                     "event_date" => _("Event Date"),
-                    "event_time" => _("Event Time"),
-                    "actions" => _("Actions")
+                    "_attendees" => _("Attendees"),
+                    "_actions" => _("Actions")
                     );
         }
     }
     
     public function dtGetValues($interface_name) {
+        $attendees_count = EventInviteeModel::select()->where('event')->is($this)->count();
         return array(
-             "actions" => "<a href=\"". url("/events_details/" . $this->hub->getID()) ."/". $this->getID() . "\">Edit</a> <a href=\"". url("/events_details/" . $this->hub->getID()) ."/". $this->getID() . "\">List of Attendees</a>",
+             "_attendees"=>$attendees_count . " <a href=\"". url("/events/attendees/" . $this->getID()) . "\">See List</a>",
+             "_actions" => "<a href=\"". url("/events/details/" . $this->hub->getID()) ."/". $this->getID() . "\">Edit/Invite</a>",
         );
     }
     

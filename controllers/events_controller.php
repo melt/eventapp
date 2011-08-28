@@ -15,8 +15,9 @@ class EventsController extends userx\RestrictedController {
     
     
     function index(){}
+
     
-    function events_details( $hub_id = null, $event_id = null  ){
+    function details( $hub_id = null, $event_id = null  ){
         if($event_id == null)
             $this->event = new EventModel();
         else
@@ -24,8 +25,9 @@ class EventsController extends userx\RestrictedController {
         $this->event->hub_id = (integer)$hub_id;
     }
     
-    function events_invitees( $event_id ){
+    function invitees( $event_id ){
         $this->event = EventModel::select()->where("id")->is($event_id)->first();
+    
         $this->new_event_invitee = new \melt\EventInviteeModel();
         // Attach to current event
         $this->new_event_invitee->event_id = (int) $event_id;
@@ -34,7 +36,14 @@ class EventsController extends userx\RestrictedController {
         $this->existing_invitees = EventInviteeModel::select()->where("event")->is($event_id);
     }
     
-    function events_invitations(){
+    function invitees_remove( $invitee_id ) {
+        $this->invitee = EventInviteeModel::select()->where("id")->is($invitee_id)->first();
+        $event_id = $this->invitee->event_id;
+        $this->invitee->unlink();
+        request\redirect("/events/invitees/$event_id");
+    }
+    
+    function invitations(){
         
     }
 

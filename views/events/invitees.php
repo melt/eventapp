@@ -36,11 +36,11 @@
   });
 </script>
 
-<h2>Invitees to <?php echo $this->event->title; ?></h2>
+<h2>Add Invitees to <?php echo $this->event->title; ?></h2>
 
 <?php echo $this->display("events_breadcrumb",array("events_breadcrumb"=>$this->events_breadcrumb)); ?>
 
-<p>Add some people to the list of invitees.<br/>Nothing is sent and no one is notified until you press Send Invitations in the next step.</p>
+<p>Add some people to the list of invitees.</p>
 <?php $interface = new qmi\ModelInterface("invitees"); ?>
 <?php echo $interface->startForm(); ?>
 <?php echo $interface->getInterface($this->new_event_invitee,"list"); ?>
@@ -48,5 +48,8 @@
 <?php echo $interface->finalizeForm(false); ?>
 
 
+<h2>List of Invitees</h2>
+<p>The following people will be invited to this event.</p>
+<?php echo data_tables\render_table("invitees", 'melt\EventInviteeModel', array(),array("bPaginate"=>false,"bSearch"=>false,"bFilter"=>false,"bJQueryUI"=>false,"bInfo"=>false)); ?>
 
-<input id="previous_step" href="/events_details/<?php echo $this->event->hub->id; ?>/<?php echo $this->event->id; ?>" type="submit" value="Previous Step" /> or <input type="submit" value="Next Step" /> 
+<input id="previous_step" href="/events/details/<?php echo $this->event->hub->id; ?>/<?php echo $this->event->id; ?>" type="submit" value="Previous Step" /> or <input type="submit" value="Next Step" /> 

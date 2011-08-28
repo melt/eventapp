@@ -16,7 +16,7 @@
         ?>
         <?php echo $this->head; ?>
         <script type="text/javascript" src="<?php echo url('static/js/jquery.googlemaps.js'); ?>"></script>
-        <script type="text/javascript" src="http://maps.google.com/maps?file=api&v=3&sensor=false&key=ABQIAAAAKGEYmPHtezDllFTRq-FclBSEt0YhZ7J67ffvofDDVT83-6WjahRkYUDnMb86AFSeSWojYRloOdWfsA"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps?file=api&v=3&sensor=false&key=<?php echo GOOGLE_MAPS_API_KEY; ?>"></script>
         <?php if($this->user != null): ?>
             <script>
             $(document).ready(function(){

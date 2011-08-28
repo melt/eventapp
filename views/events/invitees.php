@@ -6,14 +6,14 @@
         /*
          * Gives hints if user can be found in database and completes names and emails
          **/
-        $('.c_search_invitee textarea').autocomplete("<?php echo url("/search_invitee"); ?>", {
+        $('.c_search_invitee textarea').autocomplete("<?php echo url("/events/search_invitee"); ?>", {
                 width: 300,
                 delay: 50,
                 multiple: true,
-		autoFill: true,
+		autoFill: false,
                 matchContains: true,
                 selectFirst: true,
-                minChars: 0,
+                minChars: 3,
 		formatItem: formatItem,
 		formatResult: formatResult
 
@@ -44,7 +44,7 @@
 <?php $interface = new qmi\ModelInterface("invitees"); ?>
 <?php echo $interface->startForm(); ?>
 <?php echo $interface->getInterface($this->new_event_invitee,"list"); ?>
-<input type="submit" value="Add to List of Invitees" />
+<input type="submit" value="Add to List" />
 <?php echo $interface->finalizeForm(false); ?>
 
 

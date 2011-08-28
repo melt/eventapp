@@ -37,4 +37,11 @@ class ApiController extends AppController {
         else
             \melt\request\send_json_data( $response );
     }
+    
+    
+    
+    public function request_invite( $event_id ){
+        $this->event = EventModel::select()->where("id")->is($event_id)->first();
+        //add logic for what happens when invite is requested
+    }
 }

@@ -6,7 +6,7 @@
         'melt\EventInviteeModel', 
         array(),
         array("bPaginate"=>false,"bSearch"=>false,"bFilter"=>false,"bJQueryUI"=>false,"bInfo"=>true),
-        expr("event")->is($this->event)->and("rvsp")->is(EventInviteeModel::ATTENDING)
+        expr("event")->is($this->event)->and("rsvp")->is(EventInviteeModel::ATTENDING)
         ); ?>
 
 <p>
@@ -24,7 +24,7 @@
         'melt\EventInviteeModel', 
         array(),
         array("bPaginate"=>false,"bSearch"=>false,"bFilter"=>false,"bJQueryUI"=>false,"bInfo"=>true),
-        expr("event")->is($this->event)->and("rvsp")->is(EventInviteeModel::NO_RSVP)
+        expr("event")->is($this->event)->and("rsvp")->is(EventInviteeModel::NO_RSVP)
         ); ?>
     
     

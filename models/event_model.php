@@ -129,7 +129,12 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
     
     public function dtGetValues($interface_name) {
         $attendees_count = EventInviteeModel::select()->where('event')->is($this)->count();
+        if( $this->view('event_date') == "1970-01-01" )
+            $event_date = "TBD";
+        else
+            $event_date = $this->view('event_date');
         return array(
+             "event_date" => $event_date,
              "_attendees"=>$attendees_count . " <a href=\"". url("/events/attendees/" . $this->getID()) . "\">See List</a>",
              "_actions" => "<a href=\"". url("/events/details/" . $this->hub->getID()) ."/". $this->getID() . "\">Edit/Invite</a>",
         );

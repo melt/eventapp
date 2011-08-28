@@ -68,6 +68,12 @@ class EventsController extends userx\RestrictedController {
         if (!$q) return;
         $users = \melt\userx\UserModel::select()->where("first_name")->isLike("%".$q."%")->or("last_name")->isLike("%".$q."%")->or("username")->isLike("%".$q."%");
         if($users->count() == 0) return;
+        foreach($users as $user){
+            $items = array(
+               $user->getName()." - ".$user->view('user_type'). " - " .$user->view('username') => $user->view('username')
+            );
+        }
+        
         /*foreach($users as $user){
             $attended_events = \melt\EventInviteeModel::select()->where("invitee")->is($user)->and("rvsp")->is( EventInviteeModel::ATTENDING )->count();
             $name = ($user->first_name!="")? $user->getName(): $user->view('username');
@@ -75,10 +81,10 @@ class EventsController extends userx\RestrictedController {
             $items = array(
                "$name (".$user->getGroupName()." - $attended_events attended events)" => $user->view('username')
             );
-        }*/
+        }
         $items = array(
                $user->view('username') => $user->view('username')
-            );
+            );*/
         foreach ($items as $key=>$value) {
 	if (strpos(strtolower($key), $q) !== false) {
 		echo "$key|$value\n";

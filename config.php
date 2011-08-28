@@ -12,6 +12,7 @@
 
 namespace melt {
     const APP_NAME = "Events @ Sandbox";
+    const APP_EMAIL = "events@sandbox-network.com";
     const FACEBOOK_APP_ID = "255479344470646";
     const FACEBOOK_APP_SECRET = "9cda275bea97d8a1bbd948f7b364029e";
 }
@@ -72,10 +73,10 @@ namespace melt\mail\config {
     const SMTP_AUTH_USER = 'user';
     const SMTP_AUTH_ENABLE = false;
     const SMTP_TLS_ENABLE = false;
-    const SMTP_FROM_HOST = NULL;
+    const SMTP_FROM_HOST = "u10006-83b1525050.host-admin.com";
     const SMTP_TIMEOUT = 10;
     const SMTP_PORT = 25;
-    const SMTP_HOST = 'localhost';
+    const SMTP_HOST = '127.0.0.1';
     const FROM_ADDRESS = '';
     const FROM_NAME = '';
 }
@@ -90,4 +91,13 @@ namespace melt\userx\config {
     const SOFT_403 = false;
     const REMEMBER_ME_DAYS = 356;
     const SESSION_TIMEOUT_MINUTES = false;
+}
+
+
+namespace melt\jqtouch\config {
+    const INCLUDE_JQTOUCH_FLOATY = true;
+    const INCLUDE_JQTOUCH_LOCATION = true;
+    const INCLUDE_JQTOUCH_OFFLINE = true;
+    const INCLUDE_JQTOUCH_AUTOTITLES = true;
+    const JQTOUCH_THEME = 'default';
 }

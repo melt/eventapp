@@ -8,14 +8,14 @@
     If you came here a good chance is you have been invited to an event in our of our hubs.
 </p>
 <p>
-    Should you have questions about this application, please email Nico on <strong>nico.luchsinger@sandbox-network.com</strong>.
+    Should you have questions about this application, please contact the <a href="http://www.sandbox-network.com/about/our-team/" target="_blank">Chief Community Manager</a>.
 </p>
 
 <?php else: ?>
 <?php /* For Logged In Users */ ?>
 
 
-<h2>Sidebar</h2>
-<p> PUT USEFUL INFO HERE </p>
+<h2>Magic Sidebar</h2>
+<p> PUT USEFUL INFO HERE, LATEST EVENTS IN THE USER'S COUNTRY PERHAPS ? </p>
 
 <?php endif;?>

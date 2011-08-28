@@ -33,8 +33,28 @@ abstract class AppController extends Controller {
      * @param array $arguments Arguments that was passed to action.
      * @return void
      */
-    public function beforeRender($action_name, $arguments) {}
+    public function beforeRender($action_name, $arguments) {
+        if(userx\get_user() == null):
+            $this->menu[_("Login")] = "/outside,^/outside$";
+            $this->menu[_("About")] = "/outside/about,^/outside/about$";        
+        else:
+            $queue_count = userx\UserModel::select()->where("user_type")->is(0)->count();
+            if($queue_count != 0)
+                $this->menu[_("Queue ($queue_count)")] = "/people/queue,^/people/queue";
+            $this->menu[_("My Profile")] = "/,^/$|/$|/$";
+            $this->menu[_("Events")] = "/events,^/events";
+            $this->menu[_("Hubs")] = "/hubs,^/hubs";
+            $this->menu[_("People")] = "/people,^/people";
+            $this->menu[_("Logout")] = "/#logout,^/logout$";
+        endif;
+        
+        
+        $this->menu = core\generate_ul_navigation($this->menu, "current");
+        
 
+    }
+    
+    
     /**
      * Called after every controller action, and after rendering is complete.
      * This is the last controller method to run.
@@ -54,11 +74,11 @@ abstract class AppController extends Controller {
                 \melt\request\redirect("/outside");
         }
         else if ($path_tokens[0] == "") {
-            return array("inside", "");
-        } else if (method_exists("melt\InsideController", $path_tokens[0])) {
-            array_unshift($path_tokens, "inside");
+            return array("profile", "");
+        } else if (method_exists("melt\ProfileController", $path_tokens[0])) {
+            array_unshift($path_tokens, "profile");
             return $path_tokens;
-        } else if ($path_tokens[0] === "inside") {
+        } else if ($path_tokens[0] === "profile") {
             return false;
         }
     }

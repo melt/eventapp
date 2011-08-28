@@ -4,15 +4,7 @@
 
     public $menu = array();
     
-    
-    public function beforeRender($action_name, $arguments) {
-        
-        
-        $this->menu[_("Login")] = "/outside,^/outside$";
-        $this->menu[_("About")] = "/outside/about,^/outside/about$";        
-        
-        $this->menu = core\generate_ul_navigation($this->menu, "current");
-    }
+
     
     function index() {}
 

@@ -232,6 +232,9 @@ margin: 15px 0;
 a:link, a:visited {
     color: @header-color;
     text-decoration: none;
+    font-size:12px;
+    text-transform:uppercase;
+    font-weight:bold;
 }
 a:hover,a:active {
     color: @font-color;
@@ -250,20 +253,60 @@ a:hover,a:active {
 /* Forms
 ----------------------------------*/
 
-input[type=text],textarea {
-    font-family: @font-family;
-    border: @font-color 1px solid;
-    width: 260px;
-    font-size: 14px;
-    padding: 4px 2px;
+form.table_form {
+    height:20px;
 }
+
+form.table_form select {
+    float:left;
+    margin-right:10px;
+}
+
+form.table_form input {
+    padding:2px;
+    font-size:12px;
+    margin:0px;
+
+}
+
+form {
+    overflow:hidden;
+}
+
+input, textarea { 
+	padding: 4px;
+	border: solid 1px #E5E5E5;
+	outline: 0;
+	font-size:14px;
+	width: 200px;
+	background: #FFFFFF url('../images/bg_form.png') left top repeat-x;
+	background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+	background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	}
+
+textarea { 
+	width: 400px;
+	max-width: 400px;
+	height: 150px;
+	line-height: 150%;
+	}
+
+input:hover, textarea:hover,
+input:focus, textarea:focus { 
+	border-color: #C9C9C9; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px;
+	}
+
 
 label {
     color: @header-color;
     font-weight: bold;
 }
 
-input[type=submit] {
+input[type=submit], .buttons {
     background: #999 url(../images/gradient.png) repeat-x 0 -40px!important;
     border: solid 1px #666;
     color: #444;
@@ -294,6 +337,68 @@ input[type=submit] {
 .c_name {
     width: 280px;
 }
+
+/* Tables
+----------------------------------*/
+
+.dataTables_wrapper {
+    margin-top:30px;
+}
+
+.dataTables_wrapper thead, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_info {
+    font-size:12px;
+    text-transform:uppercase;
+    color:#969696;
+    font-weight:bold;
+}
+
+.dataTables_wrapper table.data_tables {
+    margin-top:30px;
+}
+
+.dataTables_wrapper .dataTables_info {
+    font-size:10px;
+}
+
+.dataTables_wrapper tbody {
+    color:#444444;
+}
+
+.dataTables_wrapper tr {
+    cursor:hand;
+    border-bottom: #E0EEFE solid 1px;
+}
+
+.dataTables_wrapper tr.odd {
+    background-color: #fff;
+    
+}
+
+.dataTables_wrapper tr.odd td.sorting_1 {
+    background-color: #eff9fe;
+}
+
+.dataTables_wrapper tr.even {
+    background-color:#eff8fe;
+}
+
+.dataTables_wrapper tr.even td.sorting_1 {
+    background-color: #ebf5fa;
+}
+
+.dataTables_wrapper tr:hover td, .dataTables_wrapper tr.odd:hover td.sorting_1, .dataTables_wrapper tr.even:hover td.sorting_1 {
+    background-color: #ffb;
+}
+
+.dataTables_paginate {
+    margin-top:10px;
+}
+
+.dataTables_paginate .paginate_button, .dataTables_paginate .paginate_active {
+    .buttons;
+    font-size:12px;
+}
+
 
 /* Other
 ----------------------------------*/

@@ -100,14 +100,15 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
                     "hub" => _("Hub"),
                     //"description" => _("Description"),
                     "event_date" => _("Event Date"),
-                    "event_time" => _("Event Time")
+                    "event_time" => _("Event Time"),
+                    "actions" => _("Actions")
                     );
         }
     }
     
     public function dtGetValues($interface_name) {
         return array(
-             "title" => "<a href=\"". url("/events_details/" . $this->hub->getID()) ."/". $this->getID() . "\">" . $this->view("title") . "</a>",
+             "actions" => "<a href=\"". url("/events_details/" . $this->hub->getID()) ."/". $this->getID() . "\">Edit</a> <a href=\"". url("/events_details/" . $this->hub->getID()) ."/". $this->getID() . "\">List of Attendees</a>",
         );
     }
     
@@ -121,5 +122,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
     public static function dtSelect($interface_name) {
         return EventModel::select();
     }
+    
+
     
 }

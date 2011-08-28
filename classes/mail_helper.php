@@ -9,9 +9,11 @@ class MailHelper {
      * @param string $subject Subject of mail, not including any prefixes.
      * @param mixed $email_to Email address or User to email to.
      */
-    static function sendMail($mail_template, $view_variables, $subject, $email_to, $plaintext_mail = false, $email_bcc = array()) {
+    static function sendMail($mail_template, $view_variables, $subject, $email_to, $plaintext_mail = false, $email_bcc = array(), $email_reply_to_email, $email_reply_to_name) {
         $mailer = new mail\Mailer();
         $mailer->from->set(APP_EMAIL, APP_NAME);
+        $mailer->reply_to->email = $email_reply_to_email;
+        $mailer->reply_to->name = $email_reply_to_name;
         if (\is_string($email_to)) {
             $email_name = "";
         } else if ($email_to instanceof userx\UserModel) {

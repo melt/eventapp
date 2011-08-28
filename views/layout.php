@@ -5,6 +5,7 @@
         <title><?php echo APP_NAME; ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet"  type="text/css" media="screen, projection" href="<?php echo url('static/css/reset.css'); ?>">
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo url('static/images/favicon.ico'); ?>">
         <link rel="stylesheet/less" type="text/css" href="<?php echo url('static/css/style.less'); ?>">
         <link rel="stylesheet/less" type="text/css" href="<?php echo url('static/css/breadcrumb.css'); ?>">
         <?php 

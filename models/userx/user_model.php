@@ -2,7 +2,7 @@
 /* Auto generated empty class override. */
 
 
-class UserModel extends UserModel_app_overrideable {
+class UserModel extends UserModel_app_overrideable implements \melt\data_tables\DataTablesListable {
     
     /* Facebook User ID */
     public $facebook_user = array(INDEXED_UNIQUE,'core\IntegerType');
@@ -16,10 +16,30 @@ class UserModel extends UserModel_app_overrideable {
     public $birthday = array('core\DateType');
     public $timezone_utc_offset = array('core\IntegerType');
     public $facebook_profile_link = array('core\TextType', 128);
-    
     public $company = array('core\TextType', 128);
     public $website = array('core\TextType', 128);
     public $photo_id = array('core\PictureType');
+    /* Type of User */
+    public $user_type = array('core\SelectType', 'getUserTypeLabels');
+    
+    public function getUserTypeLabels() {
+        return array(
+            0 => _("-- Please select --"),
+            1 => _("Contact"),
+            2 => _("Outer Circle"),
+            3 => _("Inner Circle"),
+            //4 => _("Ingen"),
+            //5 => _("Ingen"),
+            //6 => _("Ingen"),
+            7 => _("Member"),
+            8 => _("Ambassador"),
+            9 => _("Alumni")
+        );
+    }
+    
+    public function getName() {
+        return $this->view('first_name')." ".$this->view('last_name');
+    }
     
     protected function beforeStore($is_linked) {
         parent::beforeStore($is_linked);
@@ -87,6 +107,26 @@ class UserModel extends UserModel_app_overrideable {
                     "photo" => _("Photo"),
                     
                 );
+             case "user_type":
+                 return array(
+                     "user_type" => _(""),
+                 );
+             case "user_details":
+                 return array(
+                    "first_name" => _("First Name"),
+                    "last_name" => _("Last Name"),
+                    "phone" => _("Phone"),
+                    "username" => _("Email"),
+                    "street" => _("Street Address"),
+                    "city" => _("City"),
+                    "country" => _("Country"),
+                    "birthday" => _("Birthday"),
+                    "company" => _("Company/Project"),
+                    "website" => _("Website"),
+                    "photo" => _("Photo"),
+                    "user_type" => _("Type of Person"),
+                    "group" => _("System Permissions (WARNING: THIS WILL GRANT USER ADDITIONAL SYSTEM RIGHTS)"),
+                 );
         }
     }
     
@@ -107,5 +147,65 @@ class UserModel extends UserModel_app_overrideable {
         }
         return $err;
     }
-	
+    
+    
+    public static function dtGetSearchCondition($interface_name, $search_term) {
+    }
+    
+    public static function dtGetColumns($interface_name) {
+        switch ($interface_name) {
+            case "queue":
+            default:
+                return array(
+                    "first_name" => _("First Name"),
+                    "last_name" => _("Last Name"),
+                    "country" => _("Country"),
+                    //"description" => _("Description"),
+                    "user_type" => _("Type of Person")
+                    );
+            case "people":
+            default:
+                return array(
+                    "first_name" => _("First Name"),
+                    "last_name" => _("Last Name"),
+                    "country" => _("Country"),
+                    //"description" => _("Description"),
+                    "user_type" => _("Type of Person"),
+                    "_actions" => _("Actions")
+                    );
+        }
+    }
+    
+    public function dtGetValues($interface_name) {
+        switch ($interface_name) {
+            case "queue":
+                $interface = new \melt\qmi\ModelInterface("user_type");
+                return array(
+                    "country" => $this->view('country')." (".($this->country).")",
+                    "user_type" => $interface->startForm(array("class"=>"table_form")).
+                                   $interface->getInterface($this).
+                                    '<input type="submit" value="Save">'.
+                                   $interface->finalizeForm(false),
+                );                
+            case "people":
+                return array(
+                    "country" => $this->view('country')." (".($this->country).")",
+                     "user_type" => $this->view('user_type')." (".$this->user_type.")",
+                    "_actions" => "<a href=\"". url("/people/details/" . $this->getID()) . "\">View/Edit</a>"
+                );
+        }
+
+    }
+    
+    public static function dtBatchAction($interface_name, $batch_action, \melt\db\SelectQuery $selected_instances) {
+        switch ($batch_action) {
+            default:
+                break;
+        }
+    }
+    
+    public static function dtSelect($interface_name) {
+        return UserModel::select();
+    }
+    	
 }

@@ -18,7 +18,7 @@ namespace melt {
 }
 
 namespace melt\core\config {
-    const MAINTENANCE_MODE = true;
+    const MAINTENANCE_MODE = false;
     const DEVELOPER_KEY = '';
     const CONSOLE_MOTD = 'Greetings. Welcome to Melt framework. We hope you enjoy this unix-ish console. Run "install" if you have not done so yet!';
     const NO_MAINTENANCE_CONTROLLERS = '';
@@ -44,11 +44,11 @@ namespace melt\db\config {
     const DEBUG_QUERY_BENCHMARK = false;
     const USE_TRIGGER_SEQUENCING = true;
     const PREFIX = '';
-    const NAME = 'melt';
+    const NAME = 'u10006_sbox';
     const PORT = 3306;
-    const PASSWORD = '';
-    const USER = 'root';
-    const HOST = NULL;
+    const PASSWORD = 'dbd80408546fff3e';
+    const USER = 'u10006_sbox';
+    const HOST = "127.0.0.1";
 }
 
 

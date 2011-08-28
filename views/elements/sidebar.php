@@ -15,7 +15,11 @@
 <?php /* For Logged In Users */ ?>
 
 
-<h2>Magic Sidebar</h2>
-<p> PUT USEFUL INFO HERE, LATEST EVENTS IN THE USER'S COUNTRY PERHAPS ? </p>
+<h2>Next Events</h2>
+
+<?php foreach($this->sidebar_events as $event):  ?>
+    <p><?php echo $event->view('title'); ?> on <?php echo $event->view('event_date'); ?><br/>
+    <em><?php echo $event->hub; ?> Hub</em></p><br/>
+<?php endforeach; ?>
 
 <?php endif;?>

@@ -17,6 +17,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
     /* Volatile fields in order to skip entering data for later */
     public $when_later = array(VOLATILE,'core\BooleanType');
     public $where_later = array(VOLATILE,'core\BooleanType');
+    /* Closing the list will not allow further replies or attendees */
+    public $rsvp_closed = array('core\BooleanType');
     
     
     const CLOSED_FOR_MEMBERS = 1;

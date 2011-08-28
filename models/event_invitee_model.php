@@ -4,8 +4,8 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
      /* N-N Relations */
     public $event_id = array('core\PointerType', 'EventModel','CASCADE');
     public $invitee_id = array('core\SelectModelType', 'userx\UserModel','CASCADE');
-    public $rvsp = array('core\SelectType','getRvspLabels');
-    public $rvsp_page_hash = array('core\TextType',16);
+    public $rsvp = array('core\SelectType','getRsvpLabels');
+    public $rsvp_page_hash = array('core\TextType',16);
     /* Tracks the different emails that the invitee can receive */
     public $invite_email_sent = array('core\BooleanType');
     public $reminder_email_sent = array('core\BooleanType'); // Only if RVSP ATTENDING
@@ -19,12 +19,12 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
     // Volatile fields for callback operations and actions
     public $search_invitee = array(VOLATILE, 'core\TextType',128);  
      /* RVSP */
-    const NO_RVSP = 0;
+    const NO_RSVP = 0;
     const ATTENDING = 1;
     const NOT_ATTENDING = 2;
-    public function getRvspLabels(){
+    public function getRsvpLabels(){
         return array(
-            self::NO_RVSP => "Not yet",
+            self::NO_RSVP => "Not yet",
             self::ATTENDING => "Attending",
             self::NOT_ATTENDING => "Not Attending"
         );
@@ -58,15 +58,23 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
     
     public function uiValidate($interface_name) {
         $err = array();
-        
         return $err;
     }
     
     public static function dtGetSearchCondition($interface_name, $search_term) {
+
     }
     
     public static function dtGetColumns($interface_name) {
         switch ($interface_name) {
+            case "attendees":
+            case "not_yet":
+                return array(
+                    "_name" => _("Name"),
+                    "_email" => _("Email"),
+                    "invite_email_sent" => _("Invited"),
+                    "reminder_email_sent" => _("Reminded")
+                    );                
             case "invitees":
             default:
                 return array(
@@ -74,7 +82,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
                     "_email" => _("Email"),
                     "invite_email_sent" => _("Invited"),
                     "reminder_email_sent" => _("Reminded"),
-                    "rvsp" => _("RVSP"),
+                    "rsvp" => _("RSVP"),
                     "_actions" => _("Actions"),
                     );
         }

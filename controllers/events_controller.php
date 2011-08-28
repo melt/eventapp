@@ -47,6 +47,19 @@ class EventsController extends userx\RestrictedController {
         
     }
 
+    function attendees( $event_id ) {
+        $this->event = EventModel::select()->where("id")->is( $event_id )->first();
+    }
+    
+    function rsvp_list_toggle( $event_id ) {
+        $this->event = EventModel::select()->where("id")->is( $event_id )->first();
+        if( $this->event->rsvp_closed == true )
+            $this->event->rsvp_closed = false;
+        else
+            $this->event->rsvp_closed = true;
+        $this->event->store();
+        request\redirect("/events/attendees/$event_id");
+    }
     
     
     

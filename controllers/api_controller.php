@@ -1,6 +1,6 @@
 <?php namespace melt;
 
-class ApiController extends userx\RestrictedController {
+class ApiController extends AppController {
 
 
     /*
@@ -36,23 +36,5 @@ class ApiController extends userx\RestrictedController {
             \melt\request\send_json_data( false );
         else
             \melt\request\send_json_data( $response );
-    }
-
-
-    public static function getDefaultPermission(userx\GroupModel $group = null) {
-        if ($group === null)
-            return "Allow";
-        else if ($group->context == userx\GroupModel::CONTEXT_GUEST)
-            return "Allow";
-        else if ($group->context == userx\GroupModel::CONTEXT_MEMBER)
-            return "Allow";
-        else if ($group->context == userx\GroupModel::CONTEXT_AMBASSADOR)
-            return "Allow";
-        else if ($group->context == userx\GroupModel::CONTEXT_ADMIN)
-            return "Allow";
-        else if ($group->context == userx\GroupModel::CONTEXT_SUPERADMIN)
-            return "Allow";
-        else
-            return false;
     }
 }

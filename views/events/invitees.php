@@ -49,7 +49,7 @@
 
 
 <h2>List of Invitees</h2>
-<p>The following people will be invited to this event.</p>
-<?php echo data_tables\render_table("invitees", 'melt\EventInviteeModel', array(),array("bPaginate"=>false,"bSearch"=>false,"bFilter"=>false,"bJQueryUI"=>false,"bInfo"=>false)); ?>
+<p>The following people will receive invitations to this event.</p>
+<?php echo data_tables\render_table("invitees", 'melt\EventInviteeModel', array(),array("bPaginate"=>false,"bSearch"=>false,"bFilter"=>false,"bJQueryUI"=>false,"bInfo"=>true)); ?>
 
 <input id="previous_step" href="/events/details/<?php echo $this->event->hub->id; ?>/<?php echo $this->event->id; ?>" type="submit" value="Previous Step" /> or <input type="submit" value="Next Step" /> 

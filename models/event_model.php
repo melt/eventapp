@@ -133,10 +133,14 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
             $event_date = "TBD";
         else
             $event_date = $this->view('event_date');
+        if( $this->rsvp_closed == true )
+            $actions = "<em>RSVP List Closed</em>";
+        else
+            $actions = "<a href=\"". url("/events/details/" . $this->hub->getID()) ."/". $this->getID() . "\">Edit/Invite</a>";
         return array(
              "event_date" => $event_date,
              "_attendees"=>$attendees_count . " <a href=\"". url("/events/attendees/" . $this->getID()) . "\">See List</a>",
-             "_actions" => "<a href=\"". url("/events/details/" . $this->hub->getID()) ."/". $this->getID() . "\">Edit/Invite</a>",
+             "_actions" => $actions,
         );
     }
     

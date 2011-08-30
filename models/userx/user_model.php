@@ -5,7 +5,7 @@
 class UserModel extends UserModel_app_overrideable implements \melt\data_tables\DataTablesListable {
     
     /* Facebook User ID */
-    public $facebook_user = array(INDEXED_UNIQUE,'core\IntegerType');
+    public $facebook_user = array(INDEXED,'core\IntegerType');
     /* User Details */
     public $first_name = array('core\TextType',128);
     public $last_name = array('core\TextType',128);

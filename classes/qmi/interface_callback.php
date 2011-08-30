@@ -38,7 +38,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
                     $user->username = $email;
                     $user->store();
                 }
-                $invitee = new \melt\EventInviteeModel;
+                $invitee = new \melt\EventInviteeModel();
                 $invitee->invitee = $user;
                 $invitee->event = $invitees->event;
                 $invitee->store();

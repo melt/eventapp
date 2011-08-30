@@ -33,15 +33,18 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $emails = explode(",", $invitees->email_addresses);
         foreach($emails as $email){
                 $user = \melt\userx\UserModel::select()->where("username")->isLike("%".$email."%")->first();
-                if($user == null){
-                    $user = new \melt\userx\UserModel();
-                    $user->username = $email;
-                    $user->store();
+                // Only save to invitees if we have a correct email address
+                if(\melt\string\email_validate($email)){
+                    if($user == null){
+                        $user = new \melt\userx\UserModel();
+                        $user->username = $email;
+                        $user->store();
+                    }
+                    $invitee = new \melt\EventInviteeModel();
+                    $invitee->invitee = $user;
+                    $invitee->event = $invitees->event;
+                    $invitee->store();
                 }
-                $invitee = new \melt\EventInviteeModel();
-                $invitee->invitee = $user;
-                $invitee->event = $invitees->event;
-                $invitee->store();
         }
     }
     

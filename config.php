@@ -13,8 +13,8 @@
 namespace melt {
     const APP_NAME = "Events @ Sandbox";
     const APP_EMAIL = "events@sandbox-network.com";
-    const FACEBOOK_APP_ID = "255479344470646";
-    const FACEBOOK_APP_SECRET = "9cda275bea97d8a1bbd948f7b364029e";
+    const FACEBOOK_APP_ID = "211329565552399";
+    const FACEBOOK_APP_SECRET = "0bbb416cd5bd7ff8cb618eeb4e848d15";
     const GOOGLE_MAPS_API_KEY = "ABQIAAAAmUfoqGrJZXz3ahXqfPAjDhR-4GX_7hi2Vpu-i3LFveGXriBCDRQ3p9i92kw-H42E3WztkSNa9CUK-g";
 }
 

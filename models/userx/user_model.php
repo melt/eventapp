@@ -70,7 +70,10 @@ class UserModel extends UserModel_app_overrideable implements \melt\data_tables\
         $user->facebook_profile_link = (isset($fb_user_data["link"])) ? $fb_user_data["link"]: null;
         $user->company = (isset($fb_user_data["work"][0]["employer"]["name"])) ? $fb_user_data["work"][0]["employer"]["name"]: null;
         $user->website = (isset($fb_user_data["website"])) ? "http://".$fb_user_data["website"]: null;
-        //$user->photo = (isset($fb_user_data["picture"])) ? $user->getPictureFromUrl( $fb_user_data["picture?type=large"] ): null;
+        // Add user photo
+        $photo_link = "http://graph.facebook.com/".$fb_user_data['username']."/picture?type=large";
+        $photo = file_get_contents( $photo_link );
+        $user->type('photo')->setBinaryData( $photo, ".jpg" );
         // Update last loggedin
         $user->updateUserLastLogin();
         // Store user

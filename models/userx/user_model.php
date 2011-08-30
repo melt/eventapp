@@ -159,7 +159,7 @@ class UserModel extends UserModel_app_overrideable implements \melt\data_tables\
                 return array(
                     "first_name" => _("First Name"),
                     "last_name" => _("Last Name"),
-                    "country" => _("Country"),
+                    "username" => _("Email Address"),
                     //"description" => _("Description"),
                     "user_type" => _("Type of Person")
                     );

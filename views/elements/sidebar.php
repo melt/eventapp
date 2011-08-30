@@ -15,7 +15,7 @@
 <?php /* For Logged In Users */ ?>
 
 
-<h2>Next Events</h2>
+<h3>Next Events</h3>
 
 <?php foreach($this->sidebar_events as $event):  ?>
     <p><?php echo $event->view('title'); ?> on <?php echo $event->view('event_date'); ?><br/>

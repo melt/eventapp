@@ -33,6 +33,10 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
         );
     }
     
+    protected function initialize() {
+        parent::initialize();
+        $this->event_date = date("Y-m-d");
+    }
     
     protected function beforeStore($is_linked) {
         parent::beforeStore($is_linked);

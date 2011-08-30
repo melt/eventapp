@@ -44,12 +44,15 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, data_table
                     "country" => _("Country"),
                     "_members" => _("Members"),
                     "_total_community" => _("Total Community"),
+                    "_events" => _("Number of Events"),
                     "_actions" => _("Actions")
                     );
         }
     }
     
-
+    public function getEventCount(){
+        return EventModel::select()->where('hub')->is($this);
+    }
     
     public function getCommunity(){
         return userx\UserModel::select()->where('country')->is($this->country);
@@ -70,10 +73,12 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, data_table
     public function dtGetValues($interface_name) {
         $member_count = $this->getMemberCount();
         $community_count = $this->getCommunityCount();
+        $community_count = $this->getEventCount();
         return array(
             "country" => $this->view('country')." (".$this->country.")",
             "_members" => $member_count . " <a href=\"". url("/hubs/email/" . $this->getID()."/1") . "\">Email</a>",
             "_total_community" => $community_count . " <a href=\"". url("/hubs/email/" . $this->getID()."/0") . "\">Email</a>",
+            "_events" => $event_count,
             "_actions" => "<a href=\"". url("/hubs/add_edit/" . $this->getID()) . "\">Edit</a>"
         );
 

@@ -35,12 +35,14 @@
             <?php echo $this->menu; ?>
             </div>
             <div id="content">
-                <div id="main">
+                <div id="main"<?php echo (userx\get_user() != null)? ' class="loggedin"': ""; ?>>
                     <?php echo $this->content; ?>
                 </div>
+                <?php if(userx\get_user() == null): ?>
                 <div id="sidebar">
                    <?php $this->display('sidebar',array("user"=>$this->user)); ?>
                 </div>
+                <?php endif; ?>
                 <br class="clear" />
             </div>
             

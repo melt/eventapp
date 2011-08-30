@@ -65,7 +65,8 @@ class UserModel extends UserModel_app_overrideable implements \melt\data_tables\
         $location_array = (isset($fb_user_data["location"]["name"])) ? explode( "," ,$fb_user_data["location"]["name"] ): null;
         $user->city = (isset($location_array[0])) ? trim( $location_array[0] ) : null;
         $user->country = (isset($location_array[1])) ? \melt\CountryType::getAlpha2FromName( trim($location_array[1]) ) : null;
-        $user->birthday = (isset($fb_user_data["birthday"])) ? date("Y-m-d", strtotime($fb_user_data["birthday"])): "1970-01-01"; 
+        if(isset($fb_user_data["birthday"]))
+            $user->birthday = date("Y-m-d", strtotime($fb_user_data["birthday"])); 
         $user->timezone_utc_offset = (isset($fb_user_data["timezone"])) ? $fb_user_data["timezone"]: null;
         $user->facebook_profile_link = (isset($fb_user_data["link"])) ? $fb_user_data["link"]: null;
         $user->company = (isset($fb_user_data["work"][0]["employer"]["name"])) ? $fb_user_data["work"][0]["employer"]["name"]: null;

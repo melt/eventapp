@@ -38,6 +38,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
                     if($user == null){
                         $user = new \melt\userx\UserModel();
                         $user->username = $email;
+                        $user->country = $invitees->event->hub->country;
                         $user->store();
                     }
                     $invitee = new \melt\EventInviteeModel();

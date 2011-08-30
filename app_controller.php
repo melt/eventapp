@@ -49,7 +49,7 @@ abstract class AppController extends Controller {
         endif;
         
         $this->menu = core\generate_ul_navigation($this->menu, "current");
-        $this->sidebar_events = EventModel::select()->and("event_date")->isntLessThan(date('Y-m-d'))->orderBy("event_date","ASC")->limit(3);
+        $this->sidebar_events = EventModel::select()->and("event_date")->isntLessThan(date('Y-m-d'))->orderBy("event_date","ASC")->limit(5);
 
     }
     

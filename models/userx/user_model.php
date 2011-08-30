@@ -170,7 +170,8 @@ class UserModel extends UserModel_app_overrideable implements \melt\data_tables\
                     "last_name" => _("Last Name"),
                     "country" => _("Country"),
                     //"description" => _("Description"),
-                    "user_type" => _("Type of Person"),
+                    //"user_type" => _("Type of Person"),
+                    "username" => _("Email Address"),
                     "_actions" => _("Actions")
                     );
         }
@@ -190,7 +191,8 @@ class UserModel extends UserModel_app_overrideable implements \melt\data_tables\
             case "people":
                 return array(
                     "country" => $this->view('country')." (".($this->country).")",
-                     "user_type" => $this->view('user_type')." (".$this->user_type.")",
+                     //"user_type" => $this->view('user_type')." (".$this->user_type.")",
+                    
                     "_actions" => "<a href=\"". url("/people/details/" . $this->getID()) . "\">View/Edit</a>"
                 );
         }

@@ -17,7 +17,7 @@
         'melt\userx\UserModel', 
         array(),
         array("bPaginate"=>true,"bSearch"=>true,"bFilter"=>true,"bJQueryUI"=>false,"bInfo"=>true),
-        expr('country')->is($this->country)
+        expr('country')->is($this->hub->country)
         ); ?>
 <?php endif; ?>
 

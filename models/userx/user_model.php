@@ -178,6 +178,15 @@ class UserModel extends UserModel_app_overrideable implements \melt\data_tables\
                     "username" => _("Email Address"),
                     "_actions" => _("Actions")
                     );
+            case "hub":
+            default:
+                return array(
+                    "first_name" => _("First Name"),
+                    "last_name" => _("Last Name"),
+                    //"description" => _("Description"),
+                    "username" => _("Email Address"),
+                    "city" => _("City"),
+                    );
         }
     }
     

@@ -3,7 +3,7 @@
 <h2>Members of <?php echo $this->hub->view('city'); ?></h2>
 <p>This is a list of all the <strong><?php echo $this->hub->getMemberCount(); ?></strong> members of the <strong><?php echo $this->hub->view('city'); ?></strong> hub.</p>
 <?php echo data_tables\render_table(
-        "queue", 
+        "hub", 
         'melt\userx\UserModel', 
         array(),
         array("bPaginate"=>true,"bSearch"=>true,"bFilter"=>true,"bJQueryUI"=>false,"bInfo"=>true),
@@ -13,7 +13,7 @@
 <h2>Community of <?php echo $this->hub->view('city'); ?></h2>
 <p>This is a list of the entire community of <strong><?php echo $this->hub->getCommunityCount(); ?></strong> people in the <strong><?php echo $this->hub->view('city'); ?></strong> hub.</p>
 <?php echo data_tables\render_table(
-        "queue", 
+        "hub", 
         'melt\userx\UserModel', 
         array(),
         array("bPaginate"=>true,"bSearch"=>true,"bFilter"=>true,"bJQueryUI"=>false,"bInfo"=>true),

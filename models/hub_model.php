@@ -76,8 +76,8 @@ class HubModel extends AppModel implements qmi\UserInterfaceProvider, data_table
         $event_count = $this->getEventCount();
         return array(
             "country" => $this->view('country')." (".$this->country.")",
-            "_members" => $member_count . " <a href=\"". url("/hubs/email/" . $this->getID()."/1") . "\">Email</a>",
-            "_total_community" => $community_count . " <a href=\"". url("/hubs/email/" . $this->getID()."/0") . "\">Email</a>",
+            "_members" => $member_count . " <a href=\"". url("/hubs/email/" . $this->getID()."/1") . "\">View/Email</a>",
+            "_total_community" => $community_count . " <a href=\"". url("/hubs/email/" . $this->getID()."/0") . "\">View/Email</a>",
             "_total_events" => $event_count,
             "_actions" => "<a href=\"". url("/hubs/add_edit/" . $this->getID()) . "\">Edit</a>"
         );

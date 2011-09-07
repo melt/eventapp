@@ -159,16 +159,16 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
         return EventModel::select();
     }
     
-    public function getInvitationCount(){
-        return EventInviteeModel::select()->where("event")->is($this)->and("invitation_sent")->is(false)->count();
+    public function getInvitations(){
+        return EventInviteeModel::select()->where("event")->is($this)->and("invitation_sent")->is(false);
     }
     
-    public function getInvitationReminderCount(){
-        return EventInviteeModel::select()->where("event")->is($this)->and("invitation_reminder_sent")->is(false)->count();     
+    public function getInvitationReminders(){
+        return EventInviteeModel::select()->where("event")->is($this)->and("invitation_sent")->is(true)->and("invitation_reminder_sent")->is(false);     
     }
     
-    public function getAttendingCount(){
-         return EventInviteeModel::select()->where("event")->is($this)->and("rsvp")->is( EventInviteeModel::ATTENDING )->count();
+    public function getAttending(){
+         return EventInviteeModel::select()->where("event")->is($this)->and("rsvp")->is( EventInviteeModel::ATTENDING );
     }
     
     
@@ -176,10 +176,10 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
          $user = userx\get_user();
          if($is_reminder == true) {
              $subject = _("Reminder for %s",$this->view('title'));
-             $invitees = EventInviteeModel::select()->where("rsvp")->is( EventInviteeModel::NO_RSVP )->and("invitation_reminder_sent")->is(false);
+             $invitees = $this->getInvitationReminders();
          } else { 
              $subject = _("Invitation to %s",$this->view('title'));
-             $invitees = EventInviteeModel::select()->where("rsvp")->is( EventInviteeModel::NO_RSVP )->and("invitation_sent")->is(false);
+             $invitees = $this->getInvitations();
          }
          foreach($invitees as $invitee):
             \melt\MailHelper::sendMail("event_invitation",

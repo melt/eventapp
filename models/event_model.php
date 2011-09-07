@@ -159,9 +159,28 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
         return EventModel::select();
     }
     
-    public function sendInvitations(){
-         $invitees = EventInviteeModel::select()->where("rsvp")->is( EventInviteeModel::NO_RSVP )->and("invitation_sent")->is(false);
+    public function getInvitationCount(){
+        return EventInviteeModel::select()->where("event")->is($this)->and("invitation_sent")->is(false)->count();
+    }
+    
+    public function getInvitationReminderCount(){
+        return EventInviteeModel::select()->where("event")->is($this)->and("invitation_reminder_sent")->is(false)->count();     
+    }
+    
+    public function getAttendingCount(){
+         return EventInviteeModel::select()->where("event")->is($this)->and("rsvp")->is( EventInviteeModel::ATTENDING )->count();
+    }
+    
+    
+    public function sendInvitations($is_reminder = false){
          $user = userx\get_user();
+         if($is_reminder == true) {
+             $subject = _("Reminder for %s",$this->view('title'));
+             $invitees = EventInviteeModel::select()->where("rsvp")->is( EventInviteeModel::NO_RSVP )->and("invitation_reminder_sent")->is(false);
+         } else { 
+             $subject = _("Invitation to %s",$this->view('title'));
+             $invitees = EventInviteeModel::select()->where("rsvp")->is( EventInviteeModel::NO_RSVP )->and("invitation_sent")->is(false);
+         }
          foreach($invitees as $invitee):
             \melt\MailHelper::sendMail("event_invitation",
                     array(
@@ -177,22 +196,24 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
                         "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee),
                         "attendees"=>$this->getAttendees(),
                         "closed_event"=>$this->getClosedEventText(),
-                        "organizer"=>$user
+                        "organizer"=>$user,
+                        "when_later"=>$this->when_later,
+                        "where_later"=>$this->where_later,
+                        "reminder"=>$is_reminder
                     ),
-                    _("Invitation to %s",$this->view('title')),
+                    $subject,
                     $invitee->invitee->view('username'),
                     false,
                     array(),
                     $user->username,
                     $user->getName()
                     );
-            $invitee->invitation_sent = true;
+            if($is_reminder == true) 
+                $invitee->invitation_reminder_sent = true;
+            else
+                $invitee->invitation_sent = true;
             $invitee->store();
          endforeach;
-    }
-    
-    public function sendInvitationReminders(){
-        
     }
     
     public function forceSendReminders(){
@@ -212,7 +233,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
             case 2:
                 return "This event is closed and just for people with an invitation.";
             case 3:
-                return "This event is for the Sandbox community, you may bring a friend.";
+                return "This event is open for non-Sandbox members, you may bring a friend.";
             default:
             case 1:
                 return "This event is just for Sandbox members.";  

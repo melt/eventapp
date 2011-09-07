@@ -2,18 +2,29 @@
 
 <h2 class="primary-heading no-margin-top"><?php echo _("Hi,"); ?></h2>
 <p>
+<?php if($this->is_reminder == true): ?>    
+    <strong><?php echo _("--- This is a reminder. We need your RSVP asap. ---"); ?></strong>  
+<?php endif; ?>
 <?php echo _("You have been invited to the below event. Please RVSP as soon as you can!"); ?>
 </p>
 
 <h1 class="secondary-heading"><?php echo $this->event_name; ?></h1>
 <p>
-<b><?php if($this->event_date != "1970-01-01") echo _("%s at %s (GMT+0100)", $this->event_date, $this->event_time); ?></b><br/>
-<?php echo $this->street; ?><br/>
-<?php echo $this->city; ?> <?php echo $this->zip; ?><br/>
+
+<?php if($this->when_later == false): ?>
+    <b><?php echo _("%s at %s", $this->event_date, $this->event_time); ?></b><br/>
+<?php endif; ?>
+
+<?php if($this->where_later == false): ?>
+    <?php echo $this->street; ?><br/>
+    <?php echo $this->city; ?> <?php echo $this->zip; ?><br/>
+<?php endif; ?>
+
         <a href="<?php echo $this->rvsp_link ?>"><?php echo _("RVSP / Give Us Your Response"); ?></a>
     </p>
     <p>
-    <?php if ($this->event_description != ""): ?><em><?php echo $this->event_description; ?></em><?php endif; ?><br/>
+    <?php if ($this->event_description != ""): ?><em><?php echo $this->event_description; ?></em><?php endif; ?></p>
+    <p>
     <strong><?php echo $this->closed_event; ?></strong>
     </p>
     
@@ -30,8 +41,9 @@
 <?php echo $this->organizer->getName(); ?><br/>
 <?php echo _("Sandbox %s", $this->hub_name); ?></p>
             <p>__</p>
-            <p><em>For more information, please reply to this email or contact <strong><?php echo $this->organizer->getName(); ?></strong>
-                    on <strong><?php echo $this->organizer->phone; ?></strong> or <strong><?php echo $this->organizer->username; ?></strong>.</em>
+            <p><strong>Questions?</strong></p>
+            <p>Reply to this email or contact <strong><?php echo $this->organizer->getName(); ?></strong>.<br/>
+                Phone: <?php echo $this->organizer->phone; ?></strong> / Email: <strong><?php echo $this->organizer->username; ?></strong>
 </p>
 
 

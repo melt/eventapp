@@ -45,9 +45,6 @@ class EventsController extends userx\RestrictedController {
     
     function invitations( $event_id ){
         $this->event = EventModel::select()->where("id")->is($event_id)->first();
-        $this->invitees = EventInviteeModel::select()->where("event")->is($event_id)->and("invitation_sent")->is(false);
-        $this->invitees_no_rsvp = EventInviteeModel::select()->where("event")->is($event_id)->and("rsvp")->is( EventInviteeModel::NO_RSVP )->count();
-        $this->invitees_attending = EventInviteeModel::select()->where("event")->is($event_id)->and("rsvp")->is( EventInviteeModel::ATTENDING )->count();
     }
     
     
@@ -58,7 +55,7 @@ class EventsController extends userx\RestrictedController {
                $this->event->sendInvitations();
                break;
            case "invitation_reminder":
-               $this->event->sendInvitationReminders();
+               $this->event->sendInvitations($is_reminder = true);
                break;
            case "reminder":
                $this->event->forceSendReminders();
@@ -68,6 +65,7 @@ class EventsController extends userx\RestrictedController {
                break;
                
        }
+       messenger\redirect_message("/events/invitations/$event_id", "Emails were successfully sent!", "good");
    }
 
     function attendees( $event_id ) {

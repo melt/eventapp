@@ -34,11 +34,11 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
     
     protected function beforeStore($is_linked) {
         parent::beforeStore($is_linked);
-        if($this->inviteeExists()) {
-            $this->unlink();
-        }
         if(!$is_linked){
             $this->rsvp_page_hash = \melt\string\random_hex_str(16);
+            if($this->inviteeExists()) {
+                $this->unlink();
+            }
         }
     }
     

@@ -2,12 +2,12 @@
 <?php $this->layout->enterSection('head'); ?>
 <script type="text/javascript">
     $(document).ready(function() {
-
-
-	$('#invitation,#invitation_reminder,#reminder,#thankyou').click(function() {
-                window.location.href = $("#invitation,#invitation_reminder,#reminder,#thankyou").attr("href");
+	$('.invitations input').click(function() {
+                window.location.href = $(this).attr("href");
 	});
-
+	$('.navigation input').click(function() {
+                window.location.href = $(this).attr("href");
+	});
   });
 </script>
 <?php $this->layout->exitSection(); ?>
@@ -16,20 +16,31 @@
 
 <?php // Enter custom fields here ?>
 
+<div class="invitations">
 
 <h3>Send Invitation</h3>
-<p>This email will be sent to the <strong><?php echo $this->invitees->count(); ?></strong> people that have not yet received an invitation.</p>
-<input id="invitation" href="/events/invitations_send/<?php echo $this->event->id; ?>/invitation" type="submit" value="Send Now" /> 
+<p>This email will be sent to people that have not yet received an invitation.</p>
+<input id="invitation" href="/events/invitations_send/<?php echo $this->event->id; ?>/invitation" type="submit" value="Send To <?php echo $this->event->getInvitationCount(); ?> People Now" /> 
 
 <h3>Send Invitation Reminder</h3>
-<p>This email will be sent to the <strong><?php echo $this->invitees_no_rsvp; ?></strong> people that have not yet RSVPed to the event.</p>
-<input id="invitation_reminder" href="/events/invitations_send/<?php echo $this->event->id; ?>/invitation" type="submit" value="Send Now" /> 
+<p>This email will be sent to people that have not yet RSVPed to the event.</p>
+<input id="invitation_reminder" href="/events/invitations_send/<?php echo $this->event->id; ?>/invitation_reminder" type="submit" value="Send To <?php echo $this->event->getInvitationReminderCount(); ?> People Now" /> 
 
 <h3>Force Send Attendees Reminder</h3>
-<p>This email is automatically sent one day prior to the event to the <strong><?php echo $this->invitees_attending; ?></strong> people that have RSVPed attending.</p>
-<input id="reminder" href="/events/invitations_send/<?php echo $this->event->id; ?>/invitation" type="submit" value="Force Send Now" /> 
+<p>This email is automatically sent one day prior to the event to people that have RSVPed attending.</p>
+<input id="reminder" href="/events/invitations_send/<?php echo $this->event->id; ?>/reminder" type="submit" value="Force Send To <?php echo $this->event->getAttendingCount(); ?> People Now" /> 
 
 
 <h3>Force Send Thankyou</h3>
-<p>This email is automatically sent one day after the event to the <strong><?php echo $this->invitees_attending; ?></strong> people that have RSVPed attending.</p>
-<input id="thankyou" href="/events/invitations_send/<?php echo $this->event->id; ?>/invitation" type="submit" value="Force Send Now" /> 
+<p>This email is automatically sent one day after the event to people that have RSVPed attending.</p>
+<input id="thankyou" href="/events/invitations_send/<?php echo $this->event->id; ?>/thankyou" type="submit" value="Force Send To <?php echo $this->event->getAttendingCount(); ?> People Now" /> 
+
+</div>
+
+<br/><br/><br/>
+<div class="navigation">
+
+
+<input id="previous_step" href="/events/invitees/<?php echo $this->event->id; ?>/<?php echo $this->event->id; ?>" type="submit" value="Previous Step" /> or <input id="send_later" href="/events/" type="submit" value="Send Later" /> 
+
+</div>

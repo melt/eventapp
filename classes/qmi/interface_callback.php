@@ -32,6 +32,7 @@ class InterfaceCallback extends InterfaceCallback_app_overrideable {
         $invitees = $instances['melt\EventInviteeModel'][0];
         $emails = explode(",", $invitees->email_addresses);
         foreach($emails as $email){
+                $email = trim($email);
                 $user = \melt\userx\UserModel::select()->where("username")->isLike("%".$email."%")->first();
                 // Only save to invitees if we have a correct email address
                 if(\melt\string\email_validate($email)){

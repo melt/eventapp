@@ -38,7 +38,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
             $this->unlink();
         }
         if(!$is_linked){
-            $this->rsvp_page_hash = \nmvc\string\random_hex_str(16);
+            $this->rsvp_page_hash = \melt\string\random_hex_str(16);
         }
     }
     

@@ -7,9 +7,10 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
     public $rsvp = array('core\SelectType','getRsvpLabels');
     public $rsvp_page_hash = array('core\TextType',16);
     /* Tracks the different emails that the invitee can receive */
-    public $invite_email_sent = array('core\BooleanType');
-    public $reminder_email_sent = array('core\BooleanType'); // Only if RVSP ATTENDING
-    public $thankyou_email_sent = array('core\BooleanType'); // Only if RVSP ATTENDING
+    public $invitation_sent = array('core\BooleanType');
+    public $invitation_reminder_sent = array('core\BooleanType'); // Only if missing RSVP
+    public $reminder_sent = array('core\BooleanType'); // Sent automatically, only if RSVP ATTENDING and RSVP early
+    public $followup_sent = array('core\BooleanType'); // Sent automatically, only if RSVP ATTENDING
     /* Invitee Meta Information */
     //public $most_exciting_project = array('core\TextAreaType');
     //public $biggest_challenge = array('core\TextAreaType');
@@ -36,6 +37,9 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
         if($this->inviteeExists()) {
             $this->unlink();
         }
+        if(!$is_linked){
+            $this->rsvp_page_hash = \nmvc\string\random_hex_str(16);
+        }
     }
     
    private function inviteeExists(){
@@ -43,6 +47,10 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
             return true;
         else
             return false;
+    }
+    
+    public function generateRsvpLink(){
+        return url("/rsvp/").$this->view('rsvp_page_hash');
     }
     
     public static function uiGetInterface($interface_name, $field_set) {
@@ -72,16 +80,16 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
                 return array(
                     "_name" => _("Name"),
                     "_email" => _("Email"),
-                    "invite_email_sent" => _("Invited"),
-                    "reminder_email_sent" => _("Reminded")
+                    "invitation_sent" => _("Invited"),
+                    "invitation_reminder_sent" => _("Reminded")
                     );                
             case "invitees":
             default:
                 return array(
                     "_name" => _("Name"),
                     "_email" => _("Email"),
-                    "invite_email_sent" => _("Invited"),
-                    "reminder_email_sent" => _("Reminded"),
+                    "invitation_sent" => _("Invited"),
+                    "invitation_reminder_sent" => _("Reminded"),
                     "rsvp" => _("RSVP"),
                     "_actions" => _("Actions"),
                     );

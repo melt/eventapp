@@ -6,7 +6,7 @@ class HubsController extends userx\RestrictedController {
     function index(){}
     
     function add_edit($id = null){
-        if($id == null){
+        if($id === null){
             $this->hub = new HubModel;
         } else {
             $this->hub = HubModel::select()->where("id")->is($id)->first();

@@ -18,7 +18,7 @@ class EventsController extends userx\RestrictedController {
 
     
     function details( $hub_id = null, $event_id = null  ){
-        if($event_id == null)
+        if($event_id === null)
             $this->event = new EventModel();
         else
             $this->event = EventModel::select()->where('id')->is($event_id)->first();
@@ -43,9 +43,32 @@ class EventsController extends userx\RestrictedController {
         request\redirect("/events/invitees/$event_id");
     }
     
-    function invitations(){
-        
+    function invitations( $event_id ){
+        $this->event = EventModel::select()->where("id")->is($event_id)->first();
+        $this->invitees = EventInviteeModel::select()->where("event")->is($event_id)->and("invitation_sent")->is(false);
+        $this->invitees_no_rsvp = EventInviteeModel::select()->where("event")->is($event_id)->and("rsvp")->is( EventInviteeModel::NO_RSVP )->count();
+        $this->invitees_attending = EventInviteeModel::select()->where("event")->is($event_id)->and("rsvp")->is( EventInviteeModel::ATTENDING )->count();
     }
+    
+    
+   function invitations_send( $event_id, $what = "invitation" ){
+       $this->event = EventModel::select()->where("id")->is($event_id)->first();
+       switch($what){
+           case "invitation":
+               $this->event->sendInvitations();
+               break;
+           case "invitation_reminder":
+               $this->event->sendInvitationReminders();
+               break;
+           case "reminder":
+               $this->event->forceSendReminders();
+               break;
+           case "thankyou":
+               $this->event->forceSendThankyous();
+               break;
+               
+       }
+   }
 
     function attendees( $event_id ) {
         $this->event = EventModel::select()->where("id")->is( $event_id )->first();
@@ -53,7 +76,7 @@ class EventsController extends userx\RestrictedController {
     
     function rsvp_list_toggle( $event_id ) {
         $this->event = EventModel::select()->where("id")->is( $event_id )->first();
-        if( $this->event->rsvp_closed == true )
+        if( $this->event->rsvp_closed === true )
             $this->event->rsvp_closed = false;
         else
             $this->event->rsvp_closed = true;
@@ -67,7 +90,7 @@ class EventsController extends userx\RestrictedController {
         $q = strtolower($_GET["q"]);
         if (!$q) return;
         $users = \melt\userx\UserModel::select()->where("first_name")->isLike("%".$q."%")->or("last_name")->isLike("%".$q."%")->or("username")->isLike("%".$q."%");
-        if($users->count() == 0) return;
+        if($users->count() === 0) return;
         foreach($users as $user){
             $items = array(
                $user->getName()." - ".$user->view('user_type'). " - " .$user->view('username') => $user->view('username')

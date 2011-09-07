@@ -2,7 +2,7 @@
 
  class OutsideController extends AppController {
 
-    public $menu = array();
+
     
 
     

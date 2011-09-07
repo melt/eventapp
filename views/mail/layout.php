@@ -19,7 +19,7 @@
     <table id="layout" border="0" cellspacing="0" cellpadding="0" width="600">
         <tr>
             <td id="header">
-            <a href="" target="_blank"><img src="<?php echo url("/static/img/sandbox-logo.png"); ?>" alt="<?php echo _("Sandbox Network") ?>" style="max-width: 600px;"></a>
+            <a href="" target="_blank"><img src="<?php echo url("/static/images/sandbox-logo.png"); ?>" alt="<?php echo _("Sandbox Network") ?>" style="max-width: 600px;"></a>
             </td>
         </tr>
         <tr>

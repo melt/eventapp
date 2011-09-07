@@ -15,8 +15,8 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
     /* Every event is linked to a hub that sets the country and in normal cases also the city */
     public $hub_id = array(INDEXED,'core\SelectModelType', 'HubModel', 'CASCADE');
     /* Volatile fields in order to skip entering data for later */
-    public $when_later = array(VOLATILE,'core\BooleanType');
-    public $where_later = array(VOLATILE,'core\BooleanType');
+    public $when_later = array('core\BooleanType');
+    public $where_later = array('core\BooleanType');
     /* Closing the list will not allow further replies or attendees */
     public $rsvp_closed = array('core\BooleanType');
     
@@ -35,7 +35,7 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
     
     protected function initialize() {
         parent::initialize();
-        $this->event_date = date("Y-m-d");
+        //$this->event_date = date("Y-m-d");
     }
     
     protected function beforeStore($is_linked) {
@@ -159,6 +159,95 @@ class EventModel extends AppModel implements qmi\UserInterfaceProvider, data_tab
         return EventModel::select();
     }
     
+    public function sendInvitations(){
+         $invitees = EventInviteeModel::select()->where("rsvp")->is( EventInviteeModel::NO_RSVP )->and("invitation_sent")->is(false);
+         $user = userx\get_user();
+         foreach($invitees as $invitee):
+            \melt\MailHelper::sendMail("event_invitation",
+                    array(
+                        "event_name"=>$this->view('title'),
+                        "event_description"=>$this->description,
+                        "event_date"=>$this->view('event_date'),
+                        "event_time"=>$this->view('event_time'),
+                        "street"=>$this->view('street'),
+                        "city"=>$this->view('city'),
+                        "rvsp_link"=>$invitee->generateRsvpLink(),
+                        "hub_name"=>$this->hub->view('city'),
+                        "map_image"=>$this->generateStaticGoogleMapsImage(),
+                        "google_maps_link"=>$this->generateGoogleMapsLink($invitee->invitee),
+                        "attendees"=>$this->getAttendees(),
+                        "closed_event"=>$this->getClosedEventText(),
+                        "organizer"=>$user
+                    ),
+                    _("Invitation to %s",$this->view('title')),
+                    $invitee->invitee->view('username'),
+                    false,
+                    array(),
+                    $user->username,
+                    $user->getName()
+                    );
+            $invitee->invitation_sent = true;
+            $invitee->store();
+         endforeach;
+    }
+    
+    public function sendInvitationReminders(){
+        
+    }
+    
+    public function forceSendReminders(){
+        
+    }
+    
+    public function forceSendThankyous(){
+        
+    }
+    
+    public static function getAttendees(){
+        return EventInviteeModel::select()->where("rsvp")->is(EventInviteeModel::ATTENDING);
+    }
+    
+    public function getClosedEventText(){
+        switch($this->closed_event){
+            case 2:
+                return "This event is closed and just for people with an invitation.";
+            case 3:
+                return "This event is for the Sandbox community, you may bring a friend.";
+            default:
+            case 1:
+                return "This event is just for Sandbox members.";  
+        }
+    }
+    
+
+    /*
+     *  Generates a static map using the Google Maps static API
+     *  @params size Size of map in widthxheight format
+     *  @params zoom Zoom factor
+     */
+    public function generateStaticGoogleMapsImage( $size = "512x300", $zoom = "14" ){
+        // If there is a complete address we will generate a map
+        if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
+            $url_friendly_address = \rawurlencode( $this->view('street') ." ". $this->view('city') . " ". $this->hub->view('country') );
+            return "http://maps.google.com/maps/api/staticmap?center=$url_friendly_address&zoom=$zoom&size=$size&maptype=roadmap&markers=color:red|label:Here|$url_friendly_address&sensor=false";
+        } else {
+            return null;
+        }
+    }
+
+    private function generateGoogleMapsLink($user = null){
+        // If there is a complete address we will generate a map
+        if ( $this->street != "" && $this->city != "" && $this->hub_id != null ){
+            $destination_address = \rawurlencode( $this->view('street') ." ". $this->view('city') . " ". $this->hub->view('country') );
+        if ( $user != null )
+            $source_address = \rawurlencode( $user->view('street') ." ". $user->view('city') . " ". $user->view('country') );
+        else
+            $source_address = "";
+            return "http://maps.google.com/?saddr=$source_address&daddr=$destination_address";
+        } else {
+            return null;
+        }
+    }
 
     
 }

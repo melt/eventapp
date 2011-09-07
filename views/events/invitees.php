@@ -1,4 +1,5 @@
 <?php namespace melt; ?>
+<?php $this->layout->enterSection('head'); ?>
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -32,10 +33,12 @@
 	$('#previous_step').click(function() {
                 window.location.href = $("#previous_step").attr("href");
 	});
-
+	$('#next_step').click(function() {
+                window.location.href = $("#next_step").attr("href");
+	});
   });
 </script>
-
+<?php $this->layout->exitSection(); ?>
 <h2>Add Invitees to <?php echo $this->event->title; ?></h2>
 
 <?php echo $this->display("events_breadcrumb",array("events_breadcrumb"=>$this->events_breadcrumb)); ?>
@@ -52,4 +55,4 @@
 <p>The following people will receive invitations to this event.</p>
 <?php echo data_tables\render_table("invitees", 'melt\EventInviteeModel', array(),array("bPaginate"=>false,"bSearch"=>false,"bFilter"=>false,"bJQueryUI"=>false,"bInfo"=>true)); ?>
 
-<input id="previous_step" href="/events/details/<?php echo $this->event->hub->id; ?>/<?php echo $this->event->id; ?>" type="submit" value="Previous Step" /> or <input type="submit" value="Next Step" /> 
+<input id="previous_step" href="/events/details/<?php echo $this->event->hub->id; ?>/<?php echo $this->event->id; ?>" type="submit" value="Previous Step" /> or <input id="next_step" href="/events/invitations/<?php echo $this->event->id; ?>" type="submit" value="Next Step" /> 

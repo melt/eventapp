@@ -13,13 +13,19 @@
             .attr("hidden", $(this).is(":checked"));
        });
        
+       if($(".c_where_later input").is(":checked")){
+           $("#where").attr("hidden",true);
+       }
+       
+       if($(".c_when_later input").is(":checked")){
+           $("#when").attr("hidden",true);
+       }
+       
+       
        $(".c_street input,.c_city input").keyup(function() {
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 1000);
-            $(this).data('timer', wait);
-           
-           
-            
+            $(this).data('timer', wait);   
 
        });
   });

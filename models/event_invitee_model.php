@@ -50,7 +50,7 @@ class EventInviteeModel extends AppModel implements qmi\UserInterfaceProvider, d
     }
     
     public function generateRsvpLink(){
-        return url("/rsvp/").$this->view('rsvp_page_hash');
+        return url("/outside/rsvp/").$this->view('rsvp_page_hash');
     }
     
     public static function uiGetInterface($interface_name, $field_set) {

@@ -30,7 +30,7 @@ class UserModel extends UserModel_app_overrideable implements \melt\data_tables\
             3 => _("Inner Circle"),
             //4 => _("Ingen"),
             //5 => _("Ingen"),
-            //6 => _("Ingen"),
+            6 => _("Applicant"),
             7 => _("Member"),
             8 => _("Ambassador"),
             9 => _("Alumni")

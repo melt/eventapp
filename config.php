@@ -45,11 +45,11 @@ namespace melt\db\config {
     const DEBUG_QUERY_BENCHMARK = false;
     const USE_TRIGGER_SEQUENCING = true;
     const PREFIX = '';
-    const NAME = 'u10006_sbox';
+    const NAME = 'sandboxevents';
     const PORT = 3306;
-    const PASSWORD = 'dbd80408546fff3e';
-    const USER = 'u10006_sbox';
-    const HOST = "127.0.0.1";
+    const PASSWORD = '';
+    const USER = 'root';
+    const HOST = "localhost";
 }
 
 
